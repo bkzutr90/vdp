@@ -1,320 +1,2052 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VD Plenger | Komunitas Violence District</title>
-<meta name="description" content="VD Plenger, komunitas pemain Roblox Violence District.">
-<meta property="og:title" content="VD Plenger">
-<meta property="og:description" content="Komunitas pemain Roblox Violence District.">
-<meta property="og:image" content="vd-plenger-logo.webp">
-<meta name="theme-color" content="#1a0409">
-<link rel="icon" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --base:#1a0409;
-  --deep:#12030a;
-  --raised:#2a0a11;
-  --wine:#5c0f1b;
-  --red:#b0121f;
-  --rose:#d98a92;
-  --text:#f1e6e3;
-  --muted:#c2a9a6;
-  --line:rgba(241,230,227,.14);
-  --serif:'Marcellus','Georgia',serif;
-  --sans:'Jost',system-ui,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--base);color:var(--text);font-family:var(--sans);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
-.wrap{width:min(1040px,100% - 2rem);margin-inline:auto}
-h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15}
-h2{font-size:clamp(1.7rem,3.6vw,2.4rem)}
-.lead{color:var(--muted);max-width:32rem}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>VD Plenger | Violence District Community</title>
+        <meta name="description" content="VD Plenger adalah komunitas pemain Roblox Violence District untuk bermain bersama, berbagi strategi, dan menemukan teman baru.">
+        <meta property="og:title" content="VD Plenger | Violence District Community">
+        <meta property="og:description" content="Komunitas pemain Roblox Violence District. Main bareng, berbagi strategi, dan temukan teman baru.">
+        <meta property="og:image" content="vd-plenger-logo.webp">
+        <meta property="og:type" content="website">
+        <meta name="theme-color" content="#12030a">
+        <link rel="icon" href="favicon.png">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
+        <style>
+            /* =========================================================
+       ROOT
+    ========================================================= */
+            :root {
+                --base: #1a0409;
+                --deep: #12030a;
+                --deeper: #0b0206;
+                --raised: #2a0a11;
+                --wine: #5c0f1b;
+                --red: #b0121f;
+                --red-light: #cf2635;
+                --rose: #d98a92;
+                --text: #f1e6e3;
+                --soft: #eadbd8;
+                --muted: #c2a9a6;
+                --line: rgba(241, 230, 227, .13);
+                --line-strong: rgba(241, 230, 227, .2);
+                --serif: "Marcellus", Georgia, serif;
+                --sans: "Jost", system-ui, sans-serif;
+                --radius: 2px;
+                --container: 1080px;
+            }
 
-/* nav */
-.nav{position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
-.brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;font-family:var(--serif);font-size:1.15rem;letter-spacing:.02em}
-.brand img{width:34px;height:34px;border-radius:50%}
-.nav ul{display:flex;align-items:center;gap:1.8rem;list-style:none}
-.nav ul a{text-decoration:none;color:var(--muted);font-size:.95rem;transition:color .2s}
-.nav ul a:hover{color:var(--text)}
-.nav ul a.cta{color:var(--text);background:var(--red);padding:.4rem 1.15rem;transition:background .2s}
-.nav ul a.cta:hover{background:var(--wine)}
+            /* =========================================================
+       RESET
+    ========================================================= */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
 
-/* hero */
-.hero{padding:2.5rem 0 3rem;background:
-  radial-gradient(ellipse 45% 65% at 76% 50%,rgba(140,16,30,.55),transparent 72%),
-  linear-gradient(180deg,var(--raised),var(--base))}
-.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
-.hero h1{font-size:clamp(2rem,4.6vw,3.4rem);margin-bottom:1rem}
-.hero .lead{margin-bottom:1.5rem;font-size:1.05rem}
-.hero img{width:min(400px,100%);height:auto;display:block;margin-inline:auto;mix-blend-mode:screen}
-.hero .txt{animation:fade 1.2s ease-out both}
-.hero img{animation:fade 1.6s ease-out .3s both}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-.btn{display:inline-block;text-decoration:none;background:var(--red);color:#fff;font-weight:500;padding:.75rem 1.9rem;transition:background .2s}
-.btn:hover{background:var(--wine)}
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 76px;
+            }
 
-section{padding:3.75rem 0;border-top:1px solid var(--line)}
-.center{text-align:center}
-.center .lead{margin-inline:auto}
+            body {
+                background: var(--base);
+                color: var(--text);
+                font-family: var(--sans);
+                font-size: 1rem;
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+                overflow-x: hidden;
+            }
 
-/* tentang */
-.about{background:var(--deep)}
-.about .quote{font-family:var(--serif);font-size:clamp(1.3rem,2.8vw,1.9rem);line-height:1.35;max-width:40rem;margin:0 auto}
-.three{display:grid;grid-template-columns:repeat(3,1fr);margin-top:2.2rem;border-top:1px solid var(--line)}
-.three div{padding:1.2rem 1.2rem 0;text-align:left}
-.three div+div{border-left:1px solid var(--line)}
-.three h3{font-size:1.2rem;margin-bottom:.25rem;color:var(--rose)}
-.three p{color:var(--muted);font-size:.95rem}
+            body::selection {
+                background: var(--red);
+                color: #fff;
+            }
 
-/* galeri */
-.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:140px;grid-auto-flow:dense;gap:.7rem;margin-top:1.6rem}
-.grid figure{position:relative;overflow:hidden;background:var(--raised);border:1px solid var(--line)}
-.grid figure:nth-child(1){grid-column:span 2;grid-row:span 2}
-.grid figure:nth-child(4){grid-column:span 2}
-.grid button{all:unset;display:block;width:100%;height:100%;cursor:zoom-in}
-.grid img.ph{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
-.grid figure:hover img.ph{transform:scale(1.04)}
-.grid .empty{display:grid;place-items:center;height:100%}
-.grid .empty img{width:36%;max-width:110px;opacity:.16;mix-blend-mode:screen}
-.grid figcaption{position:absolute;inset:auto 0 0 0;padding:1.2rem .9rem .6rem;font-size:.88rem;background:linear-gradient(transparent,rgba(18,3,10,.9));opacity:0;transition:opacity .3s}
-.grid figure:hover figcaption{opacity:1}
-dialog{background:transparent;border:0;max-width:none;max-height:none;width:100%;height:100%;color:var(--text)}
-dialog::backdrop{background:rgba(12,2,6,.95)}
-dialog .box{height:100%;display:grid;place-items:center;padding:3.5rem 1rem 1rem;position:relative}
-dialog img{max-width:min(1100px,100%);max-height:80vh;display:block}
-dialog p{margin-top:.8rem;color:var(--muted);text-align:center}
-dialog button{position:absolute;top:.8rem;right:1rem;background:transparent;border:1px solid var(--line);color:var(--text);width:42px;height:42px;font-size:1.3rem;cursor:pointer}
+            img {
+                max-width: 100%;
+            }
 
-/* sorrow */
-.sorrow{background:linear-gradient(180deg,var(--deep),var(--raised))}
-.top{display:flex;justify-content:space-between;align-items:end;gap:1.2rem;margin-bottom:1.6rem}
-.top .lead{margin-top:.4rem;font-size:.98rem}
-.ctrl{display:flex;gap:.4rem;flex-shrink:0}
-.ctrl button{width:42px;height:42px;background:transparent;border:1px solid var(--line);color:var(--text);font-size:1.05rem;cursor:pointer;transition:border-color .2s,background .2s}
-.ctrl button:hover:not(:disabled){border-color:var(--red);background:var(--red)}
-.ctrl button:disabled{opacity:.3;cursor:default}
-.track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.3rem;scrollbar-width:none}
-.track::-webkit-scrollbar{display:none}
-.pc{flex:0 0 200px;scroll-snap-align:start;border:1px solid var(--line);background:var(--deep);transition:border-color .3s,transform .3s}
-.pc:hover{border-color:var(--rose);transform:translateY(-3px)}
-.pic{aspect-ratio:1;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 38%,#6b1220,#1c0509 80%)}
-.pic img{width:100%;height:100%;object-fit:cover;display:block}
-.pic svg{width:44%;opacity:.28}
-.meta{padding:.8rem 1rem .95rem;border-top:1px solid var(--line)}
-.meta h3{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta p{color:var(--muted);font-size:.88rem}
+            a {
+                color: inherit;
+            }
 
-/* gabung */
-.join{background:radial-gradient(ellipse 60% 90% at 50% 110%,rgba(140,16,30,.5),transparent 70%),var(--deep)}
-.join h2{margin-bottom:1.3rem}
+            button,
+            a {
+                -webkit-tap-highlight-color: transparent;
+            }
 
-footer{background:var(--deep);border-top:1px solid var(--line);padding:1.2rem 0;color:var(--muted);font-size:.92rem}
-footer .wrap{display:flex;justify-content:center}
-footer strong{color:var(--text);font-weight:600}
+            button {
+                font-family: inherit;
+            }
 
-@media (max-width:820px){
-  .nav ul{gap:0}
-  .nav ul li:not(:last-child){display:none}
-  .hero{padding:1.6rem 0 2.2rem}
-  .hero .wrap{grid-template-columns:1fr;text-align:center;gap:.8rem}
-  .hero img{order:-1;width:min(230px,58%)}
-  .hero .lead{margin-inline:auto;margin-bottom:1.2rem}
-  section{padding:2.75rem 0}
-  .three{grid-template-columns:1fr;margin-top:1.6rem}
-  .three div{padding:.9rem 0 0;text-align:center}
-  .three div+div{border-left:0;border-top:1px solid var(--line);margin-top:.9rem}
-  .pc{flex-basis:160px}
-  .meta{padding:.65rem .8rem .8rem}
-  .meta h3{font-size:1rem}
-  .grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:105px;gap:.5rem;margin-top:1.2rem}
-  .grid figure:nth-child(4){grid-column:span 2}
-  .top .lead{font-size:.92rem}
-}
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}
-}
-</style>
-</head>
-<body>
+            :focus-visible {
+                outline: 2px solid var(--rose);
+                outline-offset: 4px;
+            }
 
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="#top"><img src="favicon.png" alt="">VD Plenger</a>
-    <ul>
-      <li><a href="#tentang">Tentang</a></li>
-      <li><a href="#galeri">Galeri</a></li>
-      <li><a href="#sorrow">Sorrow</a></li>
-      <li><a class="cta" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Discord</a></li>
-    </ul>
-  </div>
-</header>
+            /* =========================================================
+       GLOBAL
+    ========================================================= */
+            .wrap {
+                width: min(var(--container), calc(100% - 2rem));
+                margin-inline: auto;
+            }
 
-<main id="top">
-  <section class="hero" style="border-top:0">
-    <div class="wrap">
-      <div class="txt">
-        <h1>Komunitas Violence District</h1>
-        <p class="lead">VD Plenger adalah tempat main bareng, bertukar strategi, dan mencari teman.</p>
-        <a class="btn" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Gabung Discord</a>
-      </div>
-      <img src="vd-plenger-logo.webp" alt="Logo VD Plenger, Party Violence District" width="1000" height="1000">
-    </div>
-  </section>
+            section {
+                position: relative;
+                padding: 5rem 0;
+                border-top: 1px solid var(--line);
+            }
 
-  <section class="about center" id="tentang">
-    <div class="wrap">
-      <p class="quote">Rumah bersama bagi pemain Violence District yang ingin bermain lebih seru, saling belajar, dan tumbuh bersama.</p>
-      <div class="three">
-        <div><h3>Semua level</h3><p>Baru mulai atau sudah hafal setiap map, semua diterima.</p></div>
-        <div><h3>Main bareng</h3><p>Selalu ada teman untuk menjadi survivor maupun killer.</p></div>
-        <div><h3>Bertukar tips</h3><p>Bahas map, perks, dan strategi untuk berkembang bersama.</p></div>
-      </div>
-    </div>
-  </section>
+            h1,
+            h2,
+            h3 {
+                font-family: var(--serif);
+                font-weight: 400;
+                line-height: 1.12;
+            }
 
-  <section id="galeri">
-    <div class="wrap">
-      <h2>Galeri</h2>
-      <p class="lead" style="margin-top:.4rem">Potongan momen dari sesi main, event, dan keseruan komunitas.</p>
-      <div class="grid" id="grid"></div>
-    </div>
-  </section>
+            h1 {
+                font-size: clamp(2.5rem, 6vw, 5.1rem);
+                letter-spacing: -.025em;
+            }
 
-  <section class="sorrow" id="sorrow">
-    <div class="wrap">
-      <div class="top">
-        <div>
-          <h2>Sorrow</h2>
-          <p class="lead">Tim kompetitif sisi lain VD Plenger.</p>
-        </div>
-        <div class="ctrl">
-          <button id="prev" aria-label="Anggota sebelumnya">&#8592;</button>
-          <button id="next" aria-label="Anggota berikutnya">&#8594;</button>
-        </div>
-      </div>
-      <div class="track" id="track" tabindex="0" aria-label="Anggota tim Sorrow"></div>
-    </div>
-  </section>
+            h2 {
+                font-size: clamp(2rem, 4vw, 3rem);
+                letter-spacing: -.02em;
+            }
 
-  <section class="join center" id="gabung">
-    <div class="wrap">
-      <h2>Bergabung dengan kami</h2>
-      <a class="btn" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Gabung Discord</a>
-    </div>
-  </section>
-</main>
+            h3 {
+                font-size: 1.2rem;
+            }
 
-<footer>
-  <div class="wrap">
-    <span>Made with 💖 by <strong>Ferrsyz</strong></span>
-  </div>
-</footer>
+            .lead {
+                color: var(--muted);
+                max-width: 38rem;
+            }
 
-<dialog id="lb" aria-label="Pratinjau foto">
-  <div class="box"><button id="lbx" aria-label="Tutup">&times;</button><div><img id="lbi" alt=""><p id="lbc"></p></div></div>
-</dialog>
+            .center {
+                text-align: center;
+            }
 
-<script>
-/* ============ ANGGOTA SORROW ============
-   photo : opsional, gambar sendiri (mis. "img/ferrsyz.png"); jika diisi userId diabaikan
-   PENTING: setiap baris anggota harus diakhiri koma, kecuali baris terakhir.
-======================================== */
-const MEMBERS = [
-  { name: "Varzhen",      role: "Killer/Survivor", userId: "9089974947",  photo: "" },
-  { name: "Lucc",   role: "Killer/Survivor", userId: "8738755832",  photo: "" },
-  { name: "Shiro", role: "Killer/Survivor", userId: "8096310503",  photo: "" },
-  { name: "Ferrsyz",      role: "Survivor",        userId: "10013979972", photo: "" },
-  { name: "Yanz",         role: "Survivor",        userId: "7296216426",  photo: "" },
-  { name: "Cya",          role: "Survivor",        userId: "8945878769",  photo: "" }
-];
+            .center .lead {
+                margin-inline: auto;
+            }
 
-const GALLERY = [
-  { src: "gallery/8.png", caption: "" }, { src: "gallery/6.png", caption: "" }, { src: "gallery/4.png", caption: "" }, { src: "gallery/2.png", caption: "" },
-  { src: "gallery/7.png", caption: "" }, { src: "gallery/5.png", caption: "" }, { src: "gallery/3.png", caption: "" }, { src: "gallery/1.png", caption: "" }
-];
+            .eyebrow {
+                color: var(--rose);
+                font-size: .72rem;
+                font-weight: 600;
+                letter-spacing: .22em;
+                text-transform: uppercase;
+                margin-bottom: .7rem;
+            }
 
-const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ghost = '<svg viewBox="0 0 100 100" fill="#f1e6e3" aria-hidden="true"><circle cx="50" cy="32" r="18"/><path d="M14 92c0-22 16-34 36-34s36 12 36 34z"/></svg>';
+            .section-heading {
+                max-width: 680px;
+            }
 
-/* carousel Sorrow: avatar diambil lewat /api/avatars (Vercel), cadangan roproxy, terakhir siluet */
-const track = document.getElementById('track');
-track.innerHTML = MEMBERS.map(p =>
-  '<article class="pc"><div class="pic" data-uid="' + esc(p.userId || '') + '">' +
-  (p.photo ? '<img src="' + esc(p.photo) + '" alt="Avatar ' + esc(p.name) + '" loading="lazy">' : ghost) +
-  '</div><div class="meta"><h3>' + esc(p.name) + '</h3><p>' + esc(p.role) + '</p></div></article>'
-).join('');
+            .section-heading .lead {
+                margin-top: .65rem;
+            }
 
-track.addEventListener('error', e => {
-  if (e.target.tagName === 'IMG') e.target.parentElement.innerHTML = ghost;
-}, true);
+            /* =========================================================
+       BUTTON
+    ========================================================= */
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: .55rem;
+                min-height: 48px;
+                padding: .72rem 1.5rem;
+                background: var(--red);
+                border: 1px solid var(--red);
+                color: #fff;
+                text-decoration: none;
+                font-size: .94rem;
+                font-weight: 600;
+                transition:
+                    background .25s ease,
+                    border-color .25s ease,
+                    transform .25s ease,
+                    box-shadow .25s ease;
+            }
 
-function applyAvatars(list){
-  list.forEach(d => {
-    if (!d || !d.imageUrl || d.state !== 'Completed') return;
-    const m = MEMBERS.find(x => String(x.userId) === String(d.targetId));
-    const box = track.querySelector('.pic[data-uid="' + d.targetId + '"]');
-    if (m && box && !m.photo) box.innerHTML = '<img src="' + esc(d.imageUrl) + '" alt="Avatar ' + esc(m.name) + '" loading="lazy">';
-  });
-}
+            .btn:hover {
+                background: var(--red-light);
+                border-color: var(--red-light);
+                transform: translateY(-2px);
+                box-shadow: 0 12px 30px rgba(176, 18, 31, .2);
+            }
 
-async function loadAvatars(){
-  const ids = MEMBERS.filter(m => !m.photo && m.userId).map(m => m.userId).join(',');
-  if (!ids) return;
-  const endpoints = [
-    '/api/avatars?ids=' + ids,
-    'https://thumbnails.roproxy.com/v1/users/avatar?userIds=' + ids + '&size=420x420&format=Png&isCircular=false'
-  ];
-  for (const url of endpoints){
-    try {
-      const r = await fetch(url);
-      if (!r.ok) continue;
-      const j = await r.json();
-      if (j && j.data && j.data.length){ applyAvatars(j.data); return; }
-    } catch (err) { /* coba sumber berikutnya */ }
-  }
-}
-loadAvatars();
+            .btn.secondary {
+                background: transparent;
+                border-color: var(--line-strong);
+                color: var(--text);
+            }
 
-const prev = document.getElementById('prev'), next = document.getElementById('next');
-const step = () => (track.querySelector('.pc')?.offsetWidth || 200) + 16;
-const sync = () => { prev.disabled = track.scrollLeft <= 4; next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4; };
-prev.onclick = () => track.scrollBy({ left: -step(), behavior: 'smooth' });
-next.onclick = () => track.scrollBy({ left:  step(), behavior: 'smooth' });
-track.addEventListener('scroll', sync, { passive: true });
-window.addEventListener('resize', sync);
-track.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next.click(); if (e.key === 'ArrowLeft') prev.click(); });
-sync();
+            .btn.secondary:hover {
+                background: rgba(255, 255, 255, .04);
+                border-color: var(--rose);
+                box-shadow: none;
+            }
 
-/* galeri + lightbox */
-const emptyTile = '<div class="empty"><img src="vd-plenger-logo.webp" alt=""></div>';
-const grid = document.getElementById('grid');
-grid.innerHTML = GALLERY.map((g, i) => '<figure>' + (g.src
-  ? '<button data-i="' + i + '" aria-label="Perbesar foto ' + (i + 1) + '"><img class="ph" src="' + esc(g.src) + '" alt="' + esc(g.caption || 'Foto galeri VD Plenger') + '" loading="lazy"></button>' +
-    (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '')
-  : emptyTile) + '</figure>'
-).join('');
-grid.addEventListener('error', e => {
-  if (e.target.tagName === 'IMG' && e.target.classList.contains('ph')) e.target.closest('figure').innerHTML = emptyTile;
-}, true);
+            .btn-arrow {
+                font-size: 1.1rem;
+                line-height: 1;
+            }
 
-const lb = document.getElementById('lb'), lbi = document.getElementById('lbi'), lbc = document.getElementById('lbc');
-grid.addEventListener('click', e => {
-  const b = e.target.closest('button[data-i]'); if (!b) return;
-  const g = GALLERY[b.dataset.i]; lbi.src = g.src; lbi.alt = g.caption || ''; lbc.textContent = g.caption || '';
-  lb.showModal();
-});
-document.getElementById('lbx').onclick = () => lb.close();
-lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('box')) lb.close(); });
-</script>
-</body>
+            /* =========================================================
+       NAVBAR
+    ========================================================= */
+            .nav {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                background: rgba(18, 3, 10, .78);
+                border-bottom: 1px solid rgba(241, 230, 227, .09);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                transition:
+                    background .3s ease,
+                    border-color .3s ease,
+                    box-shadow .3s ease;
+            }
+
+            .nav.scrolled {
+                background: rgba(11, 2, 6, .92);
+                border-bottom-color: var(--line);
+                box-shadow: 0 10px 35px rgba(0, 0, 0, .18);
+            }
+
+            .nav .wrap {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 64px;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: .65rem;
+                text-decoration: none;
+                font-family: var(--serif);
+                font-size: 1.1rem;
+                letter-spacing: .02em;
+                white-space: nowrap;
+            }
+
+            .brand img {
+                width: 35px;
+                height: 35px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+
+            .nav ul {
+                display: flex;
+                align-items: center;
+                gap: 1.6rem;
+                list-style: none;
+            }
+
+            .nav ul a {
+                position: relative;
+                color: var(--muted);
+                text-decoration: none;
+                font-size: .9rem;
+                transition: color .2s ease;
+            }
+
+            .nav ul a:not(.cta)::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: -6px;
+                width: 100%;
+                height: 1px;
+                background: var(--rose);
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform .25s ease;
+            }
+
+            .nav ul a:not(.cta):hover {
+                color: var(--text);
+            }
+
+            .nav ul a:not(.cta):hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            .nav ul a.cta {
+                color: #fff;
+                background: var(--red);
+                padding: .46rem 1rem;
+                border: 1px solid var(--red);
+            }
+
+            .nav ul a.cta:hover {
+                background: var(--red-light);
+                border-color: var(--red-light);
+            }
+
+            /* =========================================================
+       HERO
+    ========================================================= */
+            .hero {
+                min-height: calc(100vh - 64px);
+                display: flex;
+                align-items: center;
+                padding: 5rem 0;
+                overflow: hidden;
+                border-top: 0;
+                background:
+                    radial-gradient(ellipse 50% 70% at 78% 50%,
+                        rgba(140, 16, 30, .48),
+                        transparent 72%),
+                    radial-gradient(ellipse 30% 45% at 15% 80%,
+                        rgba(92, 15, 27, .2),
+                        transparent 75%),
+                    linear-gradient(135deg,
+                        var(--raised),
+                        var(--base));
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background:
+                    linear-gradient(90deg,
+                        rgba(18, 3, 10, .65),
+                        transparent 55%);
+                opacity: .6;
+            }
+
+            .hero::after {
+                content: "";
+                position: absolute;
+                width: 500px;
+                height: 500px;
+                right: -220px;
+                bottom: -250px;
+                border-radius: 50%;
+                background: rgba(176, 18, 31, .15);
+                filter: blur(100px);
+                pointer-events: none;
+            }
+
+            .hero .wrap {
+                position: relative;
+                z-index: 2;
+                display: grid;
+                grid-template-columns: 1.05fr .95fr;
+                gap: 3rem;
+                align-items: center;
+            }
+
+            .hero-copy {
+                animation: heroText 1s ease both;
+            }
+
+            .hero .eyebrow {
+                margin-bottom: .9rem;
+            }
+
+            .hero h1 {
+                max-width: 760px;
+                margin-bottom: 1.2rem;
+            }
+
+            .hero h1 span {
+                display: block;
+                color: var(--rose);
+            }
+
+            .hero .lead {
+                max-width: 500px;
+                margin-bottom: 1.7rem;
+                font-size: 1.06rem;
+            }
+
+            .hero-actions {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: .7rem;
+            }
+
+            .hero-note {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                margin-top: 1.4rem;
+                color: var(--muted);
+                font-size: .8rem;
+            }
+
+            .hero-note::before {
+                content: "";
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #9fdb9d;
+                box-shadow: 0 0 12px rgba(159, 219, 157, .35);
+            }
+
+            .hero-visual {
+                position: relative;
+                display: grid;
+                place-items: center;
+                min-height: 440px;
+                animation: heroVisual 1.3s ease .15s both;
+            }
+
+            .hero-visual::before {
+                content: "";
+                position: absolute;
+                width: 370px;
+                height: 370px;
+                border-radius: 50%;
+                background: var(--red);
+                opacity: .2;
+                filter: blur(90px);
+                animation: pulseGlow 5s ease-in-out infinite;
+            }
+
+            .hero-visual::after {
+                content: "";
+                position: absolute;
+                width: 70%;
+                height: 70%;
+                border: 1px solid rgba(217, 138, 146, .08);
+                border-radius: 50%;
+                transform: rotate(-15deg);
+            }
+
+            .hero-visual img {
+                position: relative;
+                z-index: 2;
+                width: min(470px, 100%);
+                height: auto;
+                display: block;
+                mix-blend-mode: screen;
+                filter:
+                    drop-shadow(0 30px 40px rgba(0, 0, 0, .35)) drop-shadow(0 0 30px rgba(176, 18, 31, .15));
+            }
+
+            /* =========================================================
+       COMMUNITY STRIP
+    ========================================================= */
+            .community-strip {
+                padding: 0;
+                background: var(--deeper);
+                border-top: 1px solid var(--line);
+                border-bottom: 1px solid var(--line);
+            }
+
+            .community-strip .wrap {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .community-item {
+                padding: 1.5rem 1.2rem;
+                text-align: center;
+                border-right: 1px solid var(--line);
+            }
+
+            .community-item:last-child {
+                border-right: 0;
+            }
+
+            .community-item strong {
+                display: block;
+                font-family: var(--serif);
+                font-size: 1.2rem;
+                font-weight: 400;
+                color: var(--text);
+            }
+
+            .community-item span {
+                display: block;
+                margin-top: .15rem;
+                color: var(--muted);
+                font-size: .78rem;
+                letter-spacing: .06em;
+                text-transform: uppercase;
+            }
+
+            /* =========================================================
+       ABOUT
+    ========================================================= */
+            .about {
+                background:
+                    linear-gradient(180deg,
+                        var(--deep),
+                        var(--base));
+            }
+
+            .about-content {
+                max-width: 850px;
+                margin-inline: auto;
+                text-align: center;
+            }
+
+            .about .quote {
+                max-width: 780px;
+                margin: 0 auto;
+                font-family: var(--serif);
+                font-size: clamp(1.55rem, 3.1vw, 2.35rem);
+                line-height: 1.35;
+                color: var(--text);
+            }
+
+            .about-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 3rem;
+                border-top: 1px solid var(--line);
+            }
+
+            .about-card {
+                padding: 1.6rem 1.3rem;
+                text-align: left;
+                border-right: 1px solid var(--line);
+            }
+
+            .about-card:last-child {
+                border-right: 0;
+            }
+
+            .about-number {
+                display: block;
+                margin-bottom: .9rem;
+                color: var(--rose);
+                font-size: .72rem;
+                font-weight: 600;
+                letter-spacing: .15em;
+            }
+
+            .about-card h3 {
+                margin-bottom: .35rem;
+            }
+
+            .about-card p {
+                color: var(--muted);
+                font-size: .92rem;
+            }
+
+            /* =========================================================
+       WHY JOIN
+    ========================================================= */
+            .why {
+                background: var(--base);
+            }
+
+            .why-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                margin-top: 2.5rem;
+                border-top: 1px solid var(--line);
+                border-bottom: 1px solid var(--line);
+            }
+
+            .why-card {
+                position: relative;
+                padding: 1.7rem 1.25rem 1.8rem;
+                border-right: 1px solid var(--line);
+                transition:
+                    background .3s ease,
+                    transform .3s ease;
+            }
+
+            .why-card:last-child {
+                border-right: 0;
+            }
+
+            .why-card:hover {
+                background: rgba(255, 255, 255, .025);
+            }
+
+            .why-card .num {
+                display: block;
+                margin-bottom: 2.2rem;
+                color: var(--rose);
+                font-size: .72rem;
+                letter-spacing: .16em;
+            }
+
+            .why-card h3 {
+                margin-bottom: .4rem;
+            }
+
+            .why-card p {
+                color: var(--muted);
+                font-size: .9rem;
+            }
+
+            /* =========================================================
+       MOMENTS / GALLERY
+    ========================================================= */
+            .moments {
+                background:
+                    linear-gradient(180deg,
+                        var(--base),
+                        var(--deep));
+            }
+
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-auto-rows: 155px;
+                grid-auto-flow: dense;
+                gap: .7rem;
+                margin-top: 2rem;
+            }
+
+            .gallery-grid figure {
+                position: relative;
+                overflow: hidden;
+                background: var(--raised);
+                border: 1px solid var(--line);
+            }
+
+            .gallery-grid figure:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            .gallery-grid figure:nth-child(4) {
+                grid-column: span 2;
+            }
+
+            .gallery-grid button {
+                all: unset;
+                display: block;
+                width: 100%;
+                height: 100%;
+                cursor: zoom-in;
+            }
+
+            .gallery-grid img.ph {
+                width: 100%;
+                height: 100%;
+                display: block;
+                object-fit: cover;
+                transition:
+                    transform .7s cubic-bezier(.2, .7, .2, 1),
+                    filter .4s ease;
+            }
+
+            .gallery-grid figure:hover img.ph {
+                transform: scale(1.055);
+                filter: brightness(1.06);
+            }
+
+            .gallery-grid figcaption {
+                position: absolute;
+                inset: auto 0 0;
+                padding: 2.5rem .9rem .7rem;
+                font-size: .84rem;
+                background:
+                    linear-gradient(transparent,
+                        rgba(12, 2, 6, .92));
+                opacity: 0;
+                transform: translateY(5px);
+                transition:
+                    opacity .3s ease,
+                    transform .3s ease;
+            }
+
+            .gallery-grid figure:hover figcaption {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .gallery-grid .empty {
+                display: grid;
+                place-items: center;
+                height: 100%;
+            }
+
+            .gallery-grid .empty img {
+                width: 35%;
+                max-width: 100px;
+                opacity: .13;
+                mix-blend-mode: screen;
+            }
+
+            /* =========================================================
+       LIGHTBOX
+    ========================================================= */
+            dialog {
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                max-height: none;
+                background: transparent;
+                border: 0;
+                color: var(--text);
+            }
+
+            dialog::backdrop {
+                background: rgba(7, 1, 4, .96);
+                backdrop-filter: blur(5px);
+            }
+
+            dialog .box {
+                position: relative;
+                height: 100%;
+                display: grid;
+                place-items: center;
+                padding: 4.5rem 1rem 1rem;
+            }
+
+            dialog .box>div {
+                width: min(1100px, 100%);
+                text-align: center;
+            }
+
+            dialog img {
+                max-width: 100%;
+                max-height: 78vh;
+                display: block;
+                margin-inline: auto;
+            }
+
+            dialog p {
+                margin-top: .9rem;
+                color: var(--muted);
+                text-align: center;
+            }
+
+            dialog button {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                width: 44px;
+                height: 44px;
+                display: grid;
+                place-items: center;
+                background: transparent;
+                border: 1px solid var(--line);
+                color: var(--text);
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition:
+                    background .2s ease,
+                    border-color .2s ease;
+            }
+
+            dialog button:hover {
+                background: var(--red);
+                border-color: var(--red);
+            }
+
+            /* =========================================================
+       EVENTS
+    ========================================================= */
+            .events {
+                background: var(--deep);
+            }
+
+            .event-box {
+                position: relative;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 2rem;
+                align-items: center;
+                padding: 2rem;
+                margin-top: 2rem;
+                background:
+                    radial-gradient(ellipse 50% 100% at 100% 50%,
+                        rgba(176, 18, 31, .18),
+                        transparent 70%),
+                    var(--raised);
+                border: 1px solid var(--line);
+            }
+
+            .event-tag {
+                display: inline-block;
+                margin-bottom: .7rem;
+                color: var(--rose);
+                font-size: .7rem;
+                font-weight: 600;
+                letter-spacing: .17em;
+                text-transform: uppercase;
+            }
+
+            .event-box h3 {
+                font-size: clamp(1.5rem, 3vw, 2.2rem);
+                margin-bottom: .35rem;
+            }
+
+            .event-box p {
+                max-width: 600px;
+                color: var(--muted);
+                font-size: .94rem;
+            }
+
+            .event-status {
+                padding: .7rem 1rem;
+                border: 1px solid var(--line);
+                color: var(--muted);
+                font-size: .78rem;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            /* =========================================================
+       SORROW
+    ========================================================= */
+            .sorrow {
+                overflow: hidden;
+                background:
+                    radial-gradient(ellipse 50% 80% at 75% 45%,
+                        rgba(176, 18, 31, .17),
+                        transparent 70%),
+                    linear-gradient(180deg,
+                        var(--deeper),
+                        #100207);
+            }
+
+            .sorrow::before {
+                content: "SORROW";
+                position: absolute;
+                top: 50%;
+                right: -2rem;
+                transform: translateY(-50%);
+                font-family: var(--serif);
+                font-size: clamp(7rem, 18vw, 17rem);
+                color: rgba(255, 255, 255, .015);
+                pointer-events: none;
+                white-space: nowrap;
+            }
+
+            .sorrow-header {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .sorrow-title h2 {
+                font-size: clamp(2.2rem, 5vw, 3.6rem);
+                letter-spacing: .05em;
+            }
+
+            .sorrow-title .lead {
+                margin-top: .5rem;
+                font-size: .95rem;
+            }
+
+            .sorrow-motto {
+                margin-top: .9rem;
+                color: var(--rose);
+                font-size: .72rem;
+                font-weight: 600;
+                letter-spacing: .2em;
+                text-transform: uppercase;
+            }
+
+            .controls {
+                display: flex;
+                gap: .45rem;
+                flex-shrink: 0;
+            }
+
+            .controls button {
+                width: 44px;
+                height: 44px;
+                background: transparent;
+                border: 1px solid var(--line);
+                color: var(--text);
+                font-size: 1rem;
+                cursor: pointer;
+                transition:
+                    background .2s ease,
+                    border-color .2s ease,
+                    opacity .2s ease;
+            }
+
+            .controls button:hover:not(:disabled) {
+                background: var(--red);
+                border-color: var(--red);
+            }
+
+            .controls button:disabled {
+                opacity: .28;
+                cursor: default;
+            }
+
+            .sorrow-track {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                gap: 1rem;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding: .2rem .1rem .7rem;
+                scrollbar-width: none;
+            }
+
+            .sorrow-track::-webkit-scrollbar {
+                display: none;
+            }
+
+            .sorrow-card {
+                flex: 0 0 205px;
+                scroll-snap-align: start;
+                background: rgba(18, 3, 10, .78);
+                border: 1px solid var(--line);
+                transition:
+                    transform .3s ease,
+                    border-color .3s ease,
+                    background .3s ease;
+            }
+
+            .sorrow-card:hover {
+                transform: translateY(-5px);
+                border-color: rgba(217, 138, 146, .5);
+                background: rgba(42, 10, 17, .95);
+            }
+
+            .sorrow-pic {
+                position: relative;
+                aspect-ratio: 1;
+                display: grid;
+                place-items: center;
+                overflow: hidden;
+                background:
+                    radial-gradient(circle at 50% 35%,
+                        #6b1220,
+                        #1c0509 76%);
+            }
+
+            .sorrow-pic::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background:
+                    linear-gradient(145deg,
+                        transparent 50%,
+                        rgba(255, 255, 255, .025));
+                pointer-events: none;
+            }
+
+            .sorrow-pic img {
+                width: 100%;
+                height: 100%;
+                display: block;
+                object-fit: cover;
+                transition: transform .5s ease;
+            }
+
+            .sorrow-card:hover .sorrow-pic img {
+                transform: scale(1.04);
+            }
+
+            .sorrow-pic svg {
+                width: 42%;
+                opacity: .25;
+            }
+
+            .sorrow-meta {
+                padding: .9rem 1rem 1rem;
+                border-top: 1px solid var(--line);
+            }
+
+            .sorrow-meta h3 {
+                font-size: 1.12rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .sorrow-meta p {
+                margin-top: .15rem;
+                color: var(--muted);
+                font-size: .8rem;
+            }
+
+            /* =========================================================
+       DISCORD CTA
+    ========================================================= */
+            .join {
+                padding: 6rem 0;
+                background:
+                    radial-gradient(ellipse 55% 90% at 50% 110%,
+                        rgba(176, 18, 31, .38),
+                        transparent 70%),
+                    var(--deep);
+            }
+
+            .join-box {
+                position: relative;
+                max-width: 850px;
+                margin-inline: auto;
+                padding: 3.5rem 2rem;
+                border: 1px solid var(--line);
+                background:
+                    linear-gradient(135deg,
+                        rgba(42, 10, 17, .7),
+                        rgba(18, 3, 10, .8));
+                overflow: hidden;
+            }
+
+            .join-box::before {
+                content: "";
+                position: absolute;
+                width: 260px;
+                height: 260px;
+                top: -170px;
+                right: -90px;
+                border-radius: 50%;
+                background: rgba(176, 18, 31, .18);
+                filter: blur(50px);
+            }
+
+            .join-box>* {
+                position: relative;
+                z-index: 2;
+            }
+
+            .join h2 {
+                font-size: clamp(2.1rem, 5vw, 3.5rem);
+                margin-bottom: .6rem;
+            }
+
+            .join .lead {
+                margin-bottom: 1.5rem;
+            }
+
+            /* =========================================================
+       FOOTER
+    ========================================================= */
+            footer {
+                background: var(--deeper);
+                border-top: 1px solid var(--line);
+                padding: 2rem 0;
+                color: var(--muted);
+            }
+
+            .footer-wrap {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+
+            .footer-brand {
+                font-family: var(--serif);
+                color: var(--text);
+            }
+
+            .footer-brand small {
+                display: block;
+                margin-top: .15rem;
+                color: var(--muted);
+                font-family: var(--sans);
+                font-size: .75rem;
+            }
+
+            .footer-right {
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+                font-size: .8rem;
+            }
+
+            .footer-right a {
+                text-decoration: none;
+                transition: color .2s ease;
+            }
+
+            .footer-right a:hover {
+                color: var(--text);
+            }
+
+            .copyright {
+                margin-top: 1.4rem;
+                padding-top: 1rem;
+                border-top: 1px solid var(--line);
+                text-align: center;
+                color: rgba(194, 169, 166, .65);
+                font-size: .75rem;
+            }
+
+            /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
+            .reveal {
+                opacity: 0;
+                transform: translateY(25px);
+                transition:
+                    opacity .8s ease,
+                    transform .8s cubic-bezier(.2, .7, .2, 1);
+            }
+
+            .reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* =========================================================
+       ANIMATIONS
+    ========================================================= */
+            @keyframes heroText {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes heroVisual {
+                from {
+                    opacity: 0;
+                    transform: scale(.94) translateY(15px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+            }
+
+            @keyframes pulseGlow {
+
+                0%,
+                100% {
+                    opacity: .16;
+                    transform: scale(.95);
+                }
+
+                50% {
+                    opacity: .25;
+                    transform: scale(1.05);
+                }
+            }
+
+            /* =========================================================
+       TABLET
+    ========================================================= */
+            @media (max-width: 900px) {
+                .hero {
+                    min-height: auto;
+                }
+
+                .hero .wrap {
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
+                }
+
+                .hero-copy {
+                    text-align: center;
+                }
+
+                .hero .lead {
+                    margin-inline: auto;
+                }
+
+                .hero-actions {
+                    justify-content: center;
+                }
+
+                .hero-note {
+                    justify-content: center;
+                }
+
+                .hero-visual {
+                    order: -1;
+                    min-height: 330px;
+                }
+
+                .hero-visual img {
+                    width: min(350px, 70%);
+                }
+
+                .why-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .why-card:nth-child(2) {
+                    border-right: 0;
+                }
+
+                .why-card:nth-child(n + 3) {
+                    border-top: 1px solid var(--line);
+                }
+
+                .sorrow-card {
+                    flex-basis: 185px;
+                }
+            }
+
+            /* =========================================================
+       MOBILE
+    ========================================================= */
+            @media (max-width: 680px) {
+                .wrap {
+                    width: min(100% - 1.4rem, var(--container));
+                }
+
+                section {
+                    padding: 3.5rem 0;
+                }
+
+                .nav .wrap {
+                    height: 58px;
+                }
+
+                .brand {
+                    font-size: 1rem;
+                }
+
+                .brand img {
+                    width: 32px;
+                    height: 32px;
+                }
+
+                .nav ul {
+                    gap: 0;
+                }
+
+                .nav ul li:not(:last-child) {
+                    display: none;
+                }
+
+                .nav ul a.cta {
+                    padding: .42rem .85rem;
+                    font-size: .82rem;
+                }
+
+                /* HERO */
+                .hero {
+                    padding: 3.2rem 0 3.8rem;
+                }
+
+                .hero h1 {
+                    font-size: clamp(2.35rem, 12vw, 3.6rem);
+                }
+
+                .hero .lead {
+                    font-size: .98rem;
+                }
+
+                .hero-actions {
+                    flex-direction: column;
+                    width: 100%;
+                }
+
+                .hero-actions .btn {
+                    width: min(300px, 100%);
+                }
+
+                .hero-visual {
+                    min-height: 230px;
+                }
+
+                .hero-visual img {
+                    width: min(260px, 68%);
+                }
+
+                .hero-visual::before {
+                    width: 220px;
+                    height: 220px;
+                    filter: blur(70px);
+                }
+
+                .hero-visual::after {
+                    width: 80%;
+                    height: 80%;
+                }
+
+                /* COMMUNITY */
+                .community-strip .wrap {
+                    grid-template-columns: 1fr;
+                }
+
+                .community-item {
+                    padding: 1rem;
+                    border-right: 0;
+                    border-bottom: 1px solid var(--line);
+                }
+
+                .community-item:last-child {
+                    border-bottom: 0;
+                }
+
+                /* ABOUT */
+                .about .quote {
+                    font-size: 1.45rem;
+                }
+
+                .about-grid {
+                    grid-template-columns: 1fr;
+                    margin-top: 2rem;
+                }
+
+                .about-card {
+                    padding: 1.2rem 0;
+                    border-right: 0;
+                    border-bottom: 1px solid var(--line);
+                }
+
+                .about-card:last-child {
+                    border-bottom: 0;
+                }
+
+                /* WHY */
+                .why-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .why-card {
+                    border-right: 0;
+                    border-bottom: 1px solid var(--line);
+                }
+
+                .why-card:last-child {
+                    border-bottom: 0;
+                }
+
+                .why-card:nth-child(n + 3) {
+                    border-top: 0;
+                }
+
+                .why-card .num {
+                    margin-bottom: 1.2rem;
+                }
+
+                /* GALLERY */
+                .gallery-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-auto-rows: 110px;
+                    gap: .5rem;
+                    margin-top: 1.4rem;
+                }
+
+                .gallery-grid figure:nth-child(1) {
+                    grid-column: span 2;
+                    grid-row: span 2;
+                }
+
+                .gallery-grid figure:nth-child(4) {
+                    grid-column: span 2;
+                }
+
+                .gallery-grid figcaption {
+                    display: none;
+                }
+
+                /* EVENTS */
+                .event-box {
+                    grid-template-columns: 1fr;
+                    gap: 1.3rem;
+                    padding: 1.4rem;
+                }
+
+                .event-status {
+                    justify-self: start;
+                }
+
+                /* SORROW */
+                .sorrow-header {
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
+
+                .controls {
+                    align-self: flex-end;
+                }
+
+                .sorrow-card {
+                    flex-basis: 165px;
+                }
+
+                .sorrow::before {
+                    right: -5rem;
+                }
+
+                /* JOIN */
+                .join {
+                    padding: 4rem 0;
+                }
+
+                .join-box {
+                    padding: 2.5rem 1.3rem;
+                }
+
+                .join .btn {
+                    width: 100%;
+                    max-width: 300px;
+                }
+
+                /* FOOTER */
+                .footer-wrap {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .footer-right {
+                    justify-content: center;
+                    flex-wrap: wrap;
+                }
+            }
+
+            /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+            @media (prefers-reduced-motion: reduce) {
+
+                *,
+                *::before,
+                *::after {
+                    animation: none !important;
+                    transition: none !important;
+                }
+
+                html {
+                    scroll-behavior: auto;
+                }
+
+                .reveal {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- =======================================================
+       NAVBAR
+  ======================================================== -->
+        <header class="nav" id="navbar">
+            <div class="wrap">
+                <a class="brand" href="#top">
+                    <img src="favicon.png" alt=""> VD Plenger </a>
+                <ul>
+                    <li>
+                        <a href="#tentang">Tentang</a>
+                    </li>
+                    <li>
+                        <a href="#why">Komunitas</a>
+                    </li>
+                    <li>
+                        <a href="#galeri">Moments</a>
+                    </li>
+                    <li>
+                        <a href="#sorrow">Sorrow</a>
+                    </li>
+                    <li>
+                        <a class="cta" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener"> Discord </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main id="top">
+            <!-- =====================================================
+         HERO
+    ====================================================== -->
+            <section class="hero">
+                <div class="wrap">
+                    <div class="hero-copy">
+                        <p class="eyebrow"> Violence District Community </p>
+                        <h1> VD Plenger <span>Play. Survive. Connect.</span>
+                        </h1>
+                        <p class="lead"> Tempat para pemain Violence District untuk main bareng, berbagi strategi, dan menemukan teman baru. </p>
+                        <div class="hero-actions">
+                            <a class="btn" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener"> Gabung Discord <span class="btn-arrow">→</span>
+                            </a>
+                            <a class="btn secondary" href="#tentang"> Kenali Kami </a>
+                        </div>
+                        <div class="hero-note"> Community open for all levels </div>
+                    </div>
+                    <div class="hero-visual">
+                        <img src="vd-plenger-logo.webp" alt="Logo VD Plenger" width="1000" height="1000">
+                    </div>
+                </div>
+            </section>
+            <!-- =====================================================
+         COMMUNITY HIGHLIGHT
+    ====================================================== -->
+            <section class="community-strip">
+                <div class="wrap">
+                    <div class="community-item">
+                        <strong>Open Community</strong>
+                        <span>Untuk semua level</span>
+                    </div>
+                    <div class="community-item">
+                        <strong>Play Together</strong>
+                        <span>Main &amp; ngobrol bersama</span>
+                    </div>
+                    <div class="community-item">
+                        <strong>Competitive</strong>
+                        <span>Sorrow Team</span>
+                    </div>
+                </div>
+            </section>
+            <!-- =====================================================
+         ABOUT
+    ====================================================== -->
+            <section class="about" id="tentang">
+                <div class="wrap">
+                    <div class="about-content reveal">
+                        <p class="eyebrow"> About VD Plenger </p>
+                        <p class="quote"> Rumah bersama bagi pemain Violence District yang ingin bermain lebih seru, saling belajar, dan tumbuh bersama. </p>
+                        <div class="about-grid">
+                            <article class="about-card">
+                                <span class="about-number">01</span>
+                                <h3>Semua Level</h3>
+                                <p> Baru mulai atau sudah hafal setiap map, semua pemain punya tempat di sini. </p>
+                            </article>
+                            <article class="about-card">
+                                <span class="about-number">02</span>
+                                <h3>Main Bareng</h3>
+                                <p> Temukan teman bermain dan nikmati Violence District bersama komunitas. </p>
+                            </article>
+                            <article class="about-card">
+                                <span class="about-number">03</span>
+                                <h3>Bertukar Tips</h3>
+                                <p> Bahas map, perks, strategi, dan pengalaman untuk berkembang bersama. </p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- =====================================================
+         WHY JOIN
+    ====================================================== -->
+            <section class="why" id="why">
+                <div class="wrap">
+                    <div class="section-heading reveal">
+                        <p class="eyebrow"> Why VD Plenger </p>
+                        <h2> Lebih dari sekadar tempat bermain. </h2>
+                        <p class="lead"> Komunitas dibangun untuk membuat setiap sesi Violence District terasa lebih seru. </p>
+                    </div>
+                    <div class="why-grid reveal">
+                        <article class="why-card">
+                            <span class="num">01</span>
+                            <h3>Find Your Squad</h3>
+                            <p> Temukan pemain lain untuk membentuk squad dan bermain bersama. </p>
+                        </article>
+                        <article class="why-card">
+                            <span class="num">02</span>
+                            <h3>Play Together</h3>
+                            <p> Nikmati sesi bermain yang lebih seru bersama teman dan komunitas. </p>
+                        </article>
+                        <article class="why-card">
+                            <span class="num">03</span>
+                            <h3>Share &amp; Learn</h3>
+                            <p> Bagikan pengalaman, tips, map, perks, dan strategi. </p>
+                        </article>
+                        <article class="why-card">
+                            <span class="num">04</span>
+                            <h3>Stay Connected</h3>
+                            <p> Tetap terhubung dengan komunitas melalui Discord. </p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <!-- =====================================================
+         MOMENTS / GALLERY
+    ====================================================== -->
+            <section class="moments" id="galeri">
+                <div class="wrap">
+                    <div class="section-heading reveal">
+                        <p class="eyebrow"> Community Moments </p>
+                        <h2> Moments </h2>
+                        <p class="lead"> Potongan momen dari sesi main, event, dan keseruan komunitas VD Plenger. </p>
+                    </div>
+                    <div class="gallery-grid reveal" id="grid"></div>
+                </div>
+            </section>
+            <!-- =====================================================
+         EVENTS
+    ====================================================== -->
+            <section class="events">
+                <div class="wrap">
+                    <div class="section-heading reveal">
+                        <p class="eyebrow"> Community Events </p>
+                        <h2> Selalu ada sesuatu yang akan datang. </h2>
+                        <p class="lead"> Ikuti Discord VD Plenger untuk mengetahui aktivitas, sesi bermain, dan event komunitas terbaru. </p>
+                    </div>
+                    <div class="event-box reveal">
+                        <div>
+                            <span class="event-tag"> Stay Connected </span>
+                            <h3> Community Night </h3>
+                            <p> Sesi bermain bersama komunitas. Detail waktu dan aktivitas akan diumumkan melalui Discord VD Plenger. </p>
+                        </div>
+                        <div class="event-status"> Coming Soon </div>
+                    </div>
+                </div>
+            </section>
+            <!-- =====================================================
+         SORROW
+    ====================================================== -->
+            <section class="sorrow" id="sorrow">
+                <div class="wrap">
+                    <div class="sorrow-header reveal">
+                        <div class="sorrow-title">
+                            <p class="eyebrow"> VD Plenger Competitive </p>
+                            <h2> S O R R O W </h2>
+                            <p class="lead"> Tim kompetitif sisi lain VD Plenger. </p>
+                            <p class="sorrow-motto"> Precision · Teamwork · Survival </p>
+                        </div>
+                        <div class="controls">
+                            <button id="prev" aria-label="Anggota sebelumnya"> ← </button>
+                            <button id="next" aria-label="Anggota berikutnya"> → </button>
+                        </div>
+                    </div>
+                    <div class="sorrow-track reveal" id="track" tabindex="0" aria-label="Anggota tim Sorrow"></div>
+                </div>
+            </section>
+            <!-- =====================================================
+         DISCORD CTA
+    ====================================================== -->
+            <section class="join center" id="gabung">
+                <div class="wrap">
+                    <div class="join-box reveal">
+                        <p class="eyebrow"> Join The Community </p>
+                        <h2> Don't play alone. </h2>
+                        <p class="lead"> Temukan teman bermain, berbagi pengalaman, dan jadilah bagian dari VD Plenger. </p>
+                        <a class="btn" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener"> Gabung Discord <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- =======================================================
+       FOOTER
+  ======================================================== -->
+        <footer>
+            <div class="wrap">
+                <div class="footer-wrap">
+                    <div class="footer-brand"> VD Plenger <small> Violence District Community </small>
+                    </div>
+                    <div class="footer-right">
+                        <a href="#tentang"> Tentang </a>
+                        <a href="#galeri"> Moments </a>
+                        <a href="#sorrow"> Sorrow </a>
+                        <a href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener"> Discord </a>
+                    </div>
+                </div>
+                <div class="copyright"> Made with 💖 by <strong>Ferrsyz</strong> · © 2026 VD Plenger </div>
+            </div>
+        </footer>
+        <!-- =======================================================
+       LIGHTBOX
+  ======================================================== -->
+        <dialog id="lb" aria-label="Pratinjau foto">
+            <div class="box">
+                <button id="lbx" aria-label="Tutup"> &times; </button>
+                <div>
+                    <img id="lbi" alt="">
+                    <p id="lbc"></p>
+                </div>
+            </div>
+        </dialog>
+        <script>
+            /* =========================================================
+       CONFIG
+    ========================================================= */
+            const DISCORD_URL = "https://discord.gg/hmVrXHJpwp";
+            /* =========================================================
+               ANGGOTA SORROW
+               
+               photo:
+               - isi jika ingin memakai gambar sendiri
+               - kosong = ambil avatar Roblox
+            ========================================================= */
+            const MEMBERS = [{
+                name: "Varzhen",
+                role: "Killer / Survivor",
+                userId: "9089974947",
+                photo: ""
+            }, {
+                name: "Lucc",
+                role: "Killer / Survivor",
+                userId: "8738755832",
+                photo: ""
+            }, {
+                name: "Shiro",
+                role: "Killer / Survivor",
+                userId: "8096310503",
+                photo: ""
+            }, {
+                name: "Ferrsyz",
+                role: "Survivor",
+                userId: "10013979972",
+                photo: ""
+            }, {
+                name: "Yanz",
+                role: "Survivor",
+                userId: "7296216426",
+                photo: ""
+            }, {
+                name: "Cya",
+                role: "Survivor",
+                userId: "8945878769",
+                photo: ""
+            }];
+            /* =========================================================
+               GALLERY
+            ========================================================= */
+            const GALLERY = [{
+                src: "gallery/8.png",
+                caption: ""
+            }, {
+                src: "gallery/6.png",
+                caption: ""
+            }, {
+                src: "gallery/4.png",
+                caption: ""
+            }, {
+                src: "gallery/2.png",
+                caption: ""
+            }, {
+                src: "gallery/7.png",
+                caption: ""
+            }, {
+                src: "gallery/5.png",
+                caption: ""
+            }, {
+                src: "gallery/3.png",
+                caption: ""
+            }, {
+                src: "gallery/1.png",
+                caption: ""
+            }];
+            /* =========================================================
+               ESCAPE HTML
+            ========================================================= */
+            const esc = (value) => {
+                return String(value).replace(/[&<>"]/g, char => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    "\"": "&quot;"
+                })[char]);
+            };
+            /* =========================================================
+               SORROW PLACEHOLDER
+            ========================================================= */
+            const ghost = `
+      
+																		<svg
+        viewBox="0 0 100 100"
+        fill="#f1e6e3"
+        aria-hidden="true"
+      >
+																			<circle
+          cx="50"
+          cy="32"
+          r="18"
+        />
+																			<path
+          d="M14 92c0-22 16-34 36-34s36 12 36 34z"
+        />
+																		</svg>
+    `;
+            /* =========================================================
+               SORROW CAROUSEL
+            ========================================================= */
+            const track = document.getElementById("track");
+            track.innerHTML = MEMBERS.map(member => {
+                return `
+        
+																		<article class="sorrow-card">
+																			<div
+            class="sorrow-pic"
+            data-uid="${esc(member.userId || "")}"
+          >
+
+            ${
+              member.photo
+
+                ? `
+                  
+																				<img
+                    src="${esc(member.photo)}"
+                    alt="Avatar ${esc(member.name)}"
+                    loading="lazy"
+                  >
+                `
+
+                : ghost
+            }
+
+          
+																				</div>
+																				<div class="sorrow-meta">
+																					<h3>
+              ${esc(member.name)}
+            </h3>
+																					<p>
+              ${esc(member.role)}
+            </p>
+																				</div>
+																			</article>
+      `;
+            }).join("");
+            /* =========================================================
+               AVATAR ERROR FALLBACK
+            ========================================================= */
+            track.addEventListener("error", event => {
+                if (event.target.tagName === "IMG") {
+                    event.target.parentElement.innerHTML = ghost;
+                }
+            }, true);
+            /* =========================================================
+               APPLY ROBLOX AVATAR
+            ========================================================= */
+            function applyAvatars(list) {
+                list.forEach(data => {
+                    if (!data || !data.imageUrl || data.state !== "Completed") {
+                        return;
+                    }
+                    const member = MEMBERS.find(item => String(item.userId) === String(data.targetId));
+                    const box = track.querySelector(`.sorrow-pic[data-uid="${data.targetId}"]`);
+                    if (member && box && !member.photo) {
+                        box.innerHTML = `
+            
+																			<img
+              src="${esc(data.imageUrl)}"
+              alt="Avatar ${esc(member.name)}"
+              loading="lazy"
+            >
+          `;
+                    }
+                });
+            }
+            /* =========================================================
+               LOAD ROBLOX AVATAR
+            ========================================================= */
+            async function loadAvatars() {
+                const ids = MEMBERS.filter(member => !member.photo && member.userId).map(member => member.userId).join(",");
+                if (!ids) {
+                    return;
+                }
+                const endpoints = [`/api/avatars?ids=${ids}`, `https://thumbnails.roproxy.com/v1/users/avatar?userIds=${ids}&size=420x420&format=Png&isCircular=false`];
+                for (const url of endpoints) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) {
+                            continue;
+                        }
+                        const json = await response.json();
+                        if (json && json.data && json.data.length) {
+                            applyAvatars(json.data);
+                            return;
+                        }
+                    } catch (error) {
+                        // Coba endpoint berikutnya.
+                    }
+                }
+            }
+            loadAvatars();
+            /* =========================================================
+               SORROW CONTROLS
+            ========================================================= */
+            const prev = document.getElementById("prev");
+            const next = document.getElementById("next");
+            const step = () => {
+                return (track.querySelector(".sorrow-card")?.offsetWidth || 200) + 16;
+            };
+            const syncControls = () => {
+                prev.disabled = track.scrollLeft <= 4;
+                next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+            };
+            prev.addEventListener("click",
+                () => {
+                    track.scrollBy({
+                        left: -step(),
+                        behavior: "smooth"
+                    });
+                });
+            next.addEventListener("click",
+                () => {
+                    track.scrollBy({
+                        left: step(),
+                        behavior: "smooth"
+                    });
+                });
+            track.addEventListener("scroll", syncControls, {
+                passive: true
+            });
+            window.addEventListener("resize", syncControls);
+            track.addEventListener("keydown", event => {
+                if (event.key === "ArrowRight") {
+                    next.click();
+                }
+                if (event.key === "ArrowLeft") {
+                    prev.click();
+                }
+            });
+            syncControls();
+            /* =========================================================
+               GALLERY
+            ========================================================= */
+            const emptyTile = `
+      
+																				<div class="empty">
+																					<img
+          src="vd-plenger-logo.webp"
+          alt=""
+        >
+																					</div>
+    `;
+            const grid = document.getElementById("grid");
+            grid.innerHTML = GALLERY.map(
+                (gallery, index) => {
+                    if (!gallery.src) {
+                        return `
+              
+																					<figure>
+                ${emptyTile}
+              </figure>
+            `;
+                    }
+                    return `
+            
+																					<figure>
+																						<button
+                data-index="${index}"
+                aria-label="Perbesar foto ${index + 1}"
+              >
+																							<img
+                  class="ph"
+                  src="${esc(gallery.src)}"
+                  alt="${
+                    esc(
+                      gallery.caption ||
+                      "Foto komunitas VD Plenger"
+                    )
+                  }"
+                  loading="lazy"
+                >
+																							</button>
+
+              ${
+                gallery.caption
+
+                  ? `
+                    
+																							<figcaption>
+                      ${esc(gallery.caption)}
+                    </figcaption>
+                  `
+
+                  : ""
+              }
+
+            
+																						</figure>
+          `;
+                }).join("");
+            /* =========================================================
+               GALLERY ERROR
+            ========================================================= */
+            grid.addEventListener("error", event => {
+                if (event.target.tagName === "IMG" && event.target.classList.contains("ph")) {
+                    const figure = event.target.closest("figure");
+                    if (figure) {
+                        figure.innerHTML = emptyTile;
+                    }
+                }
+            }, true);
+            /* =========================================================
+               LIGHTBOX
+            ========================================================= */
+            const lb = document.getElementById("lb");
+            const lbi = document.getElementById("lbi");
+            const lbc = document.getElementById("lbc");
+            grid.addEventListener("click", event => {
+                const button = event.target.closest("button[data-index]");
+                if (!button) {
+                    return;
+                }
+                const gallery = GALLERY[Number(button.dataset.index)];
+                if (!gallery) {
+                    return;
+                }
+                lbi.src = gallery.src;
+                lbi.alt = gallery.caption || "Foto komunitas VD Plenger";
+                lbc.textContent = gallery.caption || "";
+                lb.showModal();
+            });
+            document.getElementById("lbx").addEventListener("click",
+                () => lb.close());
+            lb.addEventListener("click", event => {
+                if (event.target === lb || event.target.classList.contains("box")) {
+                    lb.close();
+                }
+            });
+            /* =========================================================
+               NAVBAR SCROLL
+            ========================================================= */
+            const navbar = document.getElementById("navbar");
+
+            function updateNavbar() {
+                if (window.scrollY > 20) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            }
+            window.addEventListener("scroll", updateNavbar, {
+                passive: true
+            });
+            updateNavbar();
+            /* =========================================================
+               SCROLL REVEAL
+            ========================================================= */
+            const revealElements = document.querySelectorAll(".reveal");
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: .12
+                });
+                revealElements.forEach(element => observer.observe(element));
+            } else {
+                revealElements.forEach(element => element.classList.add("visible"));
+            }
+            /* =========================================================
+               ESCAPE KEY FOR LIGHTBOX
+            ========================================================= */
+            document.addEventListener("keydown", event => {
+                if (event.key === "Escape" && lb.open) {
+                    lb.close();
+                }
+            });
+        </script>
+    </body>
 </html>
