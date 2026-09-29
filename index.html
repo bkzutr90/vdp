@@ -246,23 +246,44 @@ const GALLERY = [
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ghost = '<svg viewBox="0 0 100 100" fill="#f1e6e3" aria-hidden="true"><circle cx="50" cy="32" r="18"/><path d="M14 92c0-22 16-34 36-34s36 12 36 34z"/></svg>';
 
-/* carousel Sorrow: coba beberapa sumber gambar, terakhir siluet */
-const rbx = (id, t) => 'https://www.roblox.com/' + t + '/image?userId=' + encodeURIComponent(id) + '&width=420&height=420&format=png';
-const sources = p => p.photo ? [p.photo] : (p.userId ? [rbx(p.userId, 'avatar-thumbnail'), rbx(p.userId, 'headshot-thumbnail')] : []);
-
+/* carousel Sorrow: avatar diambil lewat /api/avatars (Vercel), cadangan roproxy, terakhir siluet */
 const track = document.getElementById('track');
-track.innerHTML = MEMBERS.map((p, i) => {
-  const s = sources(p);
-  return '<article class="pc"><div class="pic">' +
-    (s.length ? '<img src="' + esc(s[0]) + '" data-m="' + i + '" data-n="0" alt="Avatar ' + esc(p.name) + '" loading="lazy">' : ghost) +
-    '</div><div class="meta"><h3>' + esc(p.name) + '</h3><p>' + esc(p.role) + '</p></div></article>';
-}).join('');
+track.innerHTML = MEMBERS.map(p =>
+  '<article class="pc"><div class="pic" data-uid="' + esc(p.userId || '') + '">' +
+  (p.photo ? '<img src="' + esc(p.photo) + '" alt="Avatar ' + esc(p.name) + '" loading="lazy">' : ghost) +
+  '</div><div class="meta"><h3>' + esc(p.name) + '</h3><p>' + esc(p.role) + '</p></div></article>'
+).join('');
 
 track.addEventListener('error', e => {
-  const img = e.target; if (img.tagName !== 'IMG') return;
-  const s = sources(MEMBERS[img.dataset.m]), n = +img.dataset.n + 1;
-  if (n < s.length) { img.dataset.n = n; img.src = s[n]; } else { img.parentElement.innerHTML = ghost; }
+  if (e.target.tagName === 'IMG') e.target.parentElement.innerHTML = ghost;
 }, true);
+
+function applyAvatars(list){
+  list.forEach(d => {
+    if (!d || !d.imageUrl || d.state !== 'Completed') return;
+    const m = MEMBERS.find(x => String(x.userId) === String(d.targetId));
+    const box = track.querySelector('.pic[data-uid="' + d.targetId + '"]');
+    if (m && box && !m.photo) box.innerHTML = '<img src="' + esc(d.imageUrl) + '" alt="Avatar ' + esc(m.name) + '" loading="lazy">';
+  });
+}
+
+async function loadAvatars(){
+  const ids = MEMBERS.filter(m => !m.photo && m.userId).map(m => m.userId).join(',');
+  if (!ids) return;
+  const endpoints = [
+    '/api/avatars?ids=' + ids,
+    'https://thumbnails.roproxy.com/v1/users/avatar?userIds=' + ids + '&size=420x420&format=Png&isCircular=false'
+  ];
+  for (const url of endpoints){
+    try {
+      const r = await fetch(url);
+      if (!r.ok) continue;
+      const j = await r.json();
+      if (j && j.data && j.data.length){ applyAvatars(j.data); return; }
+    } catch (err) { /* coba sumber berikutnya */ }
+  }
+}
+loadAvatars();
 
 const prev = document.getElementById('prev'), next = document.getElementById('next');
 const step = () => (track.querySelector('.pc')?.offsetWidth || 200) + 16;
