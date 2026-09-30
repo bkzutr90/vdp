@@ -488,7 +488,7 @@ const clipsEl = document.getElementById('clips');
 clipsEl.innerHTML = CLIPS.map(c =>
   '<article class="clip" data-type="' + esc(c.type) + '">' +
   '<video controls playsinline preload="metadata" src="' + esc(c.src) + '#t=0.1" aria-label="' + esc(c.title) + '"></video>' +
-  '<div class="meta"><h3>' + esc(c.title) + '</h3><span class="tag">' + esc(TYPE_LABEL[c.type] || '') + '</span></div></article>'
+  '<div class="meta"><h3>' + esc(c.title) + '</h3></div></article>'
 ).join('');
 
 /* hanya satu video yang diputar */
