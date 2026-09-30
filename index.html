@@ -205,6 +205,18 @@ dialog button{position:absolute;top:.8rem;right:1rem;background:rgba(255,255,255
 .join .panel{background:radial-gradient(ellipse 70% 120% at 50% 125%,rgba(165,20,36,.55),transparent 70%),var(--surface);border-radius:28px;padding:4.2rem 1.5rem;text-align:center}
 .join h2{margin-bottom:1.5rem}
 
+/* highlight */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.6rem}
+.tabs button{background:var(--surface);border:0;color:var(--muted);font:inherit;font-size:.92rem;padding:.55rem 1.2rem;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-selected="true"]{background:var(--red);color:#fff}
+.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1rem;margin-top:1.6rem}
+.clip{background:var(--surface);border-radius:var(--r);overflow:hidden}
+.clip video{width:100%;aspect-ratio:16/9;display:block;background:#000;object-fit:contain}
+.clip .meta{display:flex;justify-content:space-between;align-items:center;gap:.8rem}
+.clip .meta h3{font-size:1.05rem}
+.tag{flex-shrink:0;font-size:.75rem;color:var(--rose);background:rgba(224,149,156,.12);padding:.2rem .65rem;border-radius:999px}
+
 footer{padding:0 0 2.5rem;color:var(--muted);font-size:.92rem}
 footer .wrap{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
 footer .note{font-size:.82rem;opacity:.8;max-width:34rem}
@@ -283,6 +295,19 @@ footer strong{color:var(--text);font-weight:600}
       <h2>Galeri</h2>
       <p class="lead" style="margin-top:.5rem">Potongan momen dari sesi main, dan keseruan komunitas.</p>
       <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="highlight">
+    <div class="wrap">
+      <h2>Highlight</h2>
+      <p class="lead" style="margin-top:.5rem">Klip pilihan dari sesi main bareng dan momen kompetitif Sorrow.</p>
+      <div class="tabs" id="tabs" role="tablist" aria-label="Filter klip">
+        <button role="tab" data-f="all" aria-selected="true">Semua</button>
+        <button role="tab" data-f="bareng" aria-selected="false">Main Bareng</button>
+        <button role="tab" data-f="sorrow" aria-selected="false">Sorrow Kompe</button>
+      </div>
+      <div class="clips" id="clips"></div>
     </div>
   </section>
 
@@ -448,6 +473,39 @@ track.addEventListener('scroll', sync, { passive: true });
 window.addEventListener('resize', sync);
 track.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next.click(); if (e.key === 'ArrowLeft') prev.click(); });
 sync();
+
+/* ============ KLIP HIGHLIGHT ============
+   type: "bareng" atau "sorrow"
+======================================== */
+const CLIPS = [
+  { src: "https://videotourl.com/videos/1790805081388-36033d46-c7a7-455d-8b1d-bbe1e53525bc.mp4", title: "Momen Main Bareng #1", type: "bareng" },
+  { src: "https://videotourl.com/videos/1790805129755-56fbfa56-58e9-4cce-bcb4-ba19b8a75503.mp4", title: "Momen Main Bareng #2", type: "bareng" },
+  { src: "https://videotourl.com/videos/1790805145782-1421aebf-a76d-40f6-ba06-059a375eb08c.mp4", title: "Momen Kompe Sorrow",   type: "sorrow" }
+];
+const TYPE_LABEL = { bareng: "Main Bareng", sorrow: "Sorrow Kompe" };
+
+const clipsEl = document.getElementById('clips');
+clipsEl.innerHTML = CLIPS.map(c =>
+  '<article class="clip" data-type="' + esc(c.type) + '">' +
+  '<video controls playsinline preload="metadata" src="' + esc(c.src) + '#t=0.1" aria-label="' + esc(c.title) + '"></video>' +
+  '<div class="meta"><h3>' + esc(c.title) + '</h3><span class="tag">' + esc(TYPE_LABEL[c.type] || '') + '</span></div></article>'
+).join('');
+
+/* hanya satu video yang diputar */
+clipsEl.addEventListener('play', e => {
+  clipsEl.querySelectorAll('video').forEach(v => { if (v !== e.target) v.pause(); });
+}, true);
+
+/* filter tab */
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button[data-f]'); if (!b) return;
+  document.querySelectorAll('#tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+  clipsEl.querySelectorAll('.clip').forEach(el => {
+    const show = b.dataset.f === 'all' || el.dataset.type === b.dataset.f;
+    el.hidden = !show;
+    if (!show) el.querySelector('video').pause();
+  });
+});
 
 /* galeri + lightbox */
 const emptyTile = '<div class="empty"><img src="vd-plenger-logo.webp" alt=""></div>';
