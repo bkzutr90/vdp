@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Latihan Skill Check | VD Plenger</title>
-<meta name="description" content="Latihan skill check Violence District langsung di browser. Berjalan terus-menerus, atur kecepatan dengan slider, dan kejar streak bersama VD Plenger.">
+<meta name="description" content="Latihan skill check Violence District langsung di browser. Pilih skill check biasa atau KS, atur kecepatan dengan slider, dan kejar streak bersama VD Plenger.">
 <link rel="canonical" href="https://vd-plenger.vercel.app/skillcheck.html">
 <meta name="theme-color" content="#1a0409">
 <meta name="color-scheme" content="dark">
@@ -22,7 +22,11 @@ body{background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(150,18,32,.35),t
 .back{display:inline-block;color:var(--muted);text-decoration:none;font-size:.92rem;margin-bottom:1rem}
 .back:hover{color:var(--text)}
 h1{font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,6vw,2.3rem);line-height:1.12}
-.lead{color:var(--muted);font-size:.96rem;margin:.5rem auto 1rem;max-width:26rem}
+.lead{color:var(--muted);font-size:.96rem;margin:.5rem auto 1rem;max-width:26rem;min-height:3.1em}
+.modes{display:inline-flex;gap:.3rem;background:var(--surface);padding:.3rem;border-radius:999px;margin-bottom:1.1rem}
+.modes button{border:0;background:none;color:var(--muted);font:inherit;font-size:.92rem;font-weight:500;padding:.5rem 1.2rem;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.modes button:hover{color:var(--text)}
+.modes button[aria-selected="true"]{background:var(--red);color:#fff}
 #dial{width:min(320px,80vw);margin:0 auto;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 #dial svg{width:100%;height:auto;display:block;overflow:visible}
 #msg{height:1.9rem;font-family:var(--serif);font-size:1.3rem;margin-top:.3rem;color:var(--muted)}
@@ -57,7 +61,12 @@ footer a{color:var(--rose)}
 <div class="wrap">
   <a class="back" href="/">&larr; Kembali ke VD Plenger</a>
   <h1>Latihan Skill Check</h1>
-  <p class="lead">Setelah dimulai, skill check muncul terus-menerus tanpa berhenti, bahkan saat kamu miss.</p>
+  <p class="lead" id="lead"></p>
+
+  <div class="modes" id="modes" role="tablist" aria-label="Tipe skill check">
+    <button role="tab" data-m="biasa" aria-selected="true">Skill Check Biasa</button>
+    <button role="tab" data-m="ks" aria-selected="false">Skill Check KS</button>
+  </div>
 
   <div id="dial"><svg viewBox="0 0 200 200" role="img" aria-label="Lingkaran skill check">
     <circle id="ring" cx="100" cy="100" r="80" fill="none" stroke="#fff" stroke-width="3"/>
@@ -112,9 +121,9 @@ footer a{color:var(--rose)}
 const $ = id => document.getElementById(id);
 const C = 2 * Math.PI * 80;
 const GOOD = 46, GREAT = 11;
-let st = 'idle', ang = 0, zs = 0, last = 0, raf = 0, tmr = 0, flashT = 0;
+let st = 'idle', ang = 0, zs = 0, last = 0, raf = 0, tmr = 0, flashT = 0, mode = 'biasa';
 let S = { tries: 0, great: 0, good: 0, miss: 0, streak: 0, best: 0 };
-try { S.best = +localStorage.getItem('vd-sc-best') || 0; } catch (e) {}
+const bestKey = () => 'vd-sc-best-' + mode;
 
 const speed = () => +$('spd').value;
 const showSpeed = () => { $('spdv').textContent = (360 / speed()).toFixed(2) + ' detik/putaran'; };
@@ -157,20 +166,24 @@ function render() {
   $('sAcc').textContent = (S.tries ? Math.round((S.great + S.good) / S.tries * 100) : 0) + '%';
 }
 
-/* jeda singkat antar skill check, lalu mulai lagi otomatis */
+/* jeda sebelum skill check berikutnya (dipakai tipe Biasa dan saat tombol Mulai) */
 function next(delay) {
   st = 'wait'; show(false);
   tmr = setTimeout(begin, delay);
 }
 
 function begin() {
-  ang %= 360;                                   // jaga angka tetap kecil, jarum tidak direset
-  zs = ang + 90 + Math.random() * 200;          // zona selalu di depan jarum (min. 90°)
+  if (mode === 'ks') {
+    ang %= 360;                                   // KS: jarum lanjut, tidak direset
+    zs = ang + 90 + Math.random() * 200;          // zona selalu di depan jarum (min. 90°)
+  } else {
+    ang = 0;                                      // Biasa: jarum mulai dari awal
+    zs = 100 + Math.random() * (360 - 100 - GOOD - 12);
+  }
   arc('zbg', zs - 1.5, GOOD + 3);
   arc('good', zs, GOOD);
   arc('great', zs, GREAT);
   needle(ang); show(true);
-  //beep(880, .08);
   st = 'run'; last = performance.now();
   raf = requestAnimationFrame(tick);
 }
@@ -196,15 +209,15 @@ function finish(t) {
     S.streak++;
     if (S.streak > S.best) {
       S.best = S.streak;
-      try { localStorage.setItem('vd-sc-best', S.best); } catch (e) {}
+      try { localStorage.setItem(bestKey(), S.best); } catch (e) {}
     }
   }
   if (t === 'great') { say('Great!', '#fff'); flash('#8dffb5'); beep(1320, .12); }
   else if (t === 'good') { say('Good', '#e0959c'); flash('#e0959c'); beep(1000, .1); }
   else { say('Miss', '#ff2a3c'); flash('#ff2a3c'); beep(180, .25); }
   render();
-  //next(550 + Math.random() * 700);   // langsung lanjut, tanpa berhenti
-  begin();
+  if (mode === 'ks') begin();                     // KS: langsung lanjut tanpa jeda
+  else next(550 + Math.random() * 700);           // Biasa: ada jeda
 }
 
 function stop() {
@@ -229,7 +242,35 @@ $('tap').addEventListener('pointerdown', e => { e.preventDefault(); hit(); });
 document.addEventListener('keydown', e => {
   if (e.code === 'Space' && st !== 'idle') { e.preventDefault(); if (!e.repeat) hit(); }
 });
-showSpeed(); render();
+
+/* tipe skill check: Biasa atau KS */
+const LEAD = {
+  biasa: 'Skill check muncul satu per satu dengan jeda, dan jarum selalu mulai dari awal.',
+  ks: 'Mode KS: skill check muncul terus-menerus tanpa jeda dan jarum melanjutkan putaran, bahkan saat kamu miss.'
+};
+
+function setMode(m) {
+  mode = m;
+  try { localStorage.setItem('vd-sc-mode', m); } catch (e) {}
+  document.querySelectorAll('#modes button').forEach(b => b.setAttribute('aria-selected', b.dataset.m === m));
+  $('lead').textContent = LEAD[m];
+  stop();
+  let best = 0;
+  try { best = +localStorage.getItem(bestKey()) || 0; } catch (e) {}
+  S = { tries: 0, great: 0, good: 0, miss: 0, streak: 0, best };
+  render();
+}
+
+$('modes').addEventListener('click', e => {
+  const b = e.target.closest('button[data-m]'); if (!b) return;
+  b.blur();
+  if (b.dataset.m !== mode) setMode(b.dataset.m);
+});
+
+let saved = 'biasa';
+try { saved = localStorage.getItem('vd-sc-mode') === 'ks' ? 'ks' : 'biasa'; } catch (e) {}
+showSpeed();
+setMode(saved);
 </script>
 </body>
 </html>
