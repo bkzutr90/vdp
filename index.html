@@ -522,9 +522,9 @@ clipsEl.addEventListener('play', e => {
    Ganti name sesuai nama map masing-masing (urutan = maps/1.png ... maps/12.png)
 ======================================== */
 const MAPS = [
-  { name: "Bloodbath Club 1" },  { name: "Bloodbath Club 2" },  { name: "Valdelobos Village 1" },  { name: "Valdelobos Village 2" }, { name: "Valdelobos Village 3" },
-  { name: "Woodview Cabin 1" },  { name: "Woodview Cabin 2" },  { name: "Mount Massive Assylum" },  { name: "Firelink Shrine" },
-  { name: "The Bay Harbor" },  { name: "Mercy Hospital Rooftop" }, { name: "Site 68" }
+  { name: "Bloodbath Club 1" },  { name: "Bloodbath Club 2" },  { name: "Firelink Shrine" },  { name: "Mercy Hospital Rooftop" }, { name: "Mount Massive Assylum" },
+  { name: "Site 68" },  { name: "The Bay Harbor" },  { name: "Valdelobos Village 1" },  { name: "Valdelobos Village 2" },
+  { name: "Valdelobos Village 3" },  { name: "Woodview Cabin 1" }, { name: "Woodview Cabin 2" }
 ].map((m, i) => ({ ...m, src: 'maps/' + (i + 1) + '.png' }));
 
 const mapsGrid = document.getElementById('maps-grid');
