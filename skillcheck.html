@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Latihan Skill Check | VD Plenger</title>
+<meta name="description" content="Latihan skill check Violence District langsung di browser. Berjalan terus-menerus, atur kecepatan dengan slider, dan kejar streak bersama VD Plenger.">
+<link rel="canonical" href="https://vd-plenger.vercel.app/skillcheck.html">
+<meta name="theme-color" content="#1a0409">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--base:#1a0409;--deep:#12030a;--surface:#250912;--red:#b0121f;--rose:#e0959c;--text:#f3e9e6;--muted:#c4aca9;--r:16px;--serif:'Fraunces',Georgia,serif;--sans:'Figtree',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(150,18,32,.35),transparent 70%),var(--base);color:var(--text);font:1rem/1.6 var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;padding:1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom))}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+.wrap{width:min(460px,100%);margin-inline:auto;text-align:center}
+.back{display:inline-block;color:var(--muted);text-decoration:none;font-size:.92rem;margin-bottom:1rem}
+.back:hover{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,6vw,2.3rem);line-height:1.12}
+.lead{color:var(--muted);font-size:.96rem;margin:.5rem auto 1rem;max-width:26rem}
+#dial{width:min(320px,80vw);margin:0 auto;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+#dial svg{width:100%;height:auto;display:block;overflow:visible}
+#msg{height:1.9rem;font-family:var(--serif);font-size:1.3rem;margin-top:.3rem;color:var(--muted)}
+.speed{margin:1rem auto 0;width:min(340px,100%);text-align:left}
+.speed label{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);margin-bottom:.4rem}
+.speed output{color:var(--text)}
+input[type=range]{width:100%;accent-color:var(--red);cursor:pointer}
+.actions{display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:1.2rem}
+.btn{border:0;background:var(--red);color:#fff;font:inherit;font-weight:600;padding:.8rem 2.2rem;border-radius:999px;cursor:pointer;transition:background .2s,transform .2s}
+.btn:hover{background:#c8172a;transform:translateY(-2px)}
+.btn.alt{background:var(--surface);color:var(--muted);font-weight:500;padding:.8rem 1.3rem}
+.snd{display:flex;align-items:center;gap:.4rem;color:var(--muted);font-size:.9rem;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1.4rem}
+.stats div{background:var(--surface);border-radius:var(--r);padding:.8rem .4rem}
+.stats b{display:block;font-family:var(--serif);font-weight:500;font-size:1.5rem;line-height:1.2}
+.stats span{font-size:.8rem;color:var(--muted)}
+.hint{margin-top:1.2rem;font-size:.85rem;color:var(--muted)}
+.hint kbd{background:var(--surface);border-radius:6px;padding:.1rem .5rem;font:inherit;color:var(--text)}
+footer{margin-top:1.8rem;font-size:.82rem;color:var(--muted)}
+footer a{color:var(--rose)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">&larr; Kembali ke VD Plenger</a>
+  <h1>Latihan Skill Check</h1>
+  <p class="lead">Setelah dimulai, skill check muncul terus-menerus tanpa berhenti, bahkan saat kamu miss.</p>
+
+  <div id="dial"><svg viewBox="0 0 200 200" role="img" aria-label="Lingkaran skill check">
+    <circle id="ring" cx="100" cy="100" r="80" fill="none" stroke="#fff" stroke-width="3"/>
+    <g id="zone" opacity="0">
+      <circle id="zbg" cx="100" cy="100" r="80" fill="none" stroke="#fff" stroke-width="15" stroke-dasharray="0 999"/>
+      <circle id="good" cx="100" cy="100" r="80" fill="none" stroke="#000" stroke-width="10" stroke-dasharray="0 999"/>
+      <circle id="great" cx="100" cy="100" r="80" fill="none" stroke="#fff" stroke-width="10" stroke-dasharray="0 999"/>
+    </g>
+    <line id="needle" x1="100" y1="100" x2="100" y2="10" stroke="#ff2a3c" stroke-width="3" stroke-linecap="round" opacity="0"/>
+    <rect x="70" y="84" width="60" height="32" rx="7" fill="#000" stroke="#fff" stroke-width="2.5"/>
+    <path d="M82 98v9h36v-9" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg></div>
+  <p id="msg" role="status">Tekan Mulai</p>
+
+  <div class="speed">
+    <label for="spd">Kecepatan <output id="spdv"></output></label>
+    <input type="range" id="spd" min="120" max="600" step="10" value="300">
+  </div>
+
+  <div class="actions">
+    <button class="btn" id="go">Mulai</button>
+    <button class="btn alt" id="reset">Reset</button>
+    <label class="snd"><input type="checkbox" id="snd" checked> Suara</label>
+  </div>
+
+  <div class="stats">
+    <div><b id="sStreak">0</b><span>Streak</span></div>
+    <div><b id="sBest">0</b><span>Streak terbaik</span></div>
+    <div><b id="sAcc">0%</b><span>Akurasi</span></div>
+    <div><b id="sGreat">0</b><span>Great</span></div>
+    <div><b id="sGood">0</b><span>Good</span></div>
+    <div><b id="sMiss">0</b><span>Miss</span></div>
+  </div>
+  <p class="hint">Tekan <kbd>Spasi</kbd> atau ketuk lingkaran saat jarum merah masuk zona.</p>
+  <footer>Made with 💖 by <strong>Ferrsyz</strong></footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const C = 2 * Math.PI * 80;
+const GOOD = 46, GREAT = 11;
+let st = 'idle', ang = 0, zs = 0, last = 0, raf = 0, tmr = 0, flashT = 0;
+let S = { tries: 0, great: 0, good: 0, miss: 0, streak: 0, best: 0 };
+try { S.best = +localStorage.getItem('vd-sc-best') || 0; } catch (e) {}
+
+const speed = () => +$('spd').value;
+const showSpeed = () => { $('spdv').textContent = (360 / speed()).toFixed(2) + ' detik/putaran'; };
+const say = (t, c) => { $('msg').textContent = t; $('msg').style.color = c || ''; };
+const arc = (id, a, w) => {
+  const el = $(id);
+  el.setAttribute('stroke-dasharray', (w / 360 * C) + ' ' + C);
+  el.setAttribute('transform', 'rotate(' + (a - 90) + ' 100 100)');
+};
+const needle = a => $('needle').setAttribute('transform', 'rotate(' + a + ' 100 100)');
+const show = on => { $('zone').setAttribute('opacity', on ? 1 : 0); $('needle').setAttribute('opacity', on ? 1 : 0); };
+const flash = c => {
+  $('ring').setAttribute('stroke', c);
+  clearTimeout(flashT);
+  flashT = setTimeout(() => $('ring').setAttribute('stroke', '#fff'), 250);
+};
+
+let ac;
+function beep(f, d) {
+  if (!$('snd').checked) return;
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.frequency.value = f; g.gain.value = .07;
+    o.connect(g); g.connect(ac.destination);
+    o.start(); o.stop(ac.currentTime + d);
+  } catch (e) {}
+}
+
+function render() {
+  $('sStreak').textContent = S.streak;
+  $('sBest').textContent = S.best;
+  $('sGreat').textContent = S.great;
+  $('sGood').textContent = S.good;
+  $('sMiss').textContent = S.miss;
+  $('sAcc').textContent = (S.tries ? Math.round((S.great + S.good) / S.tries * 100) : 0) + '%';
+}
+
+/* jeda singkat antar skill check, lalu mulai lagi otomatis */
+function next(delay) {
+  st = 'wait'; show(false);
+  tmr = setTimeout(begin, delay);
+}
+
+function begin() {
+  zs = 100 + Math.random() * (360 - 100 - GOOD - 12);
+  arc('zbg', zs - 1.5, GOOD + 3);
+  arc('good', zs, GOOD);
+  arc('great', zs, GREAT);
+  ang = 0; needle(0); show(true);
+  beep(880, .08);
+  st = 'run'; last = performance.now();
+  raf = requestAnimationFrame(tick);
+}
+
+function tick(now) {
+  ang += speed() * (now - last) / 1000; last = now;
+  needle(ang);
+  if (ang > zs + GOOD + 4) finish('miss');
+  else raf = requestAnimationFrame(tick);
+}
+
+function hit() {
+  if (st !== 'run') return;
+  const d = ang - zs;
+  finish(d >= 0 && d <= GREAT ? 'great' : d >= 0 && d <= GOOD ? 'good' : 'miss');
+}
+
+function finish(t) {
+  cancelAnimationFrame(raf);
+  S.tries++; S[t]++;
+  if (t === 'miss') S.streak = 0;
+  else {
+    S.streak++;
+    if (S.streak > S.best) {
+      S.best = S.streak;
+      try { localStorage.setItem('vd-sc-best', S.best); } catch (e) {}
+    }
+  }
+  if (t === 'great') { say('Great!', '#fff'); flash('#8dffb5'); beep(1320, .12); }
+  else if (t === 'good') { say('Good', '#e0959c'); flash('#e0959c'); beep(1000, .1); }
+  else { say('Miss', '#ff2a3c'); flash('#ff2a3c'); beep(180, .25); }
+  render();
+  next(550 + Math.random() * 700);   // langsung lanjut, tanpa berhenti
+}
+
+function stop() {
+  clearTimeout(tmr); cancelAnimationFrame(raf);
+  st = 'idle'; show(false); say('Tekan Mulai');
+  $('go').textContent = 'Mulai';
+}
+
+$('go').onclick = e => {
+  e.currentTarget.blur();
+  if (st === 'idle') { $('go').textContent = 'Berhenti'; say('Bersiap...'); next(700); } else stop();
+};
+$('reset').onclick = e => {
+  e.currentTarget.blur();
+  S = { tries: 0, great: 0, good: 0, miss: 0, streak: 0, best: S.best };
+  render();
+};
+$('spd').addEventListener('input', showSpeed);
+$('spd').addEventListener('change', e => e.target.blur());
+$('dial').addEventListener('pointerdown', e => { e.preventDefault(); hit(); });
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && st !== 'idle') { e.preventDefault(); if (!e.repeat) hit(); }
+});
+showSpeed(); render();
+</script>
+</body>
+</html>
