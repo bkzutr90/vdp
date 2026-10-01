@@ -58,6 +58,22 @@ self.addEventListener('fetch', (e) => {
   );
 });
 
+// Terima push dari server dan tampilkan notifikasi
+self.addEventListener('push', (event) => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch (_) { data = { body: event.data && event.data.text() }; }
+
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'VD Plenger', {
+      body: data.body || '',
+      icon: '/vd-plenger-logo.webp',
+      badge: '/favicon.png',
+      vibrate: [200, 100, 200],
+      data: { url: data.url || '/' }
+    })
+  );
+});
+
 // Klik notifikasi
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
