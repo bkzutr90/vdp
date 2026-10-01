@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Broadcast Notifikasi | VD Plenger</title>
+<link rel="icon" href="/favicon.png">
+<style>
+:root{--base:#1a0409;--surface:#250912;--red:#b0121f;--rose:#e0959c;--text:#f3e9e6;--muted:#c4aca9}
+*{box-sizing:border-box;margin:0}
+body{background:var(--base);color:var(--text);font:1rem/1.6 system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;padding:1.2rem}
+main{width:min(480px,100%);background:var(--surface);border-radius:20px;padding:1.8rem}
+h1{font-size:1.5rem;margin-bottom:.3rem}
+p.sub{color:var(--muted);font-size:.92rem;margin-bottom:1.2rem}
+label{display:block;font-size:.88rem;color:var(--muted);margin:.9rem 0 .3rem}
+input,textarea{width:100%;background:var(--base);color:var(--text);border:1px solid #4a1520;border-radius:12px;padding:.7rem .9rem;font:inherit}
+input:focus,textarea:focus{outline:2px solid var(--rose)}
+textarea{min-height:90px;resize:vertical}
+.row{display:flex;gap:.6rem;margin-top:1.2rem}
+button{flex:1;border:0;border-radius:999px;padding:.8rem 1rem;font:inherit;font-weight:600;cursor:pointer;color:#fff;background:var(--red)}
+button.alt{background:#3a1019}
+button:disabled{opacity:.5;cursor:wait}
+#out{margin-top:1rem;font-size:.92rem;color:var(--rose);min-height:1.4rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>Broadcast Notifikasi</h1>
+  <p class="sub">Kirim notifikasi ke semua pengguna yang sudah mengaktifkan notifikasi.</p>
+  <form id="f">
+    <label for="key">Admin key</label>
+    <input id="key" type="password" autocomplete="current-password" required>
+    <label for="title">Judul</label>
+    <input id="title" maxlength="60" value="VD Plenger" required>
+    <label for="body">Pesan</label>
+    <textarea id="body" maxlength="200" placeholder="Mabar malam ini jam 8, gas!" required></textarea>
+    <label for="url">Link saat diklik (opsional)</label>
+    <input id="url" type="url" placeholder="https://discord.gg/hmVrXHJpwp" value="https://discord.gg/hmVrXHJpwp">
+    <div class="row">
+      <button type="button" class="alt" id="cek">Cek subscriber</button>
+      <button type="submit" id="kirim">Kirim</button>
+    </div>
+  </form>
+  <p id="out" role="status"></p>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+async function api(method, body){
+  const r = await fetch('/api/send', {
+    method,
+    headers: { 'content-type': 'application/json', 'x-admin-key': $('key').value },
+    body: body && JSON.stringify(body)
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || 'HTTP ' + r.status);
+  return j;
+}
+$('cek').onclick = async () => {
+  try { $('out').textContent = 'Subscriber aktif: ' + (await api('GET')).count; }
+  catch (e) { $('out').textContent = 'Gagal: ' + e.message; }
+};
+$('f').onsubmit = async e => {
+  e.preventDefault();
+  if (!confirm('Kirim notifikasi ini ke semua subscriber?')) return;
+  $('kirim').disabled = true; $('out').textContent = 'Mengirim...';
+  try {
+    const j = await api('POST', { title: $('title').value, body: $('body').value, url: $('url').value });
+    $('out').textContent = 'Terkirim: ' + j.sent + ' | gagal: ' + j.failed + ' | dibersihkan: ' + j.removed;
+  } catch (err) { $('out').textContent = 'Gagal: ' + err.message; }
+  $('kirim').disabled = false;
+};
+</script>
+</body>
+</html>
