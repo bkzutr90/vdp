@@ -177,7 +177,8 @@ function finish(t) {
   else if (t === 'good') { say('Good', '#e0959c'); flash('#e0959c'); beep(1000, .1); }
   else { say('Miss', '#ff2a3c'); flash('#ff2a3c'); beep(180, .25); }
   render();
-  next(550 + Math.random() * 700);   // langsung lanjut, tanpa berhenti
+  //next(550 + Math.random() * 700);   // langsung lanjut, tanpa berhenti
+  begin();
 }
 
 function stop() {
