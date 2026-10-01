@@ -623,6 +623,15 @@ const toggleTop = () => totop.classList.toggle('show', window.scrollY > 600);
 window.addEventListener('scroll', toggleTop, { passive: true });
 totop.onclick = () => window.scrollTo({ top: 0 });
 toggleTop();
+
+// Registrasi Service Worker untuk PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((reg) => console.log('Service Worker registered:', reg.scope))
+      .catch((err) => console.error('Service Worker registration failed:', err));
+  });
+}
 </script>
 </body>
 </html>
