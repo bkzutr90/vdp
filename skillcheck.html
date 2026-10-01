@@ -34,6 +34,11 @@ input[type=range]{width:100%;accent-color:var(--red);cursor:pointer}
 .btn{border:0;background:var(--red);color:#fff;font:inherit;font-weight:600;padding:.8rem 2.2rem;border-radius:999px;cursor:pointer;transition:background .2s,transform .2s}
 .btn:hover{background:#c8172a;transform:translateY(-2px)}
 .btn.alt{background:var(--surface);color:var(--muted);font-weight:500;padding:.8rem 1.3rem}
+.tapbtn{display:none;width:min(150px,42vw);aspect-ratio:1;margin:.9rem auto 0;border:0;border-radius:50%;background:var(--surface);box-shadow:inset 0 0 0 3px rgba(255,255,255,.12);color:#fff;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;transition:background .1s,transform .1s,box-shadow .2s}
+.tapbtn svg{width:52%;height:52%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.85);transition:opacity .12s,transform .12s}
+.tapbtn.on{background:var(--red);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}
+.tapbtn.on svg{opacity:1;transform:scale(1)}
+.tapbtn:active{transform:scale(.94)}
 .snd{display:flex;align-items:center;gap:.4rem;color:var(--muted);font-size:.9rem;cursor:pointer}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1.4rem}
 .stats div{background:var(--surface);border-radius:var(--r);padding:.8rem .4rem}
@@ -43,6 +48,9 @@ input[type=range]{width:100%;accent-color:var(--red);cursor:pointer}
 .hint kbd{background:var(--surface);border-radius:6px;padding:.1rem .5rem;font:inherit;color:var(--text)}
 footer{margin-top:1.8rem;font-size:.82rem;color:var(--muted)}
 footer a{color:var(--rose)}
+@media (pointer:coarse){
+  .tapbtn{display:grid;place-items:center}
+}
 </style>
 </head>
 <body>
@@ -63,6 +71,19 @@ footer a{color:var(--rose)}
     <path d="M82 98v9h36v-9" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg></div>
   <p id="msg" role="status">Tekan Mulai</p>
+  <button class="tapbtn" id="tap" type="button" aria-label="Tap skill check">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/>
+      <path d="M14 13.12c0 2.38 0 6.38-1 8.88"/>
+      <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/>
+      <path d="M2 12a10 10 0 0 1 18-6"/>
+      <path d="M2 16h.01"/>
+      <path d="M21.8 16c.2-2 .131-5.354 0-6"/>
+      <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/>
+      <path d="M8.65 22c.21-.66.45-1.32.57-2"/>
+      <path d="M9 6.8a6 6 0 0 1 9 5.2v2"/>
+    </svg>
+  </button>
 
   <div class="speed">
     <label for="spd">Kecepatan <output id="spdv"></output></label>
@@ -83,7 +104,7 @@ footer a{color:var(--rose)}
     <div><b id="sGood">0</b><span>Good</span></div>
     <div><b id="sMiss">0</b><span>Miss</span></div>
   </div>
-  <p class="hint">Tekan <kbd>Spasi</kbd> atau ketuk lingkaran saat jarum merah masuk zona.</p>
+  <p class="hint">Tekan <kbd>Spasi</kbd> atau ketuk lingkaran (di HP: tombol <kbd>TAP</kbd>) saat jarum merah masuk zona.</p>
   <footer>Made with 💖 by <strong>Ferrsyz</strong></footer>
 </div>
 
@@ -104,7 +125,11 @@ const arc = (id, a, w) => {
   el.setAttribute('transform', 'rotate(' + (a - 90) + ' 100 100)');
 };
 const needle = a => $('needle').setAttribute('transform', 'rotate(' + a + ' 100 100)');
-const show = on => { $('zone').setAttribute('opacity', on ? 1 : 0); $('needle').setAttribute('opacity', on ? 1 : 0); };
+const show = on => {
+  $('zone').setAttribute('opacity', on ? 1 : 0);
+  $('needle').setAttribute('opacity', on ? 1 : 0);
+  $('tap').classList.toggle('on', on);
+};
 const flash = c => {
   $('ring').setAttribute('stroke', c);
   clearTimeout(flashT);
