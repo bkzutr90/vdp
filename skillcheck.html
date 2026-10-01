@@ -139,12 +139,13 @@ function next(delay) {
 }
 
 function begin() {
-  zs = 100 + Math.random() * (360 - 100 - GOOD - 12);
+  ang %= 360;                                   // jaga angka tetap kecil, jarum tidak direset
+  zs = ang + 90 + Math.random() * 200;          // zona selalu di depan jarum (min. 90°)
   arc('zbg', zs - 1.5, GOOD + 3);
   arc('good', zs, GOOD);
   arc('great', zs, GREAT);
-  ang = 0; needle(0); show(true);
-  beep(880, .08);
+  needle(ang); show(true);
+  //beep(880, .08);
   st = 'run'; last = performance.now();
   raf = requestAnimationFrame(tick);
 }
@@ -189,7 +190,7 @@ function stop() {
 
 $('go').onclick = e => {
   e.currentTarget.blur();
-  if (st === 'idle') { $('go').textContent = 'Berhenti'; say('Bersiap...'); next(700); } else stop();
+  if (st === 'idle') { ang = 0; $('go').textContent = 'Berhenti'; say('Bersiap...'); next(700); } else stop();
 };
 $('reset').onclick = e => {
   e.currentTarget.blur();
