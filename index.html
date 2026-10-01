@@ -671,20 +671,66 @@ const urlB64ToUint8Array = (b64) => {
 
 async function subscribePush() {
   try {
-    if (!('PushManager' in window) || Notification.permission !== 'granted') return;
+    if (!('PushManager' in window)) {
+      console.error('Push API tidak tersedia');
+      return;
+    }
+
+    if (!('Notification' in window)) {
+      console.error('Notification API tidak tersedia');
+      return;
+    }
+
+    if (Notification.permission !== 'granted') {
+      console.warn('Izin notifikasi belum diberikan');
+      return;
+    }
+
     const reg = await navigator.serviceWorker.ready;
-    const sub = (await reg.pushManager.getSubscription()) ||
-      (await reg.pushManager.subscribe({
+
+    console.log('Service Worker ready:', reg.scope);
+
+    let sub = await reg.pushManager.getSubscription();
+
+    if (!sub) {
+      console.log('Membuat push subscription baru...');
+
+      sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY)
-      }));
-    await fetch('/api/subscribe', {
+      });
+
+      console.log('Subscription berhasil dibuat');
+    } else {
+      console.log('Menggunakan subscription yang sudah ada');
+    }
+
+    console.log('Push endpoint:', sub.endpoint);
+
+    const response = await fetch('/api/subscribe', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(sub)
     });
+
+    let result = {};
+
+    try {
+      result = await response.json();
+    } catch (_) {}
+
+    if (!response.ok) {
+      throw new Error(
+        result.error || `Subscribe gagal (${response.status})`
+      );
+    }
+
+    console.log('✅ Subscription berhasil disimpan:', result);
+
   } catch (err) {
-    console.error('Gagal subscribe push:', err);
+    console.error('❌ Gagal subscribe push:', err);
   }
 }
 
