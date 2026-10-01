@@ -29,7 +29,7 @@ if (isIOS && !isStandalone && installBtn) {
 }
 
 // 4a. Web Push: daftarkan perangkat ke server agar bisa menerima broadcast
-const VAPID_PUBLIC_KEY = 'ISI_DENGAN_VAPID_PUBLIC_KEY_KAMU';
+const VAPID_PUBLIC_KEY = 'OGU9F7RPP4R9HBPX';
 
 const urlB64ToUint8Array = (b64) => {
   const pad = '='.repeat((4 - (b64.length % 4)) % 4);
