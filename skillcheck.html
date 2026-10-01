@@ -225,6 +225,7 @@ $('reset').onclick = e => {
 $('spd').addEventListener('input', showSpeed);
 $('spd').addEventListener('change', e => e.target.blur());
 $('dial').addEventListener('pointerdown', e => { e.preventDefault(); hit(); });
+$('tap').addEventListener('pointerdown', e => { e.preventDefault(); hit(); });
 document.addEventListener('keydown', e => {
   if (e.code === 'Space' && st !== 'idle') { e.preventDefault(); if (!e.repeat) hit(); }
 });
