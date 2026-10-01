@@ -166,8 +166,7 @@ dialog p{margin-top:.8rem;color:var(--muted);text-align:center}
 dialog button{position:absolute;top:.8rem;right:1rem;background:rgba(255,255,255,.08);border:0;border-radius:50%;color:var(--text);width:42px;height:42px;font-size:1.3rem;cursor:pointer}
 
 /* maps guide */
-.maps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin-top:2rem}
-.map{background:var(--surface);border-radius:var(--r);overflow:hidden;transition:transform .3s}
+.map{flex:0 0 260px;scroll-snap-align:start;background:var(--surface);border-radius:var(--r);overflow:hidden;transition:transform .3s}
 .map:hover{transform:translateY(-4px)}
 .map button{all:unset;display:block;width:100%;overflow:hidden;cursor:zoom-in}
 .map img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--deep);transition:transform .6s ease}
@@ -262,7 +261,7 @@ footer strong{color:var(--text);font-weight:600}
   .clips::-webkit-scrollbar{display:none}
   .clip{flex:0 0 82%;scroll-snap-align:start}
   .clip .meta{padding:.7rem 1rem .9rem}
-  .maps{grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:1.5rem}
+  .map{flex-basis:72%}
   .map h3{font-size:.95rem;padding:.6rem .8rem .8rem}
 }
 @media (prefers-reduced-motion:reduce){
@@ -327,9 +326,17 @@ footer strong{color:var(--text);font-weight:600}
     
   <section id="maps">
     <div class="wrap">
-      <h2>Maps Guide</h2>
-      <p class="lead" style="margin-top:.5rem">Kenali setiap map supaya lebih paham jalur, spot penting, dan rotasi.</p>
-      <div class="maps" id="maps-grid"></div>
+      <div class="top">
+        <div>
+          <h2>Maps Guide</h2>
+          <p class="lead">Kenali setiap map supaya lebih paham jalur, spot penting, dan rotasi.</p>
+        </div>
+        <div class="ctrl">
+          <button id="mprev" aria-label="Map sebelumnya">&#8592;</button>
+          <button id="mnext" aria-label="Map berikutnya">&#8594;</button>
+        </div>
+      </div>
+      <div class="track" id="maps-grid" tabindex="0" aria-label="Maps guide"></div>
     </div>
   </section>
 
