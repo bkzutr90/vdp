@@ -165,6 +165,15 @@ dialog img{max-width:min(1100px,100%);max-height:80vh;display:block;border-radiu
 dialog p{margin-top:.8rem;color:var(--muted);text-align:center}
 dialog button{position:absolute;top:.8rem;right:1rem;background:rgba(255,255,255,.08);border:0;border-radius:50%;color:var(--text);width:42px;height:42px;font-size:1.3rem;cursor:pointer}
 
+/* maps guide */
+.maps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin-top:2rem}
+.map{background:var(--surface);border-radius:var(--r);overflow:hidden;transition:transform .3s}
+.map:hover{transform:translateY(-4px)}
+.map button{all:unset;display:block;width:100%;overflow:hidden;cursor:zoom-in}
+.map img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--deep);transition:transform .6s ease}
+.map:hover img{transform:scale(1.04)}
+.map h3{font-size:1.05rem;padding:.8rem 1.1rem 1rem}
+    
 /* sorrow */
 .sorrow{background:var(--deep)}
 .top{display:flex;justify-content:space-between;align-items:end;gap:1.2rem;margin-bottom:2rem}
@@ -253,6 +262,8 @@ footer strong{color:var(--text);font-weight:600}
   .clips::-webkit-scrollbar{display:none}
   .clip{flex:0 0 82%;scroll-snap-align:start}
   .clip .meta{padding:.7rem 1rem .9rem}
+  .maps{grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:1.5rem}
+  .map h3{font-size:.95rem;padding:.6rem .8rem .8rem}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -311,6 +322,14 @@ footer strong{color:var(--text);font-weight:600}
         <button role="tab" data-f="sorrow" aria-selected="false">Sorrow Kompe</button>
       </div>
       <div class="clips" id="clips"></div>
+    </div>
+  </section>
+    
+  <section id="maps">
+    <div class="wrap">
+      <h2>Maps Guide</h2>
+      <p class="lead" style="margin-top:.5rem">Kenali setiap map supaya lebih paham jalur, spot penting, dan rotasi.</p>
+      <div class="maps" id="maps-grid"></div>
     </div>
   </section>
 
@@ -499,6 +518,29 @@ clipsEl.addEventListener('play', e => {
   clipsEl.querySelectorAll('video').forEach(v => { if (v !== e.target) v.pause(); });
 }, true);
 
+/* ============ MAPS GUIDE ============
+   Ganti name sesuai nama map masing-masing (urutan = maps/1.png ... maps/12.png)
+======================================== */
+const MAPS = [
+  { name: "Bloodbath Club 1" },  { name: "Bloodbath Club 2" },  { name: "Valdelobos Village 1" },  { name: "Valdelobos Village 2" }, { name: "Valdelobos Village 3" },
+  { name: "Woodview Cabin 1" },  { name: "Woodview Cabin 2" },  { name: "Mount Massive Assylum" },  { name: "Firelink Shrine" },
+  { name: "The Bay Harbor" },  { name: "Mercy Hospital Rooftop" }, { name: "Site 68" }
+].map((m, i) => ({ ...m, src: 'maps/' + (i + 1) + '.png' }));
+
+const mapsGrid = document.getElementById('maps-grid');
+mapsGrid.innerHTML = MAPS.map((m, i) =>
+  '<article class="map"><button data-i="' + i + '" aria-label="Perbesar ' + esc(m.name) + '">' +
+  '<img src="' + esc(m.src) + '" alt="Guide ' + esc(m.name) + '" loading="lazy"></button>' +
+  '<h3>' + esc(m.name) + '</h3></article>'
+).join('');
+
+mapsGrid.addEventListener('click', e => {
+  const b = e.target.closest('button[data-i]'); if (!b) return;
+  const m = MAPS[b.dataset.i];
+  lbi.src = m.src; lbi.alt = 'Guide ' + m.name; lbc.textContent = m.name;
+  lb.showModal();
+});
+  
 /* filter tab */
 document.getElementById('tabs').addEventListener('click', e => {
   const b = e.target.closest('button[data-f]'); if (!b) return;
