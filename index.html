@@ -593,14 +593,23 @@ grid.addEventListener('error', e => {
   if (e.target.tagName === 'IMG' && e.target.classList.contains('ph')) e.target.closest('figure').innerHTML = emptyTile;
 }, true);
 
-const lb = document.getElementById('lb'), lbi = document.getElementById('lbi'), lbc = document.getElementById('lbc');
+const lb = document.getElementById('lb');
+const lbi = document.getElementById('lbi');
+const lbc = document.getElementById('lbc');
+const lbx = document.getElementById('lbx');
+
 grid.addEventListener('click', e => {
-  const b = e.target.closest('button[data-i]'); if (!b) return;
-  const g = GALLERY[b.dataset.i]; lbi.src = g.src; lbi.alt = g.caption || ''; lbc.textContent = g.caption || '';
+  const btn = e.target.closest('button[data-i]');
+  if (!btn) return;
+  const item = GALLERY[btn.dataset.i];
+  lbi.src = item.src;
+  lbi.alt = item.caption || 'Foto galeri';
+  lbc.textContent = item.caption || '';
   lb.showModal();
 });
-document.getElementById('lbx').onclick = () => lb.close();
-lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('box')) lb.close(); });
+
+lbx.onclick = () => lb.close();
+lb.onclick = e => { if (e.target === lb) lb.close(); };
 
 /* tombol kembali ke atas */
 const totop = document.getElementById('totop');
