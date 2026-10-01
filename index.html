@@ -637,43 +637,61 @@ const installBtn = document.getElementById('pwa-install-btn');
 // 1. Registrasi Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(err => console.error('SW Error:', err));
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('SW Registered:', reg.scope))
+      .catch(err => console.error('SW Registration Failed:', err));
   });
 }
 
-// 2. Tangkap event 'beforeinstallprompt' dari browser (Android/Desktop)
+// 2. Tangkap Event PWA Install dari Browser
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Cegah browser menampilkan banner bawaan yang tiba-tiba
   e.preventDefault();
   deferredPrompt = e;
 
-  // Tampilkan tombol khusus kita
+  // Tampilkan tombol jika browser mendukung PWA Install
   if (installBtn) {
     installBtn.style.display = 'inline-block';
   }
 });
 
-// 3. Eksekusi saat tombol diklik
+// 3. Logika Gabungan: Izin Notifikasi + Prompt Install PWA
 if (installBtn) {
   installBtn.addEventListener('click', async () => {
-    if (!deferredPrompt) return;
+    // --- LANGKAH A: MINTA IZIN NOTIFIKASI ---
+    if ('Notification' in window && Notification.permission !== 'granted') {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted' && 'serviceWorker' in navigator) {
+          const reg = await navigator.serviceWorker.ready;
+          // Kirim notifikasi sambutan pertama ke HP
+          reg.showNotification('VD Plenger Indonesia 🩸', {
+            body: 'Notifikasi aktif! Kamu akan mendapatkan informasi mabar & event terbaru.',
+            icon: '/vd-plenger-logo.webp',
+            badge: '/favicon.png',
+            vibrate: [200, 100, 200],
+            tag: 'welcome-pwa',
+            data: { url: 'https://discord.gg/hmVrXHJpwp' }
+          });
+        }
+      } catch (err) {
+        console.error('Gagal meminta izin notifikasi:', err);
+      }
+    }
 
-    // Tampilkan prompt install bawaan browser
-    deferredPrompt.prompt();
-
-    // Tunggu respon pengguna
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`PWA Install outcome: ${outcome}`);
-
-    // Sembunyikan tombol kembali
-    deferredPrompt = null;
-    installBtn.style.display = 'none';
+    // --- LANGKAH B: EKSEKUSI INSTALL PWA ---
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`PWA Install Choice: ${outcome}`);
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    }
   });
 }
 
-// 4. Deteksi jika aplikasi sudah berhasil diinstall
+// 4. Sembunyikan Tombol Jika Aplikasi Sudah Berhasil Di-install
 window.addEventListener('appinstalled', () => {
-  console.log('PWA berhasil diinstall');
+  console.log('PWA berhasil di-install');
   if (installBtn) installBtn.style.display = 'none';
 });
 </script>
