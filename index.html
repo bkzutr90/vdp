@@ -420,7 +420,9 @@ footer strong{color:var(--text);font-weight:600}
 </footer>
 
 <button class="totop" id="totop" type="button" aria-label="Kembali ke atas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-
+<button id="pwa-install-btn" style="display: none;" class="btn">
+  📲 Install Aplikasi
+</button>
 <dialog id="lb" aria-label="Pratinjau foto">
   <div class="box"><button id="lbx" aria-label="Tutup">&times;</button><div><img id="lbi" alt=""><p id="lbc"></p></div></div>
 </dialog>
@@ -625,13 +627,51 @@ totop.onclick = () => window.scrollTo({ top: 0 });
 toggleTop();
 
 // Registrasi Service Worker untuk PWA
+let deferredPrompt;
+const installBtn = document.getElementById('pwa-install-btn');
+
+// 1. Registrasi Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((reg) => console.log('Service Worker registered:', reg.scope))
-      .catch((err) => console.error('Service Worker registration failed:', err));
+    navigator.serviceWorker.register('/sw.js').catch(err => console.error('SW Error:', err));
   });
 }
+
+// 2. Tangkap event 'beforeinstallprompt' dari browser (Android/Desktop)
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Cegah browser menampilkan banner bawaan yang tiba-tiba
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Tampilkan tombol khusus kita
+  if (installBtn) {
+    installBtn.style.display = 'inline-block';
+  }
+});
+
+// 3. Eksekusi saat tombol diklik
+if (installBtn) {
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+
+    // Tampilkan prompt install bawaan browser
+    deferredPrompt.prompt();
+
+    // Tunggu respon pengguna
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`PWA Install outcome: ${outcome}`);
+
+    // Sembunyikan tombol kembali
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  });
+}
+
+// 4. Deteksi jika aplikasi sudah berhasil diinstall
+window.addEventListener('appinstalled', () => {
+  console.log('PWA berhasil diinstall');
+  if (installBtn) installBtn.style.display = 'none';
+});
 </script>
 </body>
 </html>
