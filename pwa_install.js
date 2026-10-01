@@ -28,21 +28,46 @@ if (isIOS && !isStandalone && installBtn) {
   installBtn.style.display = 'inline-block';
 }
 
-// 4. Notifikasi sambutan (opsional, dijalankan SETELAH install diterima)
+// 4a. Web Push: daftarkan perangkat ke server agar bisa menerima broadcast
+const VAPID_PUBLIC_KEY = 'ISI_DENGAN_VAPID_PUBLIC_KEY_KAMU';
+
+const urlB64ToUint8Array = (b64) => {
+  const pad = '='.repeat((4 - (b64.length % 4)) % 4);
+  const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
+  return Uint8Array.from(raw, (c) => c.charCodeAt(0));
+};
+
+async function subscribePush() {
+  try {
+    if (!('PushManager' in window) || Notification.permission !== 'granted') return;
+    const reg = await navigator.serviceWorker.ready;
+    const sub = (await reg.pushManager.getSubscription()) ||
+      (await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY)
+      }));
+    await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(sub)
+    });
+  } catch (err) {
+    console.error('Gagal subscribe push:', err);
+  }
+}
+
+// Pengguna yang sudah mengizinkan notifikasi sebelumnya ikut didaftarkan otomatis
+if ('serviceWorker' in navigator && 'Notification' in window && Notification.permission === 'granted') {
+  window.addEventListener('load', subscribePush);
+}
+
+// 4. Izin notifikasi (dijalankan SETELAH install diterima)
 async function askNotification() {
   if (!('Notification' in window) || Notification.permission !== 'default') return;
   try {
     const permission = await Notification.requestPermission();
     if (permission !== 'granted' || !('serviceWorker' in navigator)) return;
-    const reg = await navigator.serviceWorker.ready;
-    reg.showNotification('VD Plenger Indonesia 🩸', {
-      body: 'Aplikasi VD Plenger berhasil dipasang. Ketuk untuk buka Discord.',
-      icon: '/vd-plenger-logo.webp',
-      badge: '/favicon.png',
-      vibrate: [200, 100, 200],
-      tag: 'welcome-pwa',
-      data: { url: 'https://discord.gg/hmVrXHJpwp' }
-    });
+    await subscribePush();
   } catch (err) {
     console.error('Gagal meminta izin notifikasi:', err);
   }
