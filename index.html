@@ -534,19 +534,32 @@ const MAPS = [
   { name: "Valdelobos Village 3" },  { name: "Woodview Cabin 1" }, { name: "Woodview Cabin 2" }
 ].map((m, i) => ({ ...m, src: 'maps/' + (i + 1) + '.png' }));
 
-const mapsGrid = document.getElementById('maps-grid');
-mapsGrid.innerHTML = MAPS.map((m, i) =>
+const mTrack = document.getElementById('maps-grid');
+mTrack.innerHTML = MAPS.map((m, i) =>
   '<article class="map"><button data-i="' + i + '" aria-label="Perbesar ' + esc(m.name) + '">' +
   '<img src="' + esc(m.src) + '" alt="Guide ' + esc(m.name) + '" loading="lazy"></button>' +
   '<h3>' + esc(m.name) + '</h3></article>'
 ).join('');
 
-mapsGrid.addEventListener('click', e => {
+mTrack.addEventListener('click', e => {
   const b = e.target.closest('button[data-i]'); if (!b) return;
   const m = MAPS[b.dataset.i];
   lbi.src = m.src; lbi.alt = 'Guide ' + m.name; lbc.textContent = m.name;
   lb.showModal();
 });
+
+const mPrev = document.getElementById('mprev'), mNext = document.getElementById('mnext');
+const mStep = () => (mTrack.querySelector('.map')?.offsetWidth || 260) + 16;
+const mSync = () => {
+  mPrev.disabled = mTrack.scrollLeft <= 4;
+  mNext.disabled = mTrack.scrollLeft + mTrack.clientWidth >= mTrack.scrollWidth - 4;
+};
+mPrev.onclick = () => mTrack.scrollBy({ left: -mStep(), behavior: 'smooth' });
+mNext.onclick = () => mTrack.scrollBy({ left:  mStep(), behavior: 'smooth' });
+mTrack.addEventListener('scroll', mSync, { passive: true });
+window.addEventListener('resize', mSync);
+mTrack.addEventListener('keydown', e => { if (e.key === 'ArrowRight') mNext.click(); if (e.key === 'ArrowLeft') mPrev.click(); });
+mSync();
   
 /* filter tab */
 document.getElementById('tabs').addEventListener('click', e => {
