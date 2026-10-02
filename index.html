@@ -180,7 +180,13 @@ dialog button{position:absolute;top:.8rem;right:1rem;background:rgba(255,255,255
 .map img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--deep);transition:transform .6s ease}
 .map:hover img{transform:scale(1.04)}
 .map h3{font-size:1.05rem;padding:.8rem 1.1rem 1rem}
-    
+/* guidebook */
+.gb{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
+.gb-card{background:var(--surface);border-radius:var(--r);padding:1.8rem;display:flex;flex-direction:column;gap:.6rem}
+.gb-card h3{font-size:1.6rem;color:var(--rose)}
+.gb-card p{color:var(--muted)}
+.gb-act{display:flex;align-items:center;gap:1.2rem;margin-top:auto;padding-top:1rem;flex-wrap:wrap}
+.gb-pdf{color:var(--rose);font-size:.92rem}
 /* sorrow */
 .sorrow{background:var(--deep)}
 .top{display:flex;justify-content:space-between;align-items:end;gap:1.2rem;margin-bottom:2rem}
@@ -266,6 +272,7 @@ footer strong{color:var(--text);font-weight:600}
   .hero .lead{margin-inline:auto;margin-bottom:1.4rem}
   .stats{justify-content:center}
   .perks{grid-template-columns:1fr;gap:1.6rem;margin-top:2.5rem;text-align:center}
+  .gb{grid-template-columns:1fr}
   .grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px;gap:.55rem;margin-top:1.5rem}
   .grid figure:nth-child(4){grid-column:span 2}
   .pc{flex-basis:165px}
@@ -354,6 +361,29 @@ footer strong{color:var(--text);font-weight:600}
         </div>
       </div>
       <div class="track" id="maps-grid" tabindex="0" aria-label="Maps guide"></div>
+    </div>
+  </section>
+
+  <section id="guidebook">
+    <div class="wrap">
+      <h2>Guidebook</h2>
+      <p class="lead" style="margin-top:.5rem">Perk, item, dan build lengkap dengan efek serta cooldown.</p>
+      <div class="gb">
+        <article class="gb-card">
+          <h3>Survivor</h3>
+          <p>37 perk (Speed, Healing, Aura Revealing, Other) dan 11 item beserta efek dan cooldown.</p>
+          <div class="gb-act">
+            <a class="btn" href="guidebook.html">Buka guidebook</a>
+          </div>
+        </article>
+        <article class="gb-card">
+          <h3>Killer</h3>
+          <p>24 perk unik dari 8 Killer, 10 perk Emblem/Shop, dan 4 build meta.</p>
+          <div class="gb-act">
+            <a class="btn" href="guidebook.html?side=killer">Buka guidebook</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
