@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Galeri | VD Plenger</title>
+    <meta name="description" content="Galeri lengkap VD Plenger: foto dan video dari sesi main bareng, momen kompetitif Sorrow, dan keseruan komunitas Roblox Violence District Indonesia.">
+    <link rel="canonical" href="https://vd-plenger.vercel.app/gallery.html">
+    <meta name="robots" content="index, follow">
+    <meta name="google" content="notranslate">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vd-plenger.vercel.app/gallery.html">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="VD Plenger">
+    <meta property="og:title" content="Galeri | VD Plenger">
+    <meta property="og:description" content="Foto dan video dari komunitas VD Plenger.">
+    <meta property="og:image" content="https://vd-plenger.vercel.app/vd-plenger-logo.webp">
+    <meta name="twitter:card" content="summary">
+    <meta name="theme-color" content="#1a0409">
+    <meta name="color-scheme" content="dark">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --base:#1a0409;
+  --deep:#12030a;
+  --surface:#250912;
+  --wine:#5c0f1b;
+  --red:#b0121f;
+  --rose:#e0959c;
+  --text:#f3e9e6;
+  --muted:#c4aca9;
+  --r:16px;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Figtree',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--base);color:var(--text);font-family:var(--sans);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.12;letter-spacing:-.01em}
+.lead{color:var(--muted);max-width:34rem}
+.btn{display:inline-block;text-decoration:none;background:var(--red);color:#fff;font-weight:600;padding:.85rem 2.1rem;border-radius:999px;transition:background .2s,transform .2s}
+.btn:hover{background:#c8172a;transform:translateY(-2px)}
+
+/* navbar */
+.nav{position:sticky;top:0;z-index:30;background:rgba(26,4,9,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:env(safe-area-inset-top)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-family:var(--serif);font-size:1.2rem}
+.brand img{width:66px;height:40px}
+.nav-links{display:flex;align-items:center;gap:.4rem}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.95rem;padding:.45rem .95rem;border-radius:999px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.cta{background:var(--red);color:#fff}
+.nav-links a.cta:hover{background:#c8172a}
+
+/* header */
+.head{padding:3.2rem 0 1.2rem;background:radial-gradient(ellipse 45% 90% at 85% 0%,rgba(150,18,32,.45),transparent 72%),linear-gradient(180deg,#2a0a11,var(--base))}
+.head h1{font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:.6rem}
+.back{display:inline-block;color:var(--rose);text-decoration:none;font-size:.95rem;margin-bottom:1rem}
+.back:hover{text-decoration:underline}
+
+/* tabs */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.6rem 0 0}
+.tabs button{background:var(--surface);border:0;color:var(--muted);font:inherit;font-size:.92rem;padding:.55rem 1.2rem;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-selected="true"]{background:var(--red);color:#fff}
+.tabs small{opacity:.7;margin-left:.3rem}
+
+/* konten */
+.block{padding:2.4rem 0 1rem}
+.block[hidden]{display:none}
+.block h2{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:1.2rem;display:flex;align-items:baseline;gap:.7rem}
+.block h2 span{font-family:var(--sans);font-size:.9rem;color:var(--muted);font-weight:400}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.8rem}
+.photos figure{position:relative;overflow:hidden;background:var(--surface);border-radius:var(--r);aspect-ratio:16/10}
+.photos button{all:unset;display:block;width:100%;height:100%;cursor:zoom-in}
+.photos img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.photos figure:hover img{transform:scale(1.04)}
+.photos figcaption{position:absolute;inset:auto 0 0 0;padding:1.2rem .9rem .6rem;font-size:.88rem;background:linear-gradient(transparent,rgba(18,3,10,.9));opacity:0;transition:opacity .3s;pointer-events:none}
+.photos figure:hover figcaption{opacity:1}
+.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.clip{background:var(--surface);border-radius:var(--r);overflow:hidden}
+.clip video{width:100%;aspect-ratio:16/9;display:block;background:#000;object-fit:contain}
+.meta{padding:.9rem 1.1rem 1.1rem;display:flex;justify-content:space-between;align-items:center;gap:.8rem}
+.meta h3{font-size:1.05rem}
+.tag{flex-shrink:0;font-size:.75rem;color:var(--rose);background:rgba(224,149,156,.12);padding:.2rem .65rem;border-radius:999px}
+.empty-note{color:var(--muted);padding:1rem 0}
+
+/* lightbox */
+dialog{background:transparent;border:0;max-width:none;max-height:none;width:100%;height:100%;color:var(--text)}
+dialog::backdrop{background:rgba(12,2,6,.95)}
+dialog .box{height:100%;display:grid;place-items:center;padding:3.5rem 1rem 1rem;position:relative}
+dialog img{max-width:min(1200px,100%);max-height:80vh;display:block;border-radius:var(--r)}
+dialog p{margin-top:.8rem;color:var(--muted);text-align:center;min-height:1.6em}
+dialog .lb-btn{position:absolute;background:rgba(255,255,255,.08);border:0;border-radius:50%;color:var(--text);width:44px;height:44px;font-size:1.3rem;cursor:pointer;transition:background .2s}
+dialog .lb-btn:hover{background:var(--red)}
+#lbx{top:.8rem;right:1rem}
+#lbp{left:1rem;top:50%;translate:0 -50%}
+#lbn{right:1rem;top:50%;translate:0 -50%}
+
+footer{padding:3rem 0 2.5rem;color:var(--muted);font-size:.92rem;text-align:center}
+footer strong{color:var(--text);font-weight:600}
+.cta-end{text-align:center;padding:3rem 0 0}
+
+@media (max-width:820px){
+  .brand span{display:none}
+  .nav-links a{padding:.45rem .7rem;font-size:.9rem}
+  .head{padding:2rem 0 .8rem}
+  .photos{grid-template-columns:repeat(2,1fr);gap:.55rem}
+  .clips{grid-template-columns:1fr}
+  #lbp{left:.4rem}#lbn{right:.4rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="vdp-gif.webp" alt=""><span>VD Plenger</span></a>
+    <nav class="nav-links" aria-label="Navigasi">
+      <a href="/">Beranda</a>
+      <a class="cta" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Discord</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="head">
+    <div class="wrap">
+      <a class="back" href="/#galeri">&larr; Kembali ke beranda</a>
+      <h1>Galeri</h1>
+      <p class="lead">Semua foto dan video dari sesi main bareng, momen kompetitif Sorrow, dan keseruan komunitas.</p>
+      <div class="tabs" id="tabs" role="tablist" aria-label="Filter galeri">
+        <button role="tab" data-f="all" aria-selected="true">Semua</button>
+        <button role="tab" data-f="foto" aria-selected="false">Foto<small id="cf"></small></button>
+        <button role="tab" data-f="video" aria-selected="false">Video<small id="cv"></small></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="block" id="foto">
+      <h2>Foto <span id="nf"></span></h2>
+      <div class="photos" id="photos"></div>
+    </section>
+
+    <section class="block" id="video">
+      <h2>Video <span id="nv"></span></h2>
+      <div class="clips" id="clips"></div>
+    </section>
+
+    <div class="cta-end">
+      <a class="btn" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Gabung Discord</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>Made with 💖 by <strong>Ferrsyz</strong></span>
+</footer>
+
+<dialog id="lb" aria-label="Pratinjau foto">
+  <div class="box">
+    <button class="lb-btn" id="lbx" aria-label="Tutup">&times;</button>
+    <button class="lb-btn" id="lbp" aria-label="Foto sebelumnya">&#8592;</button>
+    <button class="lb-btn" id="lbn" aria-label="Foto berikutnya">&#8594;</button>
+    <div><img id="lbi" alt=""><p id="lbc"></p></div>
+  </div>
+</dialog>
+
+<script src="media.js"></script>
+<script>
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- foto ---------- */
+const photosEl = document.getElementById('photos');
+photosEl.innerHTML = GALLERY.map((g, i) =>
+  '<figure><button data-i="' + i + '" aria-label="Perbesar foto ' + (i + 1) + '">' +
+  '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || 'Foto galeri VD Plenger') + '" loading="lazy"></button>' +
+  (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '') + '</figure>'
+).join('');
+
+/* foto yang gagal dimuat disembunyikan, lightbox hanya melewati yang valid */
+photosEl.addEventListener('error', e => {
+  if (e.target.tagName === 'IMG') e.target.closest('figure').remove();
+}, true);
+
+/* ---------- video ---------- */
+const clipsEl = document.getElementById('clips');
+clipsEl.innerHTML = CLIPS.map(c =>
+  '<article class="clip">' +
+  '<video controls playsinline preload="metadata" src="' + esc(c.src) + '#t=0.1" aria-label="' + esc(c.title) + '"></video>' +
+  '<div class="meta"><h3>' + esc(c.title) + '</h3>' +
+  (TYPE_LABEL[c.type] ? '<span class="tag">' + esc(TYPE_LABEL[c.type]) + '</span>' : '') +
+  '</div></article>'
+).join('');
+
+/* hanya satu video yang diputar */
+clipsEl.addEventListener('play', e => {
+  clipsEl.querySelectorAll('video').forEach(v => { if (v !== e.target) v.pause(); });
+}, true);
+
+/* ---------- jumlah ---------- */
+const sFoto = document.getElementById('foto'), sVideo = document.getElementById('video');
+document.getElementById('cf').textContent = GALLERY.length;
+document.getElementById('cv').textContent = CLIPS.length;
+document.getElementById('nf').textContent = GALLERY.length + ' foto';
+document.getElementById('nv').textContent = CLIPS.length + ' video';
+if (!GALLERY.length) photosEl.innerHTML = '<p class="empty-note">Belum ada foto.</p>';
+if (!CLIPS.length) clipsEl.innerHTML = '<p class="empty-note">Belum ada video.</p>';
+
+/* ---------- filter ---------- */
+function setFilter(f, updateHash){
+  if (!['all', 'foto', 'video'].includes(f)) f = 'all';
+  document.querySelectorAll('#tabs button').forEach(x => x.setAttribute('aria-selected', x.dataset.f === f));
+  sFoto.hidden = f === 'video';
+  sVideo.hidden = f === 'foto';
+  if (f === 'foto') clipsEl.querySelectorAll('video').forEach(v => v.pause());
+  if (updateHash) history.replaceState(null, '', f === 'all' ? location.pathname : '#' + f);
+}
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button[data-f]');
+  if (b) setFilter(b.dataset.f, true);
+});
+setFilter(location.hash.slice(1), false);
+
+/* ---------- lightbox foto ---------- */
+const lb = document.getElementById('lb'), lbi = document.getElementById('lbi'), lbc = document.getElementById('lbc');
+let cur = 0;
+
+function show(i){
+  const items = [...photosEl.querySelectorAll('button[data-i]')].map(b => +b.dataset.i);
+  if (!items.length) return;
+  const pos = items.indexOf(i);
+  const idx = items[(pos + items.length) % items.length];
+  const g = GALLERY[idx];
+  cur = idx;
+  lbi.src = g.src;
+  lbi.alt = g.caption || 'Foto galeri';
+  lbc.textContent = g.caption || '';
+}
+function move(d){
+  const items = [...photosEl.querySelectorAll('button[data-i]')].map(b => +b.dataset.i);
+  const pos = items.indexOf(cur);
+  show(items[(pos + d + items.length) % items.length]);
+}
+
+photosEl.addEventListener('click', e => {
+  const b = e.target.closest('button[data-i]');
+  if (!b) return;
+  show(+b.dataset.i);
+  lb.showModal();
+});
+document.getElementById('lbx').onclick = () => lb.close();
+document.getElementById('lbp').onclick = () => move(-1);
+document.getElementById('lbn').onclick = () => move(1);
+lb.onclick = e => { if (e.target === lb) lb.close(); };
+lb.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') move(1);
+  if (e.key === 'ArrowLeft') move(-1);
+});
+</script>
+</body>
+</html>
