@@ -154,18 +154,15 @@ section{padding:5rem 0;scroll-margin-top:64px}
 .perks h3{font-size:1.25rem;color:var(--rose);margin-bottom:.3rem}
 .perks p{color:var(--muted);font-size:.97rem}
 
-/* galeri */
-.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;grid-auto-flow:dense;gap:.8rem;margin-top:2rem}
-.grid figure{position:relative;overflow:hidden;background:var(--surface);border-radius:var(--r)}
-.grid figure:nth-child(1){grid-column:span 2;grid-row:span 2}
-.grid figure:nth-child(4){grid-column:span 2}
-.grid button{all:unset;display:block;width:100%;height:100%;cursor:zoom-in}
-.grid img.ph{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
-.grid figure:hover img.ph{transform:scale(1.04)}
-.grid .empty{display:grid;place-items:center;height:100%}
-.grid .empty img{width:36%;max-width:110px;opacity:.16;mix-blend-mode:screen}
-.grid figcaption{position:absolute;inset:auto 0 0 0;padding:1.2rem .9rem .6rem;font-size:.88rem;background:linear-gradient(transparent,rgba(18,3,10,.9));opacity:0;transition:opacity .3s}
-.grid figure:hover figcaption{opacity:1}
+/* galeri highlight (foto + video) */
+.hl{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;grid-auto-flow:dense;gap:.8rem;margin-top:2rem}
+.hl .clip{grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column}
+.hl .clip video{flex:1;min-height:0;height:100%;aspect-ratio:auto}
+.hl figure{position:relative;overflow:hidden;background:var(--surface);border-radius:var(--r)}
+.hl figure button{all:unset;display:block;width:100%;height:100%;cursor:zoom-in}
+.hl figure img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.hl figure:hover img{transform:scale(1.04)}
+.more{text-align:center;margin-top:2rem}
 dialog{background:transparent;border:0;max-width:none;max-height:none;width:100%;height:100%;color:var(--text)}
 dialog::backdrop{background:rgba(12,2,6,.95)}
 dialog .box{height:100%;display:grid;place-items:center;padding:3.5rem 1rem 1rem;position:relative}
@@ -227,17 +224,11 @@ dialog button{position:absolute;top:.8rem;right:1rem;background:rgba(255,255,255
 .join .panel{background:radial-gradient(ellipse 70% 120% at 50% 125%,rgba(165,20,36,.55),transparent 70%),var(--surface);border-radius:28px;padding:4.2rem 1.5rem;text-align:center}
 .join h2{margin-bottom:1.5rem}
 
-/* highlight */
-.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.6rem}
-.tabs button{background:var(--surface);border:0;color:var(--muted);font:inherit;font-size:.92rem;padding:.55rem 1.2rem;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
-.tabs button:hover{color:var(--text)}
-.tabs button[aria-selected="true"]{background:var(--red);color:#fff}
-.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1rem;margin-top:1.6rem}
+/* klip video */
 .clip{background:var(--surface);border-radius:var(--r);overflow:hidden}
 .clip video{width:100%;aspect-ratio:16/9;display:block;background:#000;object-fit:contain}
 .clip .meta{display:flex;justify-content:space-between;align-items:center;gap:.8rem}
 .clip .meta h3{font-size:1.05rem}
-.tag{flex-shrink:0;font-size:.75rem;color:var(--rose);background:rgba(224,149,156,.12);padding:.2rem .65rem;border-radius:999px}
 
 footer{padding:0 0 2.5rem;color:var(--muted);font-size:.92rem}
 footer .wrap{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
@@ -273,17 +264,13 @@ footer strong{color:var(--text);font-weight:600}
   .stats{justify-content:center}
   .perks{grid-template-columns:1fr;gap:1.6rem;margin-top:2.5rem;text-align:center}
   .gb{grid-template-columns:1fr}
-  .grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px;gap:.55rem;margin-top:1.5rem}
-  .grid figure:nth-child(4){grid-column:span 2}
+  .hl{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px;gap:.55rem;margin-top:1.5rem}
+  .clip .meta{padding:.7rem 1rem .9rem}
   .pc{flex-basis:165px}
   .split{grid-template-columns:1fr;gap:1.8rem}
   .split>div:first-child{position:static}
   .join{padding-bottom:3rem}
   .join .panel{padding:3rem 1.2rem}
-  .clips{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.8rem;margin-top:1.2rem;padding-bottom:.3rem;scrollbar-width:none}
-  .clips::-webkit-scrollbar{display:none}
-  .clip{flex:0 0 82%;scroll-snap-align:start}
-  .clip .meta{padding:.7rem 1rem .9rem}
   .map{flex-basis:72%}
   .map h3{font-size:.95rem;padding:.6rem .8rem .8rem}
 }
@@ -330,24 +317,12 @@ footer strong{color:var(--text);font-weight:600}
   <section id="galeri">
     <div class="wrap">
       <h2>Galeri</h2>
-      <p class="lead" style="margin-top:.5rem">Potongan momen dari sesi main, dan keseruan komunitas.</p>
-      <div class="grid" id="grid"></div>
+      <p class="lead" style="margin-top:.5rem">Cuplikan foto dan video pilihan dari sesi main dan keseruan komunitas.</p>
+      <div class="hl" id="hl"></div>
+      <div class="more"><a class="btn" href="gallery.html">Lihat galeri lengkap</a></div>
     </div>
   </section>
 
-  <section id="highlight">
-    <div class="wrap">
-      <h2>Highlight</h2>
-      <p class="lead" style="margin-top:.5rem">Klip pilihan dari sesi main bareng dan momen kompetitif Sorrow.</p>
-      <div class="tabs" id="tabs" role="tablist" aria-label="Filter klip">
-        <button role="tab" data-f="all" aria-selected="true">Semua</button>
-        <button role="tab" data-f="bareng" aria-selected="false">Main Bareng</button>
-        <button role="tab" data-f="sorrow" aria-selected="false">Sorrow Kompe</button>
-      </div>
-      <div class="clips" id="clips"></div>
-    </div>
-  </section>
-    
   <section id="maps">
     <div class="wrap">
       <div class="top">
@@ -465,6 +440,8 @@ footer strong{color:var(--text);font-weight:600}
   <div class="box"><button id="lbx" aria-label="Tutup">&times;</button><div><img id="lbi" alt=""><p id="lbc"></p></div></div>
 </dialog>
 
+<!-- Data foto & video (GALLERY, CLIPS, HIGHLIGHT_PHOTOS, HIGHLIGHT_CLIPS) ada di media.js -->
+<script src="media.js"></script>
 <script>
 /* ============ ANGGOTA SORROW ============
    photo : opsional, gambar sendiri (mis. "img/ferrsyz.png"); jika diisi userId diabaikan
@@ -477,11 +454,6 @@ const MEMBERS = [
   { name: "Ferrsyz",      role: "Survivor",        userId: "10013979972", photo: "" },
   { name: "Yanz",         role: "Survivor",        userId: "7296216426",  photo: "" },
   { name: "Cya",          role: "Survivor",        userId: "8945878769",  photo: "" }
-];
-
-const GALLERY = [
-  { src: "gallery/8.png", caption: "" }, { src: "gallery/6.png", caption: "" }, { src: "gallery/4.png", caption: "" }, { src: "gallery/2.png", caption: "" },
-  { src: "gallery/7.png", caption: "" }, { src: "gallery/5.png", caption: "" }, { src: "gallery/3.png", caption: "" }, { src: "gallery/1.png", caption: "" }
 ];
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -558,27 +530,48 @@ window.addEventListener('resize', sync);
 track.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next.click(); if (e.key === 'ArrowLeft') prev.click(); });
 sync();
 
-/* ============ KLIP HIGHLIGHT ============
-   type: "bareng" atau "sorrow"
-======================================== */
-const CLIPS = [
-  { src: "https://videotourl.com/videos/1790805081388-36033d46-c7a7-455d-8b1d-bbe1e53525bc.mp4", title: "Dagger Ngeden", type: "sorrow" },
-  { src: "https://videotourl.com/videos/1790805129755-56fbfa56-58e9-4cce-bcb4-ba19b8a75503.mp4", title: "Lucc: Dagger Guweh tuh", type: "sorrow" },
-  { src: "https://videotourl.com/videos/1790805145782-1421aebf-a76d-40f6-ba06-059a375eb08c.mp4", title: "Mau Escape Malah COD Killer",   type: "sorrow" }
-];
-const TYPE_LABEL = { bareng: "Main Bareng", sorrow: "Sorrow Kompe" };
+/* ============ LIGHTBOX (dipakai Galeri & Maps Guide) ============ */
+const lb = document.getElementById('lb');
+const lbi = document.getElementById('lbi');
+const lbc = document.getElementById('lbc');
+const lbx = document.getElementById('lbx');
+lbx.onclick = () => lb.close();
+lb.onclick = e => { if (e.target === lb) lb.close(); };
 
-const clipsEl = document.getElementById('clips');
-clipsEl.innerHTML = CLIPS.map(c =>
-  '<article class="clip" data-type="' + esc(c.type) + '">' +
-  '<video controls playsinline preload="metadata" src="' + esc(c.src) + '#t=0.1" aria-label="' + esc(c.title) + '"></video>' +
-  '<div class="meta"><h3>' + esc(c.title) + '</h3></div></article>'
-).join('');
+/* ============ GALERI HIGHLIGHT ============
+   Data ada di media.js. Jumlah yang tampil diatur lewat
+   HIGHLIGHT_CLIPS dan HIGHLIGHT_PHOTOS. Selengkapnya di gallery.html
+======================================== */
+const hl = document.getElementById('hl');
+hl.innerHTML =
+  CLIPS.slice(0, HIGHLIGHT_CLIPS).map(c =>
+    '<article class="clip">' +
+    '<video controls playsinline preload="metadata" src="' + esc(c.src) + '#t=0.1" aria-label="' + esc(c.title) + '"></video>' +
+    '<div class="meta"><h3>' + esc(c.title) + '</h3></div></article>'
+  ).join('') +
+  GALLERY.slice(0, HIGHLIGHT_PHOTOS).map((g, i) =>
+    '<figure><button data-i="' + i + '" aria-label="Perbesar foto ' + (i + 1) + '">' +
+    '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || 'Foto galeri VD Plenger') + '" loading="lazy"></button></figure>'
+  ).join('');
 
 /* hanya satu video yang diputar */
-clipsEl.addEventListener('play', e => {
-  clipsEl.querySelectorAll('video').forEach(v => { if (v !== e.target) v.pause(); });
+hl.addEventListener('play', e => {
+  hl.querySelectorAll('video').forEach(v => { if (v !== e.target) v.pause(); });
 }, true);
+
+/* foto yang gagal dimuat dihapus dari grid */
+hl.addEventListener('error', e => {
+  if (e.target.tagName === 'IMG') e.target.closest('figure')?.remove();
+}, true);
+
+hl.addEventListener('click', e => {
+  const b = e.target.closest('button[data-i]'); if (!b) return;
+  const g = GALLERY[b.dataset.i];
+  lbi.src = g.src;
+  lbi.alt = g.caption || 'Foto galeri';
+  lbc.textContent = g.caption || '';
+  lb.showModal();
+});
 
 /* ============ MAPS GUIDE ============
    Ganti name sesuai nama map masing-masing (urutan = maps/1.png ... maps/12.png)
@@ -615,47 +608,6 @@ mTrack.addEventListener('scroll', mSync, { passive: true });
 window.addEventListener('resize', mSync);
 mTrack.addEventListener('keydown', e => { if (e.key === 'ArrowRight') mNext.click(); if (e.key === 'ArrowLeft') mPrev.click(); });
 mSync();
-  
-/* filter tab */
-document.getElementById('tabs').addEventListener('click', e => {
-  const b = e.target.closest('button[data-f]'); if (!b) return;
-  document.querySelectorAll('#tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
-  clipsEl.querySelectorAll('.clip').forEach(el => {
-    const show = b.dataset.f === 'all' || el.dataset.type === b.dataset.f;
-    el.hidden = !show;
-    if (!show) el.querySelector('video').pause();
-  });
-});
-
-/* galeri + lightbox */
-const emptyTile = '<div class="empty"><img src="vd-plenger-logo.webp" alt=""></div>';
-const grid = document.getElementById('grid');
-grid.innerHTML = GALLERY.map((g, i) => '<figure>' + (g.src
-  ? '<button data-i="' + i + '" aria-label="Perbesar foto ' + (i + 1) + '"><img class="ph" src="' + esc(g.src) + '" alt="' + esc(g.caption || 'Foto galeri VD Plenger') + '" loading="lazy"></button>' +
-    (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '')
-  : emptyTile) + '</figure>'
-).join('');
-grid.addEventListener('error', e => {
-  if (e.target.tagName === 'IMG' && e.target.classList.contains('ph')) e.target.closest('figure').innerHTML = emptyTile;
-}, true);
-
-const lb = document.getElementById('lb');
-const lbi = document.getElementById('lbi');
-const lbc = document.getElementById('lbc');
-const lbx = document.getElementById('lbx');
-
-grid.addEventListener('click', e => {
-  const btn = e.target.closest('button[data-i]');
-  if (!btn) return;
-  const item = GALLERY[btn.dataset.i];
-  lbi.src = item.src;
-  lbi.alt = item.caption || 'Foto galeri';
-  lbc.textContent = item.caption || '';
-  lb.showModal();
-});
-
-lbx.onclick = () => lb.close();
-lb.onclick = e => { if (e.target === lb) lb.close(); };
 
 /* tombol kembali ke atas */
 const totop = document.getElementById('totop');
@@ -664,10 +616,7 @@ window.addEventListener('scroll', toggleTop, { passive: true });
 totop.onclick = () => window.scrollTo({ top: 0 });
 toggleTop();
 
-/* ============ PWA: service worker + tombol install ============
-   Ganti seluruh blok PWA lama di akhir <script> (dari "Registrasi Service Worker"
-   sampai "appinstalled") dengan kode di bawah ini.
-============================================================== */
+/* ============ PWA: service worker + tombol install ============ */
 let deferredPrompt;
 const installBtn = document.getElementById('pwa-install-btn');
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
