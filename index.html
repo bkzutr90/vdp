@@ -122,7 +122,18 @@ section{padding:5rem 0;scroll-margin-top:64px}
 .btn:hover{background:#c8172a;transform:translateY(-2px)}
 .btn-ghost{background:transparent;border:1.5px solid var(--rose);color:var(--text);margin-left:.6rem}
 .btn-ghost:hover{background:rgba(224,149,156,.14);transform:translateY(-2px)}
-
+/* pengumuman */
+.ann{padding:2.5rem 0 0}
+.ann[hidden]{display:none}
+.ann-list{display:grid;gap:.8rem;margin-top:1.2rem}
+.ann-item{background:var(--surface);border-left:4px solid var(--rose);border-radius:var(--r);padding:1.1rem 1.3rem}
+.ann-item.penting{border-left-color:var(--red)}
+.ann-item.event{border-left-color:#d9a441}
+.ann-item h3{font-size:1.15rem}
+.ann-item p{color:var(--muted);margin-top:.3rem}
+.ann-meta{display:flex;gap:.7rem;align-items:center;font-size:.8rem;color:var(--muted);margin-bottom:.3rem}
+.ann-meta b{text-transform:uppercase;letter-spacing:.06em;color:var(--rose);font-weight:600}
+.ann-item a{display:inline-block;margin-top:.5rem;color:var(--rose);font-size:.92rem}
 /* navbar */
 .nav{position:sticky;top:0;z-index:30;background:rgba(26,4,9,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
@@ -313,7 +324,12 @@ footer strong{color:var(--text);font-weight:600}
       <div><h3>Bertukar tips</h3><p>Bahas map, perks, dan strategi untuk berkembang bersama.</p></div>
     </div>
   </section>
-
+  <section class="ann" id="pengumuman" hidden style="padding-bottom:0">
+    <div class="wrap">
+      <h2>📢 Announcement</h2>
+      <div class="ann-list" id="ann-list"></div>
+    </div>
+  </section>
   <section id="galeri">
     <div class="wrap">
       <h2>Galeri</h2>
@@ -375,6 +391,7 @@ footer strong{color:var(--text);font-weight:600}
         </div>
       </div>
       <div class="track" id="track" tabindex="0" aria-label="Anggota tim Sorrow"></div>
+      <div class="more"><a class="btn" href="sorrow.html">Lihat halaman Sorrow</a></div>
     </div>
   </section>
 
@@ -443,6 +460,24 @@ footer strong{color:var(--text);font-weight:600}
 <!-- Data foto & video (GALLERY, CLIPS, HIGHLIGHT_PHOTOS, HIGHLIGHT_CLIPS) ada di media.js -->
 <script src="media.js"></script>
 <script>
+/* pengumuman: dari /api/announcements, disembunyikan jika kosong */
+(async function loadAnn(){
+  try {
+    const r = await fetch('/api/announcements');
+    if (!r.ok) return;
+    const { items } = await r.json();
+    if (!items || !items.length) return;
+    document.getElementById('ann-list').innerHTML = items.map(a =>
+      '<article class="ann-item ' + esc(a.type) + '"><div class="ann-meta"><b>' +
+      (a.pinned ? '📌 ' : '') + esc(a.type) + '</b><time>' +
+      new Date(a.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) +
+      '</time></div><h3>' + esc(a.title) + '</h3>' +
+      (a.body ? '<p>' + esc(a.body) + '</p>' : '') +
+      (a.url ? '<a href="' + esc(a.url) + '"' + (a.url[0] !== '/' ? ' target="_blank" rel="noopener"' : '') + '>Selengkapnya →</a>' : '') +
+      '</article>').join('');
+    document.getElementById('pengumuman').hidden = false;
+  } catch (err) { /* section tetap tersembunyi */ }
+})();
 /* ============ ANGGOTA SORROW ============
    photo : opsional, gambar sendiri (mis. "img/ferrsyz.png"); jika diisi userId diabaikan
    PENTING: setiap baris anggota harus diakhiri koma, kecuali baris terakhir.
