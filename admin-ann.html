@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kelola Pengumuman | VD Plenger</title>
+<link rel="icon" href="/favicon.png">
+<style>
+:root{--base:#1a0409;--surface:#250912;--red:#b0121f;--rose:#e0959c;--text:#f3e9e6;--muted:#c4aca9}
+*{box-sizing:border-box;margin:0}
+body{background:var(--base);color:var(--text);font:1rem/1.6 system-ui,sans-serif;min-height:100vh;padding:1.2rem}
+main{width:min(720px,100%);margin:0 auto}
+h1{font-size:1.5rem;margin-bottom:.3rem}
+p.sub{color:var(--muted);font-size:.92rem;margin-bottom:1.2rem}
+.card{background:var(--surface);border-radius:20px;padding:1.3rem;margin-bottom:1rem}
+label{display:block;font-size:.85rem;color:var(--muted);margin:.8rem 0 .3rem}
+input,textarea,select{width:100%;background:var(--base);color:var(--text);border:1px solid #4a1520;border-radius:12px;padding:.6rem .85rem;font:inherit}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--rose)}
+textarea{min-height:80px;resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.chk{display:flex;align-items:center;gap:.5rem;margin-top:1rem;color:var(--text);font-size:.95rem}
+.chk input{width:auto}
+.row{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+button{border:0;border-radius:999px;padding:.7rem 1.3rem;font:inherit;font-weight:600;cursor:pointer;color:#fff;background:var(--red)}
+button.alt{background:#3a1019}
+button:disabled{opacity:.5;cursor:wait}
+.bar{position:sticky;bottom:.8rem;display:flex;gap:.6rem;flex-wrap:wrap;background:rgba(26,4,9,.92);backdrop-filter:blur(10px);padding:.7rem;border-radius:999px;margin-top:1rem}
+.bar button{flex:1}
+#out{margin:.8rem 0;font-size:.92rem;color:var(--rose);min-height:1.4rem}
+.tag{font-size:.75rem;color:var(--muted)}
+@media(max-width:520px){.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Kelola Pengumuman</h1>
+  <p class="sub">Pengumuman tampil di halaman utama. Pinned tampil paling atas, sisanya urut terbaru.</p>
+
+  <div class="card">
+    <label for="key" style="margin-top:0">Admin key</label>
+    <input id="key" type="password" autocomplete="current-password">
+    <div class="row"><button id="muat" type="button">Muat pengumuman</button></div>
+  </div>
+
+  <p id="out" role="status"></p>
+  <div id="list"></div>
+
+  <div class="bar" id="bar" hidden>
+    <button class="alt" id="tambah" type="button">+ Tambah</button>
+    <button id="simpan" type="button">Simpan semua</button>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let items = [];
+
+async function api(method, body, qs = ''){
+  const r = await fetch('/api/announcements' + qs, {
+    method,
+    headers: { 'content-type': 'application/json', 'x-admin-key': $('key').value },
+    body: body && JSON.stringify(body)
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || 'HTTP ' + r.status);
+  return j;
+}
+
+function render(){
+  $('list').innerHTML = items.map((it, i) =>
+    '<div class="card" data-i="' + i + '">' +
+    '<span class="tag">#' + (i + 1) + (it.date ? ' · dibuat ' + new Date(it.date).toLocaleDateString('id-ID') : ' · baru') + '</span>' +
+    '<label>Judul</label><input data-f="title" maxlength="80" value="' + esc(it.title) + '">' +
+    '<label>Isi</label><textarea data-f="body" maxlength="400">' + esc(it.body) + '</textarea>' +
+    '<div class="g2"><div><label>Jenis</label><select data-f="type">' +
+    ['info', 'penting', 'event'].map(t => '<option' + (it.type === t ? ' selected' : '') + '>' + t + '</option>').join('') +
+    '</select></div><div><label>Tayang sampai (opsional)</label><input data-f="expires" type="date" value="' + esc(it.expires) + '"></div></div>' +
+    '<label>Link (opsional, https://… atau /halaman)</label><input data-f="url" value="' + esc(it.url) + '">' +
+    '<label class="chk"><input data-f="pinned" type="checkbox"' + (it.pinned ? ' checked' : '') + '> Pin di atas</label>' +
+    '<div class="row"><button class="alt" data-del type="button">Hapus</button></div></div>'
+  ).join('') || '<p class="sub">Belum ada pengumuman.</p>';
+  $('bar').hidden = false;
+}
+
+$('list').addEventListener('input', e => {
+  const f = e.target.dataset.f, card = e.target.closest('[data-i]');
+  if (!f || !card) return;
+  items[card.dataset.i][f] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+});
+$('list').addEventListener('click', e => {
+  if (!e.target.matches('[data-del]')) return;
+  if (!confirm('Hapus pengumuman ini?')) return;
+  items.splice(e.target.closest('[data-i]').dataset.i, 1);
+  render();
+});
+$('tambah').onclick = () => {
+  items.unshift({ title: '', body: '', type: 'info', url: '', pinned: false, expires: '' });
+  render();
+};
+$('muat').onclick = async () => {
+  $('out').textContent = 'Memuat...';
+  try { items = (await api('GET', null, '?all=1')).items; render(); $('out').textContent = items.length + ' pengumuman dimuat.'; }
+  catch (err) { $('out').textContent = 'Gagal: ' + err.message; }
+};
+$('simpan').onclick = async () => {
+  $('simpan').disabled = true; $('out').textContent = 'Menyimpan...';
+  try {
+    await api('PUT', { items });
+    items = (await api('GET', null, '?all=1')).items; render();
+    $('out').textContent = 'Tersimpan. Pengumuman kosong judulnya otomatis dibuang.';
+  } catch (err) { $('out').textContent = 'Gagal: ' + err.message; }
+  $('simpan').disabled = false;
+};
+</script>
+</body>
+</html>
