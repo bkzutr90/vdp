@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sorrow | Tim Kompetitif VD Plenger</title>
-<meta name="description" content="Sorrow adalah tim kompetitif Violence District dari komunitas VD Plenger. Kenali anggota tim dan cara bergabung.">
+<title>Sorrow | Competitive Division VD Plenger</title>
+<meta name="description" content="Sorrow adalah competitive division VD Plenger untuk Violence District. Lihat roster, pencapaian, dan riwayat pertandingan.">
 <link rel="canonical" href="https://vd-plenger.vercel.app/sorrow.html">
-<meta property="og:title" content="Sorrow | Tim Kompetitif VD Plenger">
-<meta property="og:description" content="Tim kompetitif Violence District dari komunitas VD Plenger.">
+<meta property="og:title" content="Sorrow | Competitive Division VD Plenger">
+<meta property="og:description" content="Roster, pencapaian, dan riwayat pertandingan tim Sorrow.">
 <meta property="og:image" content="https://vd-plenger.vercel.app/vd-plenger-logo.webp">
 <meta name="theme-color" content="#1a0409">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -21,53 +21,63 @@ html{scroll-behavior:smooth}
 body{background:var(--base);color:var(--text);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom)}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--rose);outline-offset:3px}
-.wrap{width:min(1040px,100% - 2.5rem);margin-inline:auto}
-h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.12;letter-spacing:-.01em}
-h2{font-size:clamp(1.9rem,4vw,2.7rem)}
-.lead{color:var(--muted);max-width:34rem}
-section{padding:4.5rem 0}
-.btn{display:inline-block;text-decoration:none;background:var(--red);color:#fff;font-weight:600;padding:.85rem 2.1rem;border-radius:999px;transition:background .2s,transform .2s}
-.btn:hover{background:#c8172a;transform:translateY(-2px)}
-.btn-ghost{background:transparent;border:1.5px solid var(--rose);color:var(--text);margin-left:.6rem}
-.btn-ghost:hover{background:rgba(224,149,156,.14)}
+.wrap{width:min(920px,100% - 2.5rem);margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.12}
+h2{font-size:clamp(1.7rem,4vw,2.3rem);text-align:center;margin-bottom:2rem}
+section{padding:4rem 0}
 .bar{padding-top:env(safe-area-inset-top)}
-.bar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;width:min(1040px,100% - 2.5rem)}
 .bar a{text-decoration:none;color:var(--muted);font-size:.95rem}
 .bar a:hover{color:var(--text)}
 .bar .brand{font-family:var(--serif);font-size:1.2rem;color:var(--text)}
-.hero{padding:3rem 0 4rem;background:radial-gradient(ellipse 50% 70% at 80% 30%,rgba(150,18,32,.5),transparent 72%),linear-gradient(180deg,#2a0a11,var(--base))}
-.hero h1{font-size:clamp(2.8rem,8vw,5rem);margin-bottom:1rem}
-.hero .lead{font-size:1.1rem;margin-bottom:1.8rem}
-.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:3.5rem}
+
+.hero{text-align:center;padding:4rem 0 4.5rem;background:radial-gradient(ellipse 55% 70% at 50% 35%,rgba(150,18,32,.5),transparent 72%),linear-gradient(180deg,#2a0a11,var(--base))}
+.hero h1{font-size:clamp(3.2rem,12vw,6.5rem);letter-spacing:.14em;text-indent:.14em;font-weight:600}
+.hero .div{margin-top:.6rem;font-size:clamp(1rem,2.5vw,1.3rem);letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;color:var(--rose)}
+.hero .org{color:var(--muted);margin-top:.3rem}
+
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:3.5rem;text-align:left}
 .perks h3{font-size:1.25rem;color:var(--rose);margin-bottom:.3rem}
 .perks p{color:var(--muted);font-size:.97rem}
-.roster{background:var(--deep)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem;margin-top:2rem}
+.sep{border:0;height:1px;width:min(920px,100% - 2.5rem);margin-inline:auto;background:linear-gradient(90deg,transparent,rgba(224,149,156,.45),transparent)}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 .pc{background:var(--surface);border-radius:var(--r);overflow:hidden;transition:transform .3s}
 .pc:hover{transform:translateY(-4px)}
 .pic{aspect-ratio:1;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 38%,#6b1220,#1c0509 80%)}
 .pic img{width:100%;height:100%;object-fit:cover;display:block}
 .pic svg{width:44%;opacity:.28}
-.meta{padding:.9rem 1.1rem 1.1rem}
+.meta{padding:.9rem 1.1rem 1.1rem;text-align:center}
 .meta h3{font-size:1.15rem}
 .meta p{color:var(--muted);font-size:.9rem}
-.achv{display:grid;gap:.8rem;margin-top:2rem}
-.achv li{list-style:none;background:var(--surface);border-radius:var(--r);padding:1rem 1.3rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.achv b{font-family:var(--serif);font-weight:500;font-size:1.1rem}
-.achv span{color:var(--muted)}
-.steps{list-style:none;counter-reset:s;display:grid;gap:1.2rem;margin-top:2rem;max-width:36rem}
-.steps li{counter-increment:s;display:grid;grid-template-columns:2.4rem 1fr;color:var(--muted)}
-.steps li::before{content:counter(s);font-family:var(--serif);font-size:1.5rem;line-height:1.15;color:var(--rose)}
-.steps strong{display:block;color:var(--text);font-weight:600}
-.join{padding:1rem 0 5rem}
-.panel{background:radial-gradient(ellipse 70% 120% at 50% 125%,rgba(165,20,36,.55),transparent 70%),var(--surface);border-radius:28px;padding:4rem 1.5rem;text-align:center}
-.panel h2{margin-bottom:1.5rem}
-footer{padding:0 0 2.5rem;color:var(--muted);font-size:.88rem;text-align:center}
-@media(max-width:820px){
-  section{padding:3.2rem 0}
-  .perks{grid-template-columns:1fr;gap:1.6rem;margin-top:2.5rem}
+
+.achv{list-style:none;display:grid;gap:.7rem;max-width:34rem;margin-inline:auto}
+.achv li{display:flex;align-items:center;gap:1rem;background:var(--surface);border-radius:var(--r);padding:.9rem 1.3rem}
+.achv .ic{font-size:1.6rem;line-height:1}
+.achv b{font-family:var(--serif);font-weight:500;font-size:1.1rem;display:block}
+.achv small{color:var(--muted);font-size:.85rem}
+
+.mh{list-style:none;display:grid;gap:.7rem;max-width:34rem;margin-inline:auto}
+.mh li{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;background:var(--surface);border-radius:var(--r);padding:1rem 1.3rem;border-left:4px solid var(--muted)}
+.mh li.win{border-left-color:var(--rose)}
+.mh li.lose{border-left-color:var(--red)}
+.mh .t{font-weight:600}
+.mh .t:last-child{text-align:right}
+.mh .me{color:var(--rose)}
+.mh .s{font-family:var(--serif);font-size:1.5rem;letter-spacing:.04em;white-space:nowrap}
+.mh .win .s{color:var(--rose)}
+.mh small{grid-column:1/-1;color:var(--muted);font-size:.8rem;text-align:center;margin-top:-.4rem}
+.empty{text-align:center;color:var(--muted)}
+
+footer{padding:0 0 2.5rem;color:var(--muted);font-size:.92rem}
+footer .wrap{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
+footer strong{color:var(--text);font-weight:600}
+@media(max-width:620px){
+  section{padding:3rem 0}
+  .perks{grid-template-columns:1fr;gap:1.6rem;margin-top:2.5rem;text-align:center}
   .grid{grid-template-columns:repeat(2,1fr)}
-  .btn-ghost{margin:.7rem 0 0}
+  .mh li{padding:.9rem 1rem;gap:.6rem}
+  .mh .s{font-size:1.3rem}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
@@ -77,63 +87,46 @@ footer{padding:0 0 2.5rem;color:var(--muted);font-size:.88rem;text-align:center}
 
 <main>
   <section class="hero">
-    <div class="wrap">
-      <h1>Sorrow</h1>
-      <p class="lead">Tim kompetitif sisi lain VD Plenger. Latihan serius, tetap santai, dan sama-sama berkembang.</p>
-      <a class="btn" href="#anggota">Lihat anggota</a>
-      <a class="btn btn-ghost" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Tanya lewat Discord</a>
-      <!-- Ubah teks tiga kartu ini sesuai karakter tim -->
-      <div class="perks">
-        <div><h3>Kompetitif</h3><p>Fokus ke permainan yang lebih serius dan terstruktur.</p></div>
-        <div><h3>Satu tim</h3><p>Bermain sebagai survivor maupun killer bersama rekan setim.</p></div>
-        <div><h3>Dari komunitas</h3><p>Lahir dari VD Plenger dan tetap terhubung dengan komunitasnya.</p></div>
-      </div>
+    <h1>SORROW</h1>
+    <p class="div">Competitive Division</p>
+    <p class="org">VD Plenger</p>
+    <div class="wrap perks">
+      <div><h3>Kompetitif</h3><p>Fokus ke permainan yang lebih serius dan terstruktur.</p></div>
+      <div><h3>Satu tim</h3><p>Bermain sebagai survivor maupun killer bersama rekan setim.</p></div>
+      <div><h3>Dari komunitas</h3><p>Lahir dari VD Plenger dan tetap terhubung dengan komunitasnya.</p></div>
     </div>
   </section>
 
-  <section class="roster" id="anggota">
-    <div class="wrap">
-      <h2>Anggota tim</h2>
-      <p class="lead" style="margin-top:.5rem">Roster Sorrow saat ini.</p>
-      <div class="grid" id="grid"></div>
-    </div>
+  <hr class="sep">
+  <section id="roster">
+    <div class="wrap"><h2>Roster</h2><div class="grid" id="grid"></div></div>
   </section>
 
-  <section id="prestasi" hidden>
-    <div class="wrap">
-      <h2>Pencapaian</h2>
-      <ul class="achv" id="achv"></ul>
-    </div>
+  <hr class="sep">
+  <section id="achievements">
+    <div class="wrap"><h2>Achievements</h2><ul class="achv" id="achv"></ul></div>
   </section>
 
-  <section id="cara">
-    <div class="wrap">
-      <h2>Cara bergabung</h2>
-      <p class="lead" style="margin-top:.5rem">Sorrow tidak membuka pendaftaran lewat website.</p>
-      <ol class="steps">
-        <li><div><strong>Masuk Discord VD Plenger</strong>Bergabung dulu ke komunitas dan kenali member lain.</div></li>
-        <li><div><strong>Main bareng</strong>Ikut sesi mabar supaya gaya mainmu dikenal.</div></li>
-        <li><div><strong>Tanyakan ke staf</strong>Tanyakan info seleksi dan slot yang tersedia lewat Discord.</div></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="join">
-    <div class="wrap"><div class="panel">
-      <h2>Tertarik bergabung?</h2>
-      <a class="btn" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Gabung Discord</a>
-    </div></div>
+  <hr class="sep">
+  <section id="history">
+    <div class="wrap"><h2>Match History</h2><ul class="mh" id="mh"></ul></div>
   </section>
 </main>
 
-<footer>Sorrow adalah tim komunitas dan tidak berafiliasi dengan Roblox maupun developer Violence District.</footer>
+<footer>
+  <div class="wrap">
+    <span>Made with 💖 by <strong>Ferrsyz</strong></span>
+  </div>
+</footer>
 
 <script>
-/* ============ DATA ============
-   Anggota: samakan dengan MEMBERS di index.html.
-   Pencapaian: isi untuk menampilkan bagian "Pencapaian" (kosong = disembunyikan).
-   Contoh: { title: "Juara 2 Turnamen X", note: "Mei 2026" }
-================================ */
+/* ============ DATA — EDIT DI SINI ============
+   MEMBERS      : samakan dengan index.html
+   ACHIEVEMENTS : { icon: "🏆", title: "...", note: "" } — kosong = tampil "Belum ada pencapaian"
+   MATCHES      : tulis sesuai urutan tampil. a/b = nama tim, sa/sb = skor masing-masing.
+                  Sorrow boleh di sisi mana saja; menang/kalah dihitung dari sisi Sorrow.
+                  date & note opsional.
+=============================================== */
 const MEMBERS = [
   { name: "Varzhen", role: "Killer/Survivor", userId: "9089974947",  photo: "" },
   { name: "Lucc",    role: "Killer/Survivor", userId: "8738755832",  photo: "" },
@@ -142,11 +135,20 @@ const MEMBERS = [
   { name: "Yanz",    role: "Survivor",        userId: "7296216426",  photo: "" },
   { name: "Cya",     role: "Survivor",        userId: "8945878769",  photo: "" }
 ];
+
 const ACHIEVEMENTS = [];
+
+const MATCHES = [
+  { a: "Sorrow",   sa: 0, b: "TS",      sb: 1, date: "", note: "" },
+  { a: "Sorrow",   sa: 1, b: "ELN1KA",  sb: 0, date: "", note: "" },
+  { a: "Sayonara", sa: 1, b: "Sorrow",  sb: 0, date: "", note: "" }
+];
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ghost = '<svg viewBox="0 0 100 100" fill="#f1e6e3" aria-hidden="true"><circle cx="50" cy="32" r="18"/><path d="M14 92c0-22 16-34 36-34s36 12 36 34z"/></svg>';
+const empty = t => '<li class="empty" style="background:none;display:block">' + t + '</li>';
 
+/* roster */
 const grid = document.getElementById('grid');
 grid.innerHTML = MEMBERS.map(p =>
   '<article class="pc"><div class="pic" data-uid="' + esc(p.userId || '') + '">' +
@@ -176,11 +178,24 @@ function applyAvatars(list){
   }
 })();
 
-if (ACHIEVEMENTS.length){
-  document.getElementById('achv').innerHTML = ACHIEVEMENTS.map(a =>
-    '<li><b>' + esc(a.title) + '</b><span>' + esc(a.note || '') + '</span></li>').join('');
-  document.getElementById('prestasi').hidden = false;
-}
+/* achievements */
+document.getElementById('achv').innerHTML = ACHIEVEMENTS.length
+  ? ACHIEVEMENTS.map(a => '<li><span class="ic" aria-hidden="true">' + esc(a.icon) + '</span><div><b>' + esc(a.title) + '</b>' +
+      (a.note ? '<small>' + esc(a.note) + '</small>' : '') + '</div></li>').join('')
+  : empty('-');
+
+/* match history */
+document.getElementById('mh').innerHTML = MATCHES.length
+  ? MATCHES.map(m => {
+      const meIsA = m.a.toLowerCase() === 'sorrow';
+      const mine = meIsA ? m.sa : m.sb, other = meIsA ? m.sb : m.sa;
+      const cls = mine > other ? 'win' : mine < other ? 'lose' : '';
+      const sub = [m.date, m.note].filter(Boolean).join(' · ');
+      const nm = (n, me) => '<span class="t' + (me ? ' me' : '') + '">' + esc(n) + '</span>';
+      return '<li class="' + cls + '">' + nm(m.a, meIsA) + '<span class="s">' + esc(m.sa) + ' – ' + esc(m.sb) + '</span>' +
+        nm(m.b, !meIsA) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</li>';
+    }).join('')
+  : empty('Belum ada pertandingan.');
 </script>
 </body>
 </html>
