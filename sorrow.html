@@ -102,10 +102,10 @@ footer strong{color:var(--text);font-weight:600}
     <div class="wrap"><h2>Roster</h2><div class="grid" id="grid"></div></div>
   </section>
 
-  <!-- <hr class="sep">
-  <section id="achievements">
+  <hr class="sep" id="achv-sep" hidden>
+  <section id="achievements" hidden>
     <div class="wrap"><h2>Achievements</h2><ul class="achv" id="achv"></ul></div>
-  </section> -->
+  </section>
 
   <hr class="sep">
   <section id="history">
@@ -122,7 +122,7 @@ footer strong{color:var(--text);font-weight:600}
 <script>
 /* ============ DATA — EDIT DI SINI ============
    MEMBERS      : samakan dengan index.html
-   ACHIEVEMENTS : { icon: "🏆", title: "...", note: "" } — kosong = tampil "Belum ada pencapaian"
+   ACHIEVEMENTS : { icon: "🏆", title: "...", note: "" } — kosong = section disembunyikan
    MATCHES      : tulis sesuai urutan tampil. a/b = nama tim, sa/sb = skor masing-masing.
                   Sorrow boleh di sisi mana saja; menang/kalah dihitung dari sisi Sorrow.
                   date & note opsional.
@@ -179,10 +179,14 @@ function applyAvatars(list){
 })();
 
 /* achievements */
-document.getElementById('achv').innerHTML = ACHIEVEMENTS.length
-  ? ACHIEVEMENTS.map(a => '<li><span class="ic" aria-hidden="true">' + esc(a.icon) + '</span><div><b>' + esc(a.title) + '</b>' +
-      (a.note ? '<small>' + esc(a.note) + '</small>' : '') + '</div></li>').join('')
-  : empty('-');
+/* hanya tampil jika ada data */
+if (ACHIEVEMENTS.length){
+  document.getElementById('achv').innerHTML = ACHIEVEMENTS.map(a =>
+    '<li><span class="ic" aria-hidden="true">' + esc(a.icon) + '</span><div><b>' + esc(a.title) + '</b>' +
+    (a.note ? '<small>' + esc(a.note) + '</small>' : '') + '</div></li>').join('');
+  document.getElementById('achievements').hidden = false;
+  document.getElementById('achv-sep').hidden = false;
+}
 
 /* match history */
 document.getElementById('mh').innerHTML = MATCHES.length
