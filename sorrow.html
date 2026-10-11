@@ -67,6 +67,8 @@ section{padding:4rem 0}
 .mh .s{font-family:var(--serif);font-size:1.5rem;letter-spacing:.04em;white-space:nowrap}
 .mh .win .s{color:var(--rose)}
 .mh small{grid-column:1/-1;color:var(--muted);font-size:.8rem;text-align:center;margin-top:-.4rem}
+.mh .tag{grid-column:1/-1;justify-self:center;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);background:rgba(176,18,31,.22);border:1px solid rgba(224,149,156,.35);padding:.15rem .7rem;border-radius:999px;margin-bottom:-.2rem}
+.mh .tag.final{color:var(--text);background:var(--red);border-color:var(--red)}
 .empty{text-align:center;color:var(--muted)}
 
 .pg{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem}
@@ -137,7 +139,7 @@ footer strong{color:var(--text);font-weight:600}
                   sehingga match terbaru tampil paling atas.
                   a/b = nama tim, sa/sb = skor masing-masing.
                   Sorrow boleh di sisi mana saja; menang/kalah dihitung dari sisi Sorrow.
-                  date & note opsional.
+                  date, note & tag opsional (tag = label seperti "Quarter Final", "Semi Final", "Final").
 =============================================== */
 const MEMBERS = [
   { name: "Varzhen", role: "Killer/Survivor", userId: "9089974947",  photo: "" },
@@ -155,8 +157,8 @@ const MATCHES = [
   { a: "Sorrow",        sa: 1, b: "ELN1KA",  sb: 0, date: "", note: "" },
   { a: "Sayonara",      sa: 1, b: "Sorrow",  sb: 0, date: "", note: "" },
   { a: "Umbrella Team", sa: 0, b: "Sorrow",  sb: 1, date: "", note: "" },
-  { a: "Sorrow",        sa: 1, b: "B5C",     sb: 0, date: "", note: "" },
-  { a: "ESPADA",        sa: 1, b: "Sorrow",  sb: 0, date: "", note: "" }
+  { a: "Sorrow",        sa: 1, b: "B5C",     sb: 0, date: "", note: "", tag: "Quarter Final" },
+  { a: "ESPADA",        sa: 1, b: "Sorrow",  sb: 0, date: "", note: "", tag: "Semi Final" }
 ];
 
 const PER_PAGE = 5; // jumlah match per halaman
@@ -217,7 +219,8 @@ function matchItem(m){
   const cls = mine > other ? 'win' : mine < other ? 'lose' : '';
   const sub = [m.date, m.note].filter(Boolean).join(' · ');
   const nm = (n, me) => '<span class="t' + (me ? ' me' : '') + '">' + esc(n) + '</span>';
-  return '<li class="' + cls + '">' + nm(m.a, meIsA) + '<span class="s">' + esc(m.sa) + ' – ' + esc(m.sb) + '</span>' +
+  const tag = m.tag ? '<span class="tag' + (/^final$/i.test(m.tag.trim()) ? ' final' : '') + '">' + esc(m.tag) + '</span>' : '';
+  return '<li class="' + cls + '">' + tag + nm(m.a, meIsA) + '<span class="s">' + esc(m.sa) + ' – ' + esc(m.sb) + '</span>' +
     nm(m.b, !meIsA) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</li>';
 }
 
