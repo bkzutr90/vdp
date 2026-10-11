@@ -57,25 +57,39 @@ section{padding:4rem 0}
 .achv b{font-family:var(--serif);font-weight:500;font-size:1.1rem;display:block}
 .achv small{color:var(--muted);font-size:.85rem}
 
-.mh{list-style:none;display:grid;gap:.7rem;max-width:34rem;margin-inline:auto}
-.mh li{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;background:var(--surface);border-radius:var(--r);padding:1rem 1.3rem;border-left:4px solid var(--muted)}
-.mh li.win{border-left-color:var(--rose)}
-.mh li.lose{border-left-color:var(--red)}
-.mh .t{font-weight:600}
+.mh{list-style:none;display:grid;gap:.75rem;max-width:50rem;margin-inline:auto}
+.mh .card{--c:196,172,169;display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"st vs meta";align-items:center;gap:.9rem 1.4rem;padding:.9rem 1.3rem .9rem 1.1rem;border-radius:var(--r);border-left:4px solid rgb(var(--c));background:linear-gradient(90deg,rgba(var(--c),.16),transparent 45%),var(--surface)}
+.mh .card.win{--c:224,149,156}
+.mh .card.lose{--c:200,24,38}
+.mh .st{grid-area:st;display:flex;align-items:center;gap:.9rem;min-width:9.5rem}
+.mh .ico{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:rgb(var(--c));background:rgba(var(--c),.16);border:1px solid rgba(var(--c),.3)}
+.mh .ico svg{width:22px;height:22px}
+.mh .res{display:block;font-weight:700;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:rgb(var(--c));line-height:1.2}
+.mh .badge{display:inline-block;margin-top:.3rem;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;line-height:1.4;padding:.1rem .65rem;border-radius:999px;color:rgb(var(--c));background:rgba(var(--c),.14);border:1px solid rgba(var(--c),.35)}
+.mh .badge.final{color:var(--text);background:var(--red);border-color:var(--red)}
+.mh .vs{grid-area:vs;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem}
+.mh .t{font-weight:600;overflow-wrap:anywhere}
 .mh .t:last-child{text-align:right}
 .mh .me{color:var(--rose)}
 .mh .s{font-family:var(--serif);font-size:1.5rem;letter-spacing:.04em;white-space:nowrap}
 .mh .win .s{color:var(--rose)}
-.mh small{grid-column:1/-1;color:var(--muted);font-size:.8rem;text-align:center;margin-top:-.4rem}
-.mh .tag{grid-column:1/-1;justify-self:center;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);background:rgba(176,18,31,.22);border:1px solid rgba(224,149,156,.35);padding:.15rem .7rem;border-radius:999px;margin-bottom:-.2rem}
-.mh .tag.final{color:var(--text);background:var(--red);border-color:var(--red)}
+.mh .meta2{grid-area:meta;display:flex;align-items:center;gap:.6rem;color:var(--muted);font-size:.82rem;line-height:1.35;text-align:left;padding-left:1.4rem;border-left:1px solid rgba(224,149,156,.18)}
+.mh .meta2 svg{flex:none;width:20px;height:20px}
+.mh .meta2 b{display:block;color:var(--text);font-weight:500}
+.tabs{display:flex;gap:.25rem;width:max-content;max-width:100%;margin:0 auto 1.4rem;padding:.25rem;background:var(--surface);border-radius:14px}
+.tabs button{border:0;background:none;color:var(--muted);font:inherit;font-weight:600;font-size:.92rem;padding:.5rem 1.1rem;border-radius:11px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-pressed="true"]{background:var(--red);color:var(--text)}
+.tabs span{opacity:.6;font-weight:500;margin-left:.25rem}
 .empty{text-align:center;color:var(--muted)}
 
-.pg{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem}
-.pg button{min-width:42px;height:42px;padding:0 .8rem;border:0;border-radius:12px;background:var(--surface);color:var(--muted);font:inherit;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+.pgrow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;max-width:50rem;margin:1.5rem auto 0}
+.pg{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem;grid-column:2}
+.pg button{min-width:38px;height:38px;padding:0 .7rem;border:1px solid rgba(224,149,156,.12);border-radius:10px;background:var(--surface);color:var(--muted);font:inherit;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
 .pg button:hover:not(:disabled){color:var(--text);background:#35101b}
-.pg button[aria-current="page"]{background:var(--red);color:var(--text)}
+.pg button[aria-current="page"]{background:var(--red);border-color:var(--red);color:var(--text)}
 .pg button:disabled{opacity:.35;cursor:default}
+.total{grid-column:3;justify-self:end;color:var(--muted);font-size:.85rem}
 
 footer{padding:0 0 2.5rem;color:var(--muted);font-size:.92rem}
 footer .wrap{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
@@ -84,8 +98,13 @@ footer strong{color:var(--text);font-weight:600}
   section{padding:3rem 0}
   .perks{grid-template-columns:1fr;gap:1.6rem;margin-top:2.5rem;text-align:center}
   .grid{grid-template-columns:repeat(2,1fr)}
-  .mh li{padding:.9rem 1rem;gap:.6rem}
+  .mh .card{grid-template-columns:1fr auto;grid-template-areas:"st meta" "vs vs";padding:.9rem 1rem;gap:.8rem}
+  .mh .st{min-width:0}
+  .mh .meta2{padding-left:0;border-left:0;text-align:right}
   .mh .s{font-size:1.3rem}
+  .pgrow{grid-template-columns:1fr;justify-items:center;gap:.7rem}
+  .pg,.total{grid-column:1}
+  .total{justify-self:center}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
@@ -119,8 +138,12 @@ footer strong{color:var(--text);font-weight:600}
   <section id="history">
     <div class="wrap">
       <h2>Match History</h2>
+      <div class="tabs" id="tabs" role="group" aria-label="Filter hasil pertandingan"></div>
       <ul class="mh" id="mh"></ul>
-      <nav class="pg" id="pg" aria-label="Halaman riwayat pertandingan"></nav>
+      <div class="pgrow">
+        <nav class="pg" id="pg" aria-label="Halaman riwayat pertandingan"></nav>
+        <span class="total" id="total"></span>
+      </div>
     </div>
   </section>
 </main>
@@ -207,33 +230,57 @@ if (ACHIEVEMENTS.length){
   document.getElementById('achv-sep').hidden = false;
 }
 
-/* match history — terbaru di atas, dengan pagination */
-const ordered = MATCHES.slice().reverse(); // match yang ditambah terakhir tampil paling atas
-let page = 1;
-const mhEl = document.getElementById('mh');
-const pgEl = document.getElementById('pg');
-
-function matchItem(m){
+/* match history — terbaru di atas, filter hasil, pagination */
+const ordered = MATCHES.slice().reverse().map(m => {
   const meIsA = m.a.toLowerCase() === 'sorrow';
   const mine = meIsA ? m.sa : m.sb, other = meIsA ? m.sb : m.sa;
-  const cls = mine > other ? 'win' : mine < other ? 'lose' : '';
-  const sub = [m.date, m.note].filter(Boolean).join(' · ');
+  return Object.assign({}, m, { meIsA, result: mine > other ? 'win' : mine < other ? 'lose' : 'draw' });
+});
+const LABEL = { win: 'Menang', lose: 'Kalah', draw: 'Seri' };
+const ICON = {
+  win:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  lose: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  draw: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>'
+};
+const CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+
+let filter = 'all', page = 1;
+const mhEl = document.getElementById('mh');
+const pgEl = document.getElementById('pg');
+const tabsEl = document.getElementById('tabs');
+const totalEl = document.getElementById('total');
+
+function matchItem(m){
   const nm = (n, me) => '<span class="t' + (me ? ' me' : '') + '">' + esc(n) + '</span>';
-  const tag = m.tag ? '<span class="tag' + (/^final$/i.test(m.tag.trim()) ? ' final' : '') + '">' + esc(m.tag) + '</span>' : '';
-  return '<li class="' + cls + '">' + tag + nm(m.a, meIsA) + '<span class="s">' + esc(m.sa) + ' – ' + esc(m.sb) + '</span>' +
-    nm(m.b, !meIsA) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</li>';
+  const badge = m.tag ? '<span class="badge' + (/^final$/i.test(m.tag.trim()) ? ' final' : '') + '">' + esc(m.tag) + '</span>' : '';
+  const meta = (m.date || m.note)
+    ? '<div class="meta2">' + CLOCK + '<div>' + (m.date ? '<b>' + esc(m.date) + '</b>' : '') + (m.note ? esc(m.note) : '') + '</div></div>'
+    : '';
+  return '<li><div class="card ' + m.result + '">' +
+    '<div class="st"><span class="ico">' + ICON[m.result] + '</span><div><span class="res">' + LABEL[m.result] + '</span>' + badge + '</div></div>' +
+    '<div class="vs">' + nm(m.a, m.meIsA) + '<span class="s">' + esc(m.sa) + ' – ' + esc(m.sb) + '</span>' + nm(m.b, !m.meIsA) + '</div>' +
+    meta + '</div></li>';
+}
+
+function renderTabs(){
+  const count = k => k === 'all' ? ordered.length : ordered.filter(m => m.result === k).length;
+  tabsEl.innerHTML = [['all', 'Semua'], ['win', 'Menang'], ['lose', 'Kalah']].map(t =>
+    '<button type="button" data-f="' + t[0] + '" aria-pressed="' + (filter === t[0]) + '">' + t[1] + '<span>' + count(t[0]) + '</span></button>'
+  ).join('');
 }
 
 function renderHistory(){
-  if (!ordered.length){
+  const list = filter === 'all' ? ordered : ordered.filter(m => m.result === filter);
+  totalEl.textContent = 'Total ' + list.length + ' match';
+  if (!list.length){
     mhEl.innerHTML = empty('Belum ada pertandingan.');
     pgEl.innerHTML = '';
     return;
   }
-  const pages = Math.ceil(ordered.length / PER_PAGE);
+  const pages = Math.ceil(list.length / PER_PAGE);
   page = Math.min(Math.max(page, 1), pages);
   const start = (page - 1) * PER_PAGE;
-  mhEl.innerHTML = ordered.slice(start, start + PER_PAGE).map(matchItem).join('');
+  mhEl.innerHTML = list.slice(start, start + PER_PAGE).map(matchItem).join('');
 
   if (pages < 2){ pgEl.innerHTML = ''; return; }
   let h = '<button data-p="' + (page - 1) + '"' + (page === 1 ? ' disabled' : '') + ' aria-label="Halaman sebelumnya">&lsaquo;</button>';
@@ -244,6 +291,12 @@ function renderHistory(){
   pgEl.innerHTML = h;
 }
 
+tabsEl.addEventListener('click', e => {
+  const b = e.target.closest('button[data-f]');
+  if (!b) return;
+  filter = b.dataset.f; page = 1;
+  renderTabs(); renderHistory();
+});
 pgEl.addEventListener('click', e => {
   const b = e.target.closest('button[data-p]');
   if (!b || b.disabled) return;
@@ -252,6 +305,7 @@ pgEl.addEventListener('click', e => {
   document.getElementById('history').scrollIntoView({ block: 'start' });
 });
 
+renderTabs();
 renderHistory();
 </script>
 </body>
