@@ -165,13 +165,6 @@ section{padding:5rem 0;scroll-margin-top:64px}
 .perks h3{font-size:1.25rem;color:var(--rose);margin-bottom:.3rem}
 .perks p{color:var(--muted);font-size:.97rem}
 
-/* sponsor */
-.sponsor{padding:2.5rem 0 0}
-.sponsor-label{display:block;text-align:center;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem}
-.sponsor a{display:block;border-radius:var(--r);overflow:hidden;border:1px solid rgba(224,149,156,.18);background:var(--surface);transition:transform .25s,border-color .25s}
-.sponsor a:hover{transform:translateY(-3px);border-color:var(--rose)}
-.sponsor img{display:block;width:100%;height:auto}
-
 /* galeri highlight (foto + video) */
 .hl{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;grid-auto-flow:dense;gap:.8rem;margin-top:2rem}
 .hl .clip{grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column}
@@ -220,6 +213,21 @@ dialog button{position:absolute;top:.8rem;right:1rem;background:rgba(255,255,255
 .meta{padding:.9rem 1.1rem 1.1rem}
 .meta h3{font-size:1.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .meta p{color:var(--muted);font-size:.9rem}
+
+/* partner */
+.partner{padding:5rem 0}
+.pt-card{display:grid;grid-template-columns:1.1fr .9fr;margin-top:2rem;background:var(--surface);border-radius:28px;overflow:hidden;border:1px solid rgba(224,149,156,.14)}
+.pt-banner{display:block;background:var(--deep);min-height:100%;overflow:hidden}
+.pt-banner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.pt-banner:hover img{transform:scale(1.03)}
+.pt-body{padding:2.2rem 2rem;display:flex;flex-direction:column;gap:.7rem;justify-content:center}
+.pt-label{align-self:flex-start;font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--rose);background:rgba(224,149,156,.12);border:1px solid rgba(224,149,156,.3);padding:.3rem .8rem;border-radius:999px}
+.pt-body h3{font-size:1.9rem}
+.pt-body p{color:var(--muted)}
+.pt-body .gb-act{padding-top:.6rem}
+.pt-cta{display:flex;align-items:center;justify-content:space-between;gap:1rem 1.5rem;flex-wrap:wrap;margin-top:1rem;padding:1.3rem 1.6rem;border:1.5px dashed rgba(224,149,156,.35);border-radius:var(--r)}
+.pt-cta p{color:var(--muted)}
+.pt-cta .btn-ghost{margin:0;flex-shrink:0}
 
 /* aturan & faq */
 .split{display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:start}
@@ -281,11 +289,16 @@ footer strong{color:var(--text);font-weight:600}
   .hero .lead{margin-inline:auto;margin-bottom:1.4rem}
   .stats{justify-content:center}
   .perks{grid-template-columns:1fr;gap:1.6rem;margin-top:2.5rem;text-align:center}
-  .sponsor{padding-top:1.8rem}
   .gb{grid-template-columns:1fr}
   .hl{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px;gap:.55rem;margin-top:1.5rem}
   .clip .meta{padding:.7rem 1rem .9rem}
   .pc{flex-basis:165px}
+  .partner{padding:3.5rem 0}
+  .pt-card{grid-template-columns:1fr;border-radius:var(--r)}
+  .pt-banner{min-height:0}
+  .pt-body{padding:1.5rem 1.3rem 1.7rem}
+  .pt-body h3{font-size:1.6rem}
+  .pt-cta{flex-direction:column;align-items:stretch;text-align:center;padding:1.2rem}
   .split{grid-template-columns:1fr;gap:1.8rem}
   .split>div:first-child{position:static}
   .join{padding-bottom:3rem}
@@ -338,17 +351,6 @@ footer strong{color:var(--text);font-weight:600}
       <div class="ann-list" id="ann-list"></div>
     </div>
   </section>
-
-  <!-- Sponsor: Top up Robux (robuxcepat.com) -->
-  <section class="sponsor" id="sponsor" aria-label="Sponsor">
-    <div class="wrap">
-      <span class="sponsor-label">Sponsor</span>
-      <a href="https://robuxcepat.com" target="_blank" rel="sponsored noopener noreferrer" aria-label="Top up Robux di robuxcepat.com">
-        <img src="https://robuxcepat.com/media/banners/cb3cefbeaa2c.jpeg" alt="Sponsor: top up Robux di robuxcepat.com" loading="lazy">
-      </a>
-    </div>
-  </section>
-
   <section id="galeri">
     <div class="wrap">
       <h2>Galeri</h2>
@@ -411,6 +413,36 @@ footer strong{color:var(--text);font-weight:600}
       </div>
       <div class="track" id="track" tabindex="0" aria-label="Anggota tim Sorrow"></div>
       <div class="more"><a class="btn" href="sorrow.html">Lihat halaman Sorrow</a></div>
+    </div>
+  </section>
+
+  <!-- ============ PARTNER ============
+       Ganti href "Become a Partner" (id: partner-contact) dengan kontak kerja sama kamu
+       (mis. mailto:email@kamu.com, link Discord tiket, atau WhatsApp).
+  ================================== -->
+  <section class="partner" id="partner">
+    <div class="wrap">
+      <h2>Partner</h2>
+      <p class="lead" style="margin-top:.5rem">Mitra yang bekerja sama dengan komunitas VD Plenger.</p>
+
+      <article class="pt-card">
+        <a class="pt-banner" href="https://robuxcepat.com" target="_blank" rel="sponsored noopener noreferrer" aria-label="Kunjungi robuxcepat.com">
+          <img src="https://robuxcepat.com/media/banners/cb3cefbeaa2c.jpeg" alt="Banner RobuxCepat, partner top up Robux" loading="lazy" decoding="async">
+        </a>
+        <div class="pt-body">
+          <span class="pt-label">Partner Top Up Robux</span>
+          <h3>RobuxCepat</h3>
+          <p>Layanan top up Robux untuk pemain Roblox Indonesia. Partner top up Robux VD Plenger hanya di robuxcepat.com.</p>
+          <div class="gb-act">
+            <a class="btn" href="https://robuxcepat.com" target="_blank" rel="sponsored noopener noreferrer">Kunjungi robuxcepat.com</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="pt-cta">
+        <p>Punya produk atau layanan yang cocok untuk komunitas ini?</p>
+        <a class="btn btn-ghost" id="partner-contact" href="https://discord.gg/hmVrXHJpwp" target="_blank" rel="noopener">Become a Partner</a>
+      </div>
     </div>
   </section>
 
@@ -503,8 +535,8 @@ footer strong{color:var(--text);font-weight:600}
 ======================================== */
 const MEMBERS = [
   { name: "Varzhen",      role: "Killer/Survivor", userId: "9089974947",  photo: "" },
-  { name: "Lucc",   role: "Survivor", userId: "8738755832",  photo: "" },
-  { name: "Lunaticzann", role: "Killer/Survivor", userId: "7665117228",  photo: "" },
+  { name: "Lucc",   role: "Killer/Survivor", userId: "8738755832",  photo: "" },
+  { name: "Lunaticzann", role: "Survivor", userId: "7665117228",  photo: "" },
   { name: "Ferrsyz",      role: "Survivor",        userId: "10013979972", photo: "" },
   { name: "Yanz",         role: "Survivor",        userId: "7296216426",  photo: "" },
   { name: "Cya",          role: "Survivor",        userId: "8945878769",  photo: "" }
@@ -662,6 +694,13 @@ mTrack.addEventListener('scroll', mSync, { passive: true });
 window.addEventListener('resize', mSync);
 mTrack.addEventListener('keydown', e => { if (e.key === 'ArrowRight') mNext.click(); if (e.key === 'ArrowLeft') mPrev.click(); });
 mSync();
+
+/* banner partner: jika gagal dimuat, sembunyikan kolom banner */
+document.querySelector('.pt-banner img')?.addEventListener('error', e => {
+  const card = e.target.closest('.pt-card');
+  e.target.closest('.pt-banner').remove();
+  if (card) card.style.gridTemplateColumns = '1fr';
+});
 
 /* tombol kembali ke atas */
 const totop = document.getElementById('totop');
