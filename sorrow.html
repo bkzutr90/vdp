@@ -69,6 +69,12 @@ section{padding:4rem 0}
 .mh small{grid-column:1/-1;color:var(--muted);font-size:.8rem;text-align:center;margin-top:-.4rem}
 .empty{text-align:center;color:var(--muted)}
 
+.pg{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem}
+.pg button{min-width:42px;height:42px;padding:0 .8rem;border:0;border-radius:12px;background:var(--surface);color:var(--muted);font:inherit;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+.pg button:hover:not(:disabled){color:var(--text);background:#35101b}
+.pg button[aria-current="page"]{background:var(--red);color:var(--text)}
+.pg button:disabled{opacity:.35;cursor:default}
+
 footer{padding:0 0 2.5rem;color:var(--muted);font-size:.92rem}
 footer .wrap{display:flex;flex-direction:column;align-items:center;gap:.35rem;text-align:center}
 footer strong{color:var(--text);font-weight:600}
@@ -109,7 +115,11 @@ footer strong{color:var(--text);font-weight:600}
 
   <hr class="sep">
   <section id="history">
-    <div class="wrap"><h2>Match History</h2><ul class="mh" id="mh"></ul></div>
+    <div class="wrap">
+      <h2>Match History</h2>
+      <ul class="mh" id="mh"></ul>
+      <nav class="pg" id="pg" aria-label="Halaman riwayat pertandingan"></nav>
+    </div>
   </section>
 </main>
 
@@ -123,7 +133,9 @@ footer strong{color:var(--text);font-weight:600}
 /* ============ DATA — EDIT DI SINI ============
    MEMBERS      : samakan dengan index.html
    ACHIEVEMENTS : { icon: "🏆", title: "...", note: "" } — kosong = section disembunyikan
-   MATCHES      : tulis sesuai urutan tampil. a/b = nama tim, sa/sb = skor masing-masing.
+   MATCHES      : tulis match BARU di PALING BAWAH. Di halaman, urutannya dibalik
+                  sehingga match terbaru tampil paling atas.
+                  a/b = nama tim, sa/sb = skor masing-masing.
                   Sorrow boleh di sisi mana saja; menang/kalah dihitung dari sisi Sorrow.
                   date & note opsional.
 =============================================== */
@@ -139,10 +151,15 @@ const MEMBERS = [
 const ACHIEVEMENTS = [];
 
 const MATCHES = [
-  { a: "Sorrow",   sa: 0, b: "TS",      sb: 1, date: "", note: "" },
-  { a: "Sorrow",   sa: 1, b: "ELN1KA",  sb: 0, date: "", note: "" },
-  { a: "Sayonara", sa: 1, b: "Sorrow",  sb: 0, date: "", note: "" }
+  { a: "Sorrow",        sa: 0, b: "TS",      sb: 1, date: "", note: "" },
+  { a: "Sorrow",        sa: 1, b: "ELN1KA",  sb: 0, date: "", note: "" },
+  { a: "Sayonara",      sa: 1, b: "Sorrow",  sb: 0, date: "", note: "" },
+  { a: "Umbrella Team", sa: 0, b: "Sorrow",  sb: 1, date: "", note: "" },
+  { a: "Sorrow",        sa: 1, b: "B5C",     sb: 0, date: "", note: "" },
+  { a: "ESPADA",        sa: 1, b: "Sorrow",  sb: 0, date: "", note: "" }
 ];
+
+const PER_PAGE = 5; // jumlah match per halaman
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ghost = '<svg viewBox="0 0 100 100" fill="#f1e6e3" aria-hidden="true"><circle cx="50" cy="32" r="18"/><path d="M14 92c0-22 16-34 36-34s36 12 36 34z"/></svg>';
@@ -188,18 +205,51 @@ if (ACHIEVEMENTS.length){
   document.getElementById('achv-sep').hidden = false;
 }
 
-/* match history */
-document.getElementById('mh').innerHTML = MATCHES.length
-  ? MATCHES.map(m => {
-      const meIsA = m.a.toLowerCase() === 'sorrow';
-      const mine = meIsA ? m.sa : m.sb, other = meIsA ? m.sb : m.sa;
-      const cls = mine > other ? 'win' : mine < other ? 'lose' : '';
-      const sub = [m.date, m.note].filter(Boolean).join(' · ');
-      const nm = (n, me) => '<span class="t' + (me ? ' me' : '') + '">' + esc(n) + '</span>';
-      return '<li class="' + cls + '">' + nm(m.a, meIsA) + '<span class="s">' + esc(m.sa) + ' – ' + esc(m.sb) + '</span>' +
-        nm(m.b, !meIsA) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</li>';
-    }).join('')
-  : empty('Belum ada pertandingan.');
+/* match history — terbaru di atas, dengan pagination */
+const ordered = MATCHES.slice().reverse(); // match yang ditambah terakhir tampil paling atas
+let page = 1;
+const mhEl = document.getElementById('mh');
+const pgEl = document.getElementById('pg');
+
+function matchItem(m){
+  const meIsA = m.a.toLowerCase() === 'sorrow';
+  const mine = meIsA ? m.sa : m.sb, other = meIsA ? m.sb : m.sa;
+  const cls = mine > other ? 'win' : mine < other ? 'lose' : '';
+  const sub = [m.date, m.note].filter(Boolean).join(' · ');
+  const nm = (n, me) => '<span class="t' + (me ? ' me' : '') + '">' + esc(n) + '</span>';
+  return '<li class="' + cls + '">' + nm(m.a, meIsA) + '<span class="s">' + esc(m.sa) + ' – ' + esc(m.sb) + '</span>' +
+    nm(m.b, !meIsA) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</li>';
+}
+
+function renderHistory(){
+  if (!ordered.length){
+    mhEl.innerHTML = empty('Belum ada pertandingan.');
+    pgEl.innerHTML = '';
+    return;
+  }
+  const pages = Math.ceil(ordered.length / PER_PAGE);
+  page = Math.min(Math.max(page, 1), pages);
+  const start = (page - 1) * PER_PAGE;
+  mhEl.innerHTML = ordered.slice(start, start + PER_PAGE).map(matchItem).join('');
+
+  if (pages < 2){ pgEl.innerHTML = ''; return; }
+  let h = '<button data-p="' + (page - 1) + '"' + (page === 1 ? ' disabled' : '') + ' aria-label="Halaman sebelumnya">&lsaquo;</button>';
+  for (let i = 1; i <= pages; i++){
+    h += '<button data-p="' + i + '"' + (i === page ? ' aria-current="page"' : '') + ' aria-label="Halaman ' + i + '">' + i + '</button>';
+  }
+  h += '<button data-p="' + (page + 1) + '"' + (page === pages ? ' disabled' : '') + ' aria-label="Halaman berikutnya">&rsaquo;</button>';
+  pgEl.innerHTML = h;
+}
+
+pgEl.addEventListener('click', e => {
+  const b = e.target.closest('button[data-p]');
+  if (!b || b.disabled) return;
+  page = +b.dataset.p;
+  renderHistory();
+  document.getElementById('history').scrollIntoView({ block: 'start' });
+});
+
+renderHistory();
 </script>
 </body>
 </html>
