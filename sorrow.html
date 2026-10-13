@@ -53,6 +53,15 @@ section{padding:4rem 0}
 .meta h3{font-size:1.15rem}
 .meta p{color:var(--muted);font-size:.9rem}
 
+/* slot terbuka (Sorrow II) */
+.pc.slot{background:transparent;border:1px dashed rgba(224,149,156,.35)}
+.pc.slot:hover{transform:none}
+.pc.slot .pic{background:none}
+.pc.slot .pic svg{opacity:.18}
+.pc.slot .meta h3{color:var(--muted)}
+.pc.slot .meta a{color:var(--rose);text-decoration:none;font-size:.9rem}
+.pc.slot .meta a:hover{text-decoration:underline}
+
 /* open member */
 .rc{max-width:50rem;margin-inline:auto;padding:1.8rem 1.8rem 1.6rem;border-radius:var(--r);border-left:4px solid var(--red);background:linear-gradient(90deg,rgba(176,18,31,.16),transparent 45%),var(--surface)}
 .rc .lead{color:var(--muted);margin-bottom:1.2rem}
@@ -149,7 +158,12 @@ footer strong{color:var(--text);font-weight:600}
 
   <hr class="sep">
   <section id="roster">
-    <div class="wrap"><h2>Roster</h2><div class="grid" id="grid"></div></div>
+    <div class="wrap"><h2>Roster Sorrow</h2><div class="grid" id="grid"></div></div>
+  </section>
+
+  <hr class="sep" id="roster2-sep">
+  <section id="roster2">
+    <div class="wrap"><h2>Roster Sorrow II</h2><div class="grid" id="grid2"></div></div>
   </section>
 
   <hr class="sep" id="recruit-sep" hidden>
@@ -184,7 +198,9 @@ footer strong{color:var(--text);font-weight:600}
 
 <script>
 /* ============ DATA — EDIT DI SINI ============
-   MEMBERS      : samakan dengan index.html
+   MEMBERS      : roster Sorrow I (inti). Samakan dengan index.html
+   SORROW2      : roster Sorrow II. Kosong = tampil card "Slot terbuka"
+                  sebanyak sisa slot dari RECRUIT.slots
    RECRUIT      : open member Sorrow II. open: false = section disembunyikan.
                   slots = jumlah slot, discord = username untuk DM, requirements = daftar syarat.
    ACHIEVEMENTS : { icon: "🏆", title: "...", note: "" } — kosong = section disembunyikan
@@ -201,6 +217,12 @@ const MEMBERS = [
   { name: "Ferrsyz", role: "Survivor",        userId: "10013979972", photo: "" },
   { name: "Yanz",    role: "Survivor",        userId: "7296216426",  photo: "" },
   { name: "Cya",     role: "Survivor",        userId: "8945878769",  photo: "" }
+];
+
+// Member Sorrow II. Format sama seperti MEMBERS, contoh:
+// { name: "Nama", role: "Survivor", userId: "", photo: "" }
+const SORROW2 = [
+  { name: "Tiraa", role: "Survivor", userId: "10039014798",  photo: "" }
 ];
 
 const RECRUIT = {
@@ -241,24 +263,42 @@ const ghost = '<svg viewBox="0 0 100 100" fill="#f1e6e3" aria-hidden="true"><cir
 const empty = t => '<li class="empty" style="background:none;display:block">' + t + '</li>';
 
 /* roster */
-const grid = document.getElementById('grid');
-grid.innerHTML = MEMBERS.map(p =>
+const cardHTML = p =>
   '<article class="pc"><div class="pic" data-uid="' + esc(p.userId || '') + '">' +
   (p.photo ? '<img src="' + esc(p.photo) + '" alt="Avatar ' + esc(p.name) + '" loading="lazy">' : ghost) +
-  '</div><div class="meta"><h3>' + esc(p.name) + '</h3><p>' + esc(p.role) + '</p></div></article>'
-).join('');
-grid.addEventListener('error', e => { if (e.target.tagName === 'IMG') e.target.parentElement.innerHTML = ghost; }, true);
+  '</div><div class="meta"><h3>' + esc(p.name) + '</h3><p>' + esc(p.role) + '</p></div></article>';
+
+const slotHTML = () =>
+  '<article class="pc slot"><div class="pic">' + ghost + '</div><div class="meta"><h3>Slot terbuka</h3><p>' +
+  (RECRUIT.open ? '<a href="#recruit">Daftar di sini</a>' : 'Segera hadir') + '</p></div></article>';
+
+const grid = document.getElementById('grid');
+const grid2 = document.getElementById('grid2');
+grid.innerHTML = MEMBERS.map(cardHTML).join('');
+
+const openSlots = RECRUIT.open ? Math.max(RECRUIT.slots - SORROW2.length, 0) : 0;
+grid2.innerHTML = SORROW2.map(cardHTML).join('') + slotHTML().repeat(openSlots);
+if (!grid2.innerHTML){
+  document.getElementById('roster2').hidden = true;
+  document.getElementById('roster2-sep').hidden = true;
+}
+
+const onImgError = e => { if (e.target.tagName === 'IMG') e.target.parentElement.innerHTML = ghost; };
+grid.addEventListener('error', onImgError, true);
+grid2.addEventListener('error', onImgError, true);
+
+const ALL_MEMBERS = MEMBERS.concat(SORROW2);
 
 function applyAvatars(list){
   list.forEach(d => {
     if (!d || !d.imageUrl || d.state !== 'Completed') return;
-    const m = MEMBERS.find(x => String(x.userId) === String(d.targetId));
-    const box = grid.querySelector('.pic[data-uid="' + d.targetId + '"]');
+    const m = ALL_MEMBERS.find(x => String(x.userId) === String(d.targetId));
+    const box = document.querySelector('.pic[data-uid="' + d.targetId + '"]');
     if (m && box && !m.photo) box.innerHTML = '<img src="' + esc(d.imageUrl) + '" alt="Avatar ' + esc(m.name) + '" loading="lazy">';
   });
 }
 (async () => {
-  const ids = MEMBERS.filter(m => !m.photo && m.userId).map(m => m.userId).join(',');
+  const ids = ALL_MEMBERS.filter(m => !m.photo && m.userId).map(m => m.userId).join(',');
   if (!ids) return;
   const urls = ['/api/avatars?ids=' + ids, 'https://thumbnails.roproxy.com/v1/users/avatar?userIds=' + ids + '&size=420x420&format=Png&isCircular=false'];
   for (const u of urls){
