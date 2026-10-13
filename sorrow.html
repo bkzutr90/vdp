@@ -62,7 +62,9 @@ section{padding:4rem 0}
 .cta p{color:var(--muted)}
 .cta strong{color:var(--text);font-weight:600}
 .cta button{border:0;border-radius:11px;background:var(--red);color:var(--text);font:inherit;font-weight:600;font-size:.95rem;padding:.6rem 1.3rem;cursor:pointer;transition:background .2s}
-.cta button:hover{background:#c8162a}
+.cta button:hover,.cta a.btn:hover{background:#c8162a}
+.cta .acts{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+.cta a.btn{border-radius:11px;background:var(--red);color:var(--text);font-weight:600;font-size:.95rem;padding:.6rem 1.3rem;text-decoration:none;transition:background .2s}
 
 .achv{list-style:none;display:grid;gap:.7rem;max-width:34rem;margin-inline:auto}
 .achv li{display:flex;align-items:center;gap:1rem;background:var(--surface);border-radius:var(--r);padding:.9rem 1.3rem}
@@ -200,16 +202,17 @@ const RECRUIT = {
   open: true,
   slots: 5,
   discord: "ferrsyz",
+  discordId: "473850235727249439", // isi ID angka akun Discord kamu (Developer Mode > klik kanan profil > Copy User ID). Kosong = tombol DM tidak tampil
   requirements: [
     "Level 200+",
     "Paham clocking, pathing, dan rotasi map",
     "Komunikasi in-game aktif dan jelas",
     "Bisa main sisi killer maupun survivor",
-    "Menguasai berbagai item utama",
+    "Menguasai berbagai item",
     "Koneksi stabil, PC user diutamakan",
     "Aktif dan bisa ikut sesi latihan rutin",
     "Attitude baik, siap belajar, anti drama",
-    "Setia dan konsisten, tidak menghilang tiba-tiba",
+    "Konsisten, tidak menghilang tiba-tiba",
     "Tidak double team",
     "Siap ikut trial"
   ]
@@ -269,7 +272,9 @@ if (RECRUIT.open){
     '<p class="lead">Sorrow II adalah cabang baru Sorrow di bawah naungan VD Plenger. Kami membuka <b>' + esc(RECRUIT.slots) + ' slot</b> member baru.</p>' +
     '<ul class="req">' + RECRUIT.requirements.map(r => '<li>' + esc(r) + '</li>').join('') + '</ul>' +
     '<div class="cta"><p>Tertarik? DM Discord <strong>' + esc(RECRUIT.discord) + '</strong></p>' +
-    '<button type="button" id="copyDiscord">Salin username</button></div>';
+    '<div class="acts">' +
+    (RECRUIT.discordId ? '<a class="btn" href="https://discord.com/users/' + esc(RECRUIT.discordId) + '" target="_blank" rel="noopener">Kirim DM di Discord</a>' : '') +
+    '<button type="button" id="copyDiscord">Salin username</button></div></div>';
   document.getElementById('recruit').hidden = false;
   document.getElementById('recruit-sep').hidden = false;
 
