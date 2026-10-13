@@ -51,6 +51,19 @@ section{padding:4rem 0}
 .meta h3{font-size:1.15rem}
 .meta p{color:var(--muted);font-size:.9rem}
 
+/* open member */
+.rc{max-width:50rem;margin-inline:auto;padding:1.8rem 1.8rem 1.6rem;border-radius:var(--r);border-left:4px solid var(--red);background:linear-gradient(90deg,rgba(176,18,31,.16),transparent 45%),var(--surface)}
+.rc .lead{color:var(--muted);margin-bottom:1.2rem}
+.rc .lead b{color:var(--rose);font-weight:600}
+.req{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem 2rem;margin-bottom:1.6rem}
+.req li{position:relative;padding-left:1.4rem;font-size:.97rem}
+.req li::before{content:"";position:absolute;left:0;top:.62em;width:.5rem;height:.5rem;border-radius:50%;background:var(--red)}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:1rem 1.5rem;flex-wrap:wrap;padding-top:1.3rem;border-top:1px solid rgba(224,149,156,.18)}
+.cta p{color:var(--muted)}
+.cta strong{color:var(--text);font-weight:600}
+.cta button{border:0;border-radius:11px;background:var(--red);color:var(--text);font:inherit;font-weight:600;font-size:.95rem;padding:.6rem 1.3rem;cursor:pointer;transition:background .2s}
+.cta button:hover{background:#c8162a}
+
 .achv{list-style:none;display:grid;gap:.7rem;max-width:34rem;margin-inline:auto}
 .achv li{display:flex;align-items:center;gap:1rem;background:var(--surface);border-radius:var(--r);padding:.9rem 1.3rem}
 .achv .ic{font-size:1.6rem;line-height:1}
@@ -98,6 +111,9 @@ footer strong{color:var(--text);font-weight:600}
   section{padding:3rem 0}
   .perks{grid-template-columns:1fr;gap:1.6rem;margin-top:2.5rem;text-align:center}
   .grid{grid-template-columns:repeat(2,1fr)}
+  .rc{padding:1.4rem 1.2rem}
+  .req{grid-template-columns:1fr}
+  .cta{flex-direction:column;align-items:stretch;text-align:center}
   .mh .card{grid-template-columns:1fr auto;grid-template-areas:"st meta" "vs vs";padding:.9rem 1rem;gap:.8rem}
   .mh .st{min-width:0}
   .mh .meta2{padding-left:0;border-left:0;text-align:right}
@@ -129,6 +145,11 @@ footer strong{color:var(--text);font-weight:600}
     <div class="wrap"><h2>Roster</h2><div class="grid" id="grid"></div></div>
   </section>
 
+  <hr class="sep" id="recruit-sep" hidden>
+  <section id="recruit" hidden>
+    <div class="wrap"><h2>Open Member Sorrow II</h2><div class="rc" id="rc"></div></div>
+  </section>
+
   <hr class="sep" id="achv-sep" hidden>
   <section id="achievements" hidden>
     <div class="wrap"><h2>Achievements</h2><ul class="achv" id="achv"></ul></div>
@@ -157,6 +178,8 @@ footer strong{color:var(--text);font-weight:600}
 <script>
 /* ============ DATA — EDIT DI SINI ============
    MEMBERS      : samakan dengan index.html
+   RECRUIT      : open member Sorrow II. open: false = section disembunyikan.
+                  slots = jumlah slot, discord = username untuk DM, requirements = daftar syarat.
    ACHIEVEMENTS : { icon: "🏆", title: "...", note: "" } — kosong = section disembunyikan
    MATCHES      : tulis match BARU di PALING BAWAH. Di halaman, urutannya dibalik
                   sehingga match terbaru tampil paling atas.
@@ -172,6 +195,25 @@ const MEMBERS = [
   { name: "Yanz",    role: "Survivor",        userId: "7296216426",  photo: "" },
   { name: "Cya",     role: "Survivor",        userId: "8945878769",  photo: "" }
 ];
+
+const RECRUIT = {
+  open: true,
+  slots: 5,
+  discord: "ferrsyz",
+  requirements: [
+    "Level 200+",
+    "Paham clocking, pathing, dan rotasi map",
+    "Komunikasi in-game aktif dan jelas",
+    "Bisa main sisi killer maupun survivor",
+    "Menguasai berbagai item utama",
+    "Koneksi stabil, PC user diutamakan",
+    "Aktif dan bisa ikut sesi latihan rutin",
+    "Attitude baik, siap belajar, anti drama",
+    "Setia dan konsisten, tidak menghilang tiba-tiba",
+    "Tidak double team",
+    "Siap ikut trial"
+  ]
+};
 
 const ACHIEVEMENTS = [];
 
@@ -219,6 +261,26 @@ function applyAvatars(list){
     } catch (err) {}
   }
 })();
+
+/* open member Sorrow II */
+/* hanya tampil jika RECRUIT.open = true */
+if (RECRUIT.open){
+  document.getElementById('rc').innerHTML =
+    '<p class="lead">Sorrow II adalah cabang baru Sorrow di bawah naungan VD Plenger. Kami membuka <b>' + esc(RECRUIT.slots) + ' slot</b> member baru.</p>' +
+    '<ul class="req">' + RECRUIT.requirements.map(r => '<li>' + esc(r) + '</li>').join('') + '</ul>' +
+    '<div class="cta"><p>Tertarik? DM Discord <strong>' + esc(RECRUIT.discord) + '</strong></p>' +
+    '<button type="button" id="copyDiscord">Salin username</button></div>';
+  document.getElementById('recruit').hidden = false;
+  document.getElementById('recruit-sep').hidden = false;
+
+  const cb = document.getElementById('copyDiscord');
+  cb.addEventListener('click', async () => {
+    let ok = false;
+    try { await navigator.clipboard.writeText(RECRUIT.discord); ok = true; } catch (err) {}
+    cb.textContent = ok ? 'Tersalin' : 'Username: ' + RECRUIT.discord;
+    setTimeout(() => { cb.textContent = 'Salin username'; }, 2000);
+  });
+}
 
 /* achievements */
 /* hanya tampil jika ada data */
