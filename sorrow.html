@@ -8,9 +8,9 @@
 <link rel="canonical" href="https://vd-plenger.vercel.app/sorrow.html">
 <meta property="og:title" content="Sorrow | Competitive Division VD Plenger">
 <meta property="og:description" content="Roster, pencapaian, dan riwayat pertandingan tim Sorrow.">
-<meta property="og:image" content="https://vd-plenger.vercel.app/vd-plenger-logo.webp">
+<meta property="og:image" content="https://vd-plenger.vercel.app/sorrow-logo.webp">
 <meta name="theme-color" content="#1a0409">
-<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/png" href="/sorrow-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
@@ -33,7 +33,9 @@ section{padding:4rem 0}
 
 .hero{text-align:center;padding:4rem 0 4.5rem;background:radial-gradient(ellipse 55% 70% at 50% 35%,rgba(150,18,32,.5),transparent 72%),linear-gradient(180deg,#2a0a11,var(--base))}
 .hero h1{font-size:clamp(3.2rem,12vw,6.5rem);letter-spacing:.14em;text-indent:.14em;font-weight:600}
-.hero .div{margin-top:.6rem;font-size:clamp(1rem,2.5vw,1.3rem);letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;color:var(--rose)}
+.hero .logo{display:block;width:min(340px,72vw);height:auto;margin:0 auto;filter:drop-shadow(0 0 40px rgba(176,18,31,.45))}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero .div{margin-top:1.4rem;font-size:clamp(1rem,2.5vw,1.3rem);letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;color:var(--rose)}
 .hero .org{color:var(--muted);margin-top:.3rem}
 
 .perks{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:3.5rem;text-align:left}
@@ -132,7 +134,10 @@ footer strong{color:var(--text);font-weight:600}
 
 <main>
   <section class="hero">
-    <h1>SORROW</h1>
+    <h1>
+      <img class="logo" src="/sorrow-logo.webp" alt="Logo Sorrow" width="640" height="640" fetchpriority="high">
+      <span class="sr-only">Sorrow</span>
+    </h1>
     <p class="div">Competitive Division</p>
     <p class="org">VD Plenger</p>
     <div class="wrap perks">
